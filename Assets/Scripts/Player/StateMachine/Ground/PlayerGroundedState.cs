@@ -21,6 +21,8 @@ public class PlayerGroundedState : PlayerBaseState, IRootState
         HandleGravity();
         Ctx.CurrentNumberOfJumps = 0;
         Ctx.Animator.SetBool(Ctx.IsGroundedHash, true);
+        Ctx.Animator.SetBool(Ctx.IsGlidingHash, false);
+        Ctx.IsGlidePressed = false;
     }
 
     public override void UpdateState()

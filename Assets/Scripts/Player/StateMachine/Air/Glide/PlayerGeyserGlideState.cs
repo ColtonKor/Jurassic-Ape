@@ -1,8 +1,8 @@
 using UnityEngine;
 
-public class PlayerGlideState : PlayerBaseState, IRootState
+public class PlayerGeyserGlideState : PlayerBaseState, IRootState
 {
-    public PlayerGlideState(PlayerStateMachine currentContext, PlayerStateFactory playerStateFactory)
+    public PlayerGeyserGlideState(PlayerStateMachine currentContext, PlayerStateFactory playerStateFactory)
         : base(currentContext, playerStateFactory)
     {
         IsRootState = true;
@@ -10,9 +10,9 @@ public class PlayerGlideState : PlayerBaseState, IRootState
     
     public override void EnterState()
     {
-        Debug.Log("Entered Player Glide State");
+        Debug.Log("Entered Player Geyser Glide State");
         InitializeSubState();
-        Ctx.Animator.SetBool(Ctx.IsGlidingHash, true);
+        Ctx.Animator.SetBool(Ctx.IsGeyserGlidingHash, true);
     }
 
     public override void UpdateState()
@@ -23,8 +23,7 @@ public class PlayerGlideState : PlayerBaseState, IRootState
 
     public override void ExitState()
     {
-        // Ctx.Animator.SetBool(Ctx.IsGlidingHash, false);
-        // Ctx.IsGlidePressed = false;
+        Ctx.Animator.SetBool(Ctx.IsGeyserGlidingHash, false);
     }
 
     public override void InitializeSubState()
@@ -45,23 +44,19 @@ public class PlayerGlideState : PlayerBaseState, IRootState
 
     public override void CheckSwitchStates()
     {
-        if (Ctx.CharacterController.isGrounded)
+        if (!Ctx.IsInGeyser)
         {
-            SwitchState(Factory.Grounded());
-        } 
+            SwitchState(Factory.Glide());
+        }
         else if (!Ctx.IsGlidePressed)
         {
             SwitchState(Factory.Fall());
-        } 
-        else if (Ctx.IsInGeyser)
-        {
-            SwitchState(Factory.GeyserGlide());
         }
     }
 
     public void HandleGravity()
     {
-        Ctx.CurrentMovementY = Ctx.GlideGravity;
-        Ctx.AppliedMovementY = Mathf.Max(Ctx.CurrentMovementY, -20.0f);
+        Ctx.CurrentMovementY = Ctx.GeyserLiftForce;
+        Ctx.AppliedMovementY = Ctx.GeyserLiftForce;
     }
 }

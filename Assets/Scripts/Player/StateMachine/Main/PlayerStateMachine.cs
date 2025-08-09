@@ -22,6 +22,7 @@ public class PlayerStateMachine : MonoBehaviour
     private int isGroundedHash;
     private int isDodgeHash;
     private int isRidingHash;
+    private int isGeyserGlidingHash;
 
     private bool isJumpingAnimating;
 
@@ -39,6 +40,7 @@ public class PlayerStateMachine : MonoBehaviour
     private bool requireNewJumpPress;
     private bool requireNewDodgePress;
     private bool isDodging;
+    private bool isInGeyser;
 
     private float speed = 3f;
     private float runMultiplier = 2f;
@@ -52,6 +54,7 @@ public class PlayerStateMachine : MonoBehaviour
 
     private float gravity = -9.8f;
     private float glideGravity = -2f;
+    private float geyserLiftForce;
 
     private bool isJumping;
     float initialJumpVelocity;
@@ -83,6 +86,7 @@ public class PlayerStateMachine : MonoBehaviour
         isGroundedHash = Animator.StringToHash("isGrounded");
         isDodgeHash = Animator.StringToHash("isDodge");
         isRidingHash = Animator.StringToHash("isRiding");
+        isGeyserGlidingHash = Animator.StringToHash("isGeyserGliding");
         
         animator.SetBool(isGroundedHash, true);
 
@@ -212,6 +216,24 @@ public class PlayerStateMachine : MonoBehaviour
         }
     }
 
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Geyser"))
+        {
+            isInGeyser = true;
+            geyserLiftForce = other.GetComponent<Geyser>().liftForce;
+        }
+    }
+
+    void OnTriggerExit(Collider other)
+    {
+        if (other.CompareTag("Geyser"))
+        {
+            isInGeyser = false;
+            geyserLiftForce = 0;
+        }
+    }
+
     void OnEnable()
     {
         playerInput.Player.Enable();
@@ -242,6 +264,7 @@ public class PlayerStateMachine : MonoBehaviour
     public int IsDoubleJumpingHash { get { return isDoubleJumpingHash; } }
     public int IsDodgeHash { get { return isDodgeHash; } }
     public int IsRidingHash { get { return isRidingHash; } }
+    public int IsGeyserGlidingHash { get { return isGeyserGlidingHash; } }
     public float CurrentMovementY { get { return currentMovement.y; } set { currentMovement.y = value; } }
     public float AppliedMovementX { get { return appliedMovement.x; } set { appliedMovement.x = value; } }
     public float AppliedMovementY { get { return appliedMovement.y; } set { appliedMovement.y = value; } }
@@ -264,4 +287,6 @@ public class PlayerStateMachine : MonoBehaviour
     public bool IsRidePressed { get { return isRidePressed; } set { isRidePressed = value; } }
     public int CurrentNumberOfRaptorJumps { get { return currentNumberOfRaptorJumps; } set { currentNumberOfRaptorJumps = value; } }
     public int MaxNumberOfRaptorJumps {get { return maxNumberOfRaptorJumps; } set { maxNumberOfRaptorJumps = value; } }
+    public bool IsInGeyser { get { return isInGeyser; } set { isInGeyser = value; } }
+    public float GeyserLiftForce { get { return geyserLiftForce; } set { geyserLiftForce = value; } }
 }

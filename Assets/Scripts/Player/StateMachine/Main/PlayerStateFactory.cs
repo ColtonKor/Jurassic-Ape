@@ -8,6 +8,7 @@ enum PlayerStates
     jump,
     doubleJump,
     glide,
+    geyserGlide,
     grounded,
     fall,
     dodge,
@@ -30,6 +31,7 @@ public class PlayerStateFactory
         states[PlayerStates.jump] = new PlayerJumpState(context, this);
         states[PlayerStates.doubleJump] = new PlayerDoubleJumpState(context, this);
         states[PlayerStates.glide] = new PlayerGlideState(context, this);
+        states[PlayerStates.geyserGlide] = new PlayerGeyserGlideState(context, this);
         states[PlayerStates.grounded] = new PlayerGroundedState(context, this);
         states[PlayerStates.fall] = new PlayerFallState(context, this);
         states[PlayerStates.dodge] = new PlayerDodgeState(context, this);
@@ -66,6 +68,11 @@ public class PlayerStateFactory
     public PlayerBaseState Glide()
     {
         return states[PlayerStates.glide];
+    }
+    
+    public PlayerBaseState GeyserGlide()
+    {
+        return states[PlayerStates.geyserGlide];
     }
 
     public PlayerBaseState Grounded()

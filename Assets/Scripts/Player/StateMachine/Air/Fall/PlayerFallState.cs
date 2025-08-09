@@ -15,6 +15,8 @@ public class PlayerFallState : PlayerBaseState, IRootState
         InitializeSubState();
         Ctx.Animator.SetBool(Ctx.IsFallingHash, true);
         Ctx.Animator.SetBool(Ctx.IsGroundedHash, false);
+        Ctx.Animator.SetBool(Ctx.IsGlidingHash, false);
+        Ctx.IsGlidePressed = false;
     }
 
     public override void UpdateState()
