@@ -14,7 +14,9 @@ enum PlayerStates
     dodge,
     ride,
     rideJump,
-    rideFall
+    rideFall,
+    swim,
+    floating
 }
 
 public class PlayerStateFactory
@@ -38,6 +40,8 @@ public class PlayerStateFactory
         states[PlayerStates.ride] = new PlayerRidingState(context, this);
         states[PlayerStates.rideJump] = new PlayerRideJumpState(context, this);
         states[PlayerStates.rideFall] = new PlayerRideFallState(context, this);
+        states[PlayerStates.swim] = new PlayerSwimState(context, this);
+        states[PlayerStates.floating] = new PlayerFloatState(context, this);
     }
 
     public PlayerBaseState Idle()
@@ -103,5 +107,15 @@ public class PlayerStateFactory
     public PlayerBaseState RideFall()
     {
         return states[PlayerStates.rideFall];
+    }
+
+    public PlayerBaseState Swim()
+    {
+        return states[PlayerStates.swim];
+    }
+
+    public PlayerBaseState Floating()
+    {
+        return states[PlayerStates.floating];
     }
 }

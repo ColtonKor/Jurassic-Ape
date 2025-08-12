@@ -62,6 +62,17 @@ public class PlayerRideFallState : PlayerBaseState, IRootState
         {
             SwitchState(Factory.Fall());
         }
+        else if (Ctx.RaptorWaterDetection)
+        {
+            Ctx.IsRidePressed = false;
+            Ctx.RaptorWaterDetection = false;
+            Ctx.CharacterController.center = new Vector3(0, 1, 0);
+            Ctx.CharacterController.height = 2;
+            Ctx.RaptorSpeed = 1f;
+            Ctx.Raptor.SetActive(false);
+            Ctx.Animator.SetBool(Ctx.IsRidingHash, false);
+            SwitchState(Factory.Fall());
+        }
     }
 
     public void HandleGravity()

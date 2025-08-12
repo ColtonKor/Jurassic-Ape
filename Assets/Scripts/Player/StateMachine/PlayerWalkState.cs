@@ -7,7 +7,7 @@ public class PlayerWalkState : PlayerBaseState
 
     public override void EnterState()
     {
-        Debug.Log("Enter Player Walk State");
+        // Debug.Log("Enter Player Walk State");
         Ctx.Animator.SetBool(Ctx.IsWalkingHash, true);
         Ctx.Animator.SetBool(Ctx.IsRunningHash, false);
         
@@ -31,7 +31,7 @@ public class PlayerWalkState : PlayerBaseState
 
     public override void CheckSwitchStates()
     {
-        if (!Ctx.IsRidePressed && Ctx.IsAirJumpPressed && Ctx.CurrentNumberOfJumps < Ctx.MaxNumberOfJumps && !Ctx.IsGlidePressed)
+        if (!Ctx.IsRidePressed && Ctx.IsAirJumpPressed && Ctx.CurrentNumberOfJumps < Ctx.MaxNumberOfJumps && !Ctx.IsGlidePressed && !Ctx.IsInWater)
         {
             SwitchState(Factory.DoubleJump());
         }

@@ -57,6 +57,10 @@ public class PlayerGroundedState : PlayerBaseState, IRootState
         {
             SwitchState(Factory.Jump());
         }
+        else if (Ctx.IsInWater)
+        {
+            SwitchState(Factory.Floating());
+        }
         else if (!Ctx.CharacterController.isGrounded)
         {
             SwitchState(Factory.Fall());
@@ -68,6 +72,6 @@ public class PlayerGroundedState : PlayerBaseState, IRootState
         else if (Ctx.IsRidePressed)
         {
             SwitchState(Factory.Ride());
-        }
+        } 
     }
 }

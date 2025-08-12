@@ -61,10 +61,13 @@ public class PlayerJumpState : PlayerBaseState, IRootState
         {
             SwitchState(Factory.Grounded());
         }
-
-        if (Ctx.IsGlidePressed)
+        else if (Ctx.IsGlidePressed)
         {
             SwitchState(Factory.Glide());
+        }
+        else if (Ctx.IsInWater)
+        {
+            SwitchState(Factory.Floating());
         }
     }
     

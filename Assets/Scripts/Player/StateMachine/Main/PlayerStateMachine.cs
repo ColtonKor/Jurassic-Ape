@@ -23,6 +23,7 @@ public class PlayerStateMachine : MonoBehaviour
     private int isDodgeHash;
     private int isRidingHash;
     private int isGeyserGlidingHash;
+    private int isSwimmingHash;
 
     private bool isJumpingAnimating;
 
@@ -41,6 +42,9 @@ public class PlayerStateMachine : MonoBehaviour
     private bool requireNewDodgePress;
     private bool isDodging;
     private bool isInGeyser;
+    private bool isInWater;
+    private bool isFloating;
+    private bool raptorWaterDetection;
 
     private float speed = 3f;
     private float runMultiplier = 2f;
@@ -87,6 +91,7 @@ public class PlayerStateMachine : MonoBehaviour
         isDodgeHash = Animator.StringToHash("isDodge");
         isRidingHash = Animator.StringToHash("isRiding");
         isGeyserGlidingHash = Animator.StringToHash("isGeyserGliding");
+        isSwimmingHash = Animator.StringToHash("isSwimming");
         
         animator.SetBool(isGroundedHash, true);
 
@@ -178,16 +183,22 @@ public class PlayerStateMachine : MonoBehaviour
         
         if (isMovementPressed)
         {
-            Quaternion targetRotation;
+            Quaternion targetRotation = Quaternion.LookRotation(currentMovement);
             direction = Quaternion.Euler(0.0f, cam.transform.eulerAngles.y, 0.0f) * positionToLookAt;
             if (isRidePressed)
             {
                 targetRotation = Quaternion.LookRotation(direction);
             }
-            else
+            else if (!isRidePressed)
             {
                 Vector3 cameraForward = cam.transform.forward;
                 cameraForward.y = 0;
+                cameraForward.Normalize();
+                targetRotation = Quaternion.LookRotation(cameraForward, Vector3.up);
+            }
+            else if (isInWater && !isFloating)
+            {
+                Vector3 cameraForward = cam.transform.forward;
                 cameraForward.Normalize();
                 targetRotation = Quaternion.LookRotation(cameraForward, Vector3.up);
             }
@@ -264,6 +275,7 @@ public class PlayerStateMachine : MonoBehaviour
     public int IsDoubleJumpingHash { get { return isDoubleJumpingHash; } }
     public int IsDodgeHash { get { return isDodgeHash; } }
     public int IsRidingHash { get { return isRidingHash; } }
+    public int IsSwimmingHash { get { return isSwimmingHash; } }
     public int IsGeyserGlidingHash { get { return isGeyserGlidingHash; } }
     public float CurrentMovementY { get { return currentMovement.y; } set { currentMovement.y = value; } }
     public float AppliedMovementX { get { return appliedMovement.x; } set { appliedMovement.x = value; } }
@@ -289,4 +301,8 @@ public class PlayerStateMachine : MonoBehaviour
     public int MaxNumberOfRaptorJumps {get { return maxNumberOfRaptorJumps; } set { maxNumberOfRaptorJumps = value; } }
     public bool IsInGeyser { get { return isInGeyser; } set { isInGeyser = value; } }
     public float GeyserLiftForce { get { return geyserLiftForce; } set { geyserLiftForce = value; } }
+    public bool IsInWater { get { return isInWater; } set { isInWater = value; } }
+    public bool IsFloating { get { return isFloating; } set { isFloating = value; } }
+    public Camera Camera { get { return cam; } set { cam = value; } }
+    public bool RaptorWaterDetection { get { return raptorWaterDetection; } set { raptorWaterDetection = value; } }
 }

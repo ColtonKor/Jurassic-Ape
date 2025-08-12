@@ -81,5 +81,9 @@ public class PlayerDodgeState : PlayerBaseState, IRootState
         {
             SwitchState(Factory.Fall());
         }
+        else if (Ctx.IsInWater)
+        {
+            SwitchState(Factory.Floating());
+        }
     }
 }

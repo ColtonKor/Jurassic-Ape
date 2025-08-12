@@ -1,18 +1,21 @@
 using UnityEngine;
 
-public class PlayerGlideState : PlayerBaseState, IRootState
+public class PlayerFloatState : PlayerBaseState, IRootState
 {
-    public PlayerGlideState(PlayerStateMachine currentContext, PlayerStateFactory playerStateFactory)
+    public PlayerFloatState(PlayerStateMachine currentContext, PlayerStateFactory playerStateFactory)
         : base(currentContext, playerStateFactory)
     {
         IsRootState = true;
     }
-    
+
     public override void EnterState()
     {
-        Debug.Log("Entered Player Glide State");
+        Debug.Log("Entered Player Float State");
         InitializeSubState();
-        Ctx.Animator.SetBool(Ctx.IsGlidingHash, true);
+        Ctx.IsFloating = true;
+        Ctx.CurrentMovementY = 0;
+        Ctx.AppliedMovementY = 0;
+        Ctx.Animator.SetBool(Ctx.IsSwimmingHash, true);
     }
 
     public override void UpdateState()
@@ -23,8 +26,7 @@ public class PlayerGlideState : PlayerBaseState, IRootState
 
     public override void ExitState()
     {
-        // Ctx.Animator.SetBool(Ctx.IsGlidingHash, false);
-        // Ctx.IsGlidePressed = false;
+        Ctx.IsFloating = false;
     }
 
     public override void InitializeSubState()
@@ -45,27 +47,19 @@ public class PlayerGlideState : PlayerBaseState, IRootState
 
     public override void CheckSwitchStates()
     {
-        if (Ctx.CharacterController.isGrounded)
+        if (Ctx.IsDodgePressed)
         {
-            SwitchState(Factory.Grounded());
-        } 
-        else if (!Ctx.IsGlidePressed)
-        {
-            SwitchState(Factory.Fall());
-        } 
-        else if (Ctx.IsInGeyser)
-        {
-            SwitchState(Factory.GeyserGlide());
+            SwitchState(Factory.Swim());
         }
-        else if (Ctx.IsInWater)
+        else if (!Ctx.IsInWater && Ctx.CharacterController.isGrounded && Ctx.CurrentMovementY <= 0f)
         {
-            SwitchState(Factory.Floating());
+            Ctx.Animator.SetBool(Ctx.IsSwimmingHash, false);
+            SwitchState(Factory.Grounded());
         }
     }
 
     public void HandleGravity()
     {
-        Ctx.CurrentMovementY = Ctx.GlideGravity;
-        Ctx.AppliedMovementY = Mathf.Max(Ctx.CurrentMovementY, -20.0f);
+        
     }
 }
