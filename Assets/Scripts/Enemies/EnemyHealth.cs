@@ -18,24 +18,26 @@ public class EnemyHealth : MonoBehaviour
     private float currentBlackholeStun;
     private float elapsedTime = 0f;
     public bool isStunned;
+    private Animator animator;
 
     void Start(){
         currentHealth = maxHealth;
+        animator = GetComponent<Animator>();
     }
 
     void Update(){
         if(blackhole != null){
             elapsedTime += Time.deltaTime;
-
+        
             float distance = Vector3.Distance(transform.position, blackhole.transform.position);
             
             float closestDistance = 0.25f;
             float farthestDistance = 3.5f;
-
+        
             float proximityFactor = Mathf.Clamp01((farthestDistance - distance) / (farthestDistance - closestDistance));
             currentBlackholeDamage = maxBlackholeDamage * proximityFactor;
             currentBlackholeStun = maxBlackholeStun * proximityFactor;
-
+        
             if (elapsedTime >= 1f){
                 TakeDamage(currentBlackholeDamage);
                 TakeStun(currentBlackholeStun);
@@ -92,19 +94,27 @@ public class EnemyHealth : MonoBehaviour
         isStunned = false;
     }
 
-    private void OnDefeat(){
-        Destroy(gameObject);
+    private void OnDefeat()
+    {
+        StartCoroutine(Dying());
     }
 
     public void SetCenterDamageMath(GameObject center){
         blackhole = center;
     }
-
+    
     public void SetBlackholeStun(float stun){
         maxBlackholeStun = stun;
     }
-
+    
     public void SetBlackholeDamage(float damage){
         maxBlackholeDamage = damage;
+    }
+
+    private IEnumerator Dying()
+    {
+        animator.SetBool("Died", true);
+        yield return new WaitForSeconds(3f);
+        Destroy(gameObject);
     }
 }

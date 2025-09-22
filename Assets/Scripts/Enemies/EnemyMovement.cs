@@ -29,7 +29,7 @@ public class EnemyMovement : MonoBehaviour
             PullEnemy();
         }
     }
-
+    
     public void SetPullStatus(bool current)
     {
         if (canBePulled)
