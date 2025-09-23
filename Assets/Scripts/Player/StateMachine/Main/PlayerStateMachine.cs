@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -72,8 +73,11 @@ public class PlayerStateMachine : MonoBehaviour
     private PlayerStateFactory states;
     
     public List<GameObject> tools = new List<GameObject>();
+    private Coroutine removeShieldCoroutine;
     private bool currentAxe;
     private bool currentSword;
+    private bool currentFist;
+    private bool idleShield;
 
     void Awake()
     {
@@ -112,6 +116,9 @@ public class PlayerStateMachine : MonoBehaviour
         playerInput.Player.Dodge.canceled += Dodge;
         playerInput.Player.Weapon.started += Weapon;
         playerInput.Player.Weapon.performed += Weapon;
+        playerInput.Player.BlockShiftToSpecialAttacks.started += Block;
+        playerInput.Player.BlockShiftToSpecialAttacks.performed += Block;
+        playerInput.Player.BlockShiftToSpecialAttacks.canceled += Block;
 
         SetupJumpVariables();
     }
@@ -179,7 +186,7 @@ public class PlayerStateMachine : MonoBehaviour
                 } 
                 currentAxe = true;
                 currentSword = false;
-                // currentFists = false;
+                currentFist = false;
                 // currentMelee = arsenal[1];
                 Debug.Log("Current Weapon is Axe");
                 //Current weapon is Axe
@@ -188,45 +195,62 @@ public class PlayerStateMachine : MonoBehaviour
             }
             else
             {
-                    currentAxe = false;
-                    currentSword = false;
-                    // currentFists = true;
-                    // currentMelee = arsenal[0];
-                    Debug.Log("Current Weapon is Fist");
-                    //Current weapon is Fists
-                    //Put Axe back on player
-                    tools[0].SetActive(false);
+                currentAxe = false;
+                currentSword = false;
+                currentFist = true;
+                // currentMelee = arsenal[0];
+                Debug.Log("Current Weapon is Fist");
+                //Current weapon is Fists
+                //Put Axe back on player
+                tools[0].SetActive(false);
             }
         }
         else if (button == 1)
         {
             if (!currentSword)
             {
-                    if (currentAxe)
-                    {
-                        //Put Axe back on back/hip
-                        tools[0].SetActive(false);
-                    }
-                    currentSword = true;
-                    currentAxe = false;
-                    // currentFists = false;
-                    // currentMelee = arsenal[2];
-                    Debug.Log("Current Weapon is Sword");
-                    //Current weapon is Poleblade
-                    //Move the Poleblade to the hands
-                    tools[1].SetActive(true);
+                if (currentAxe)
+                {
+                    //Put Axe back on back/hip
+                    tools[0].SetActive(false);
+                }
+                currentSword = true;
+                currentAxe = false;
+                currentFist = false;
+                // currentMelee = arsenal[2];
+                Debug.Log("Current Weapon is Sword");
+                //Current weapon is Poleblade
+                //Move the Poleblade to the hands
+                tools[1].SetActive(true);
             }
             else
             {
-                    currentAxe = false;
-                    currentSword = false;
-                    // currentFists = true;
-                    // currentMelee = arsenal[0];
-                    Debug.Log("Current Weapon is Fist");
-                    //Current weapon is Fists
-                    //Return the Poleblade to player
-                    tools[1].SetActive(false);
+                currentAxe = false;
+                currentSword = false;
+                currentFist = true;
+                // currentMelee = arsenal[0];
+                Debug.Log("Current Weapon is Fist");
+                //Current weapon is Fists
+                //Return the Poleblade to player
+                tools[1].SetActive(false);
             }
+        }
+    }
+
+    public void Block(InputAction.CallbackContext context)
+    {
+        if (context.performed || context.started)
+        {
+            if (idleShield)
+            {
+                StopCoroutine(removeShieldCoroutine);
+                idleShield = false;
+            }
+            tools[2].SetActive(true);
+        } 
+        else if (context.canceled)
+        {
+            removeShieldCoroutine = StartCoroutine(RemoveShield());
         }
     }
 
@@ -312,6 +336,14 @@ public class PlayerStateMachine : MonoBehaviour
             isInGeyser = false;
             geyserLiftForce = 0;
         }
+    }
+
+    public IEnumerator RemoveShield()
+    {
+        idleShield = true;
+        yield return new WaitForSeconds(5f);
+        tools[2].SetActive(false);
+        idleShield = false;
     }
 
     void OnEnable()
