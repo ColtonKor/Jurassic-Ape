@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class EnemyHealth : MonoBehaviour
 {
@@ -19,10 +20,14 @@ public class EnemyHealth : MonoBehaviour
     private float elapsedTime = 0f;
     public bool isStunned;
     private Animator animator;
+    public Slider healthSlider;
+    public Slider stunSlider;
 
     void Start(){
         currentHealth = maxHealth;
         animator = GetComponent<Animator>();
+        SetMaxHealth(maxHealth);
+        SetMaxStun(maxStun);
     }
 
     void Update(){
@@ -49,6 +54,7 @@ public class EnemyHealth : MonoBehaviour
 
     public void TakeDamage(float damage){
         currentHealth -= damage;
+        SetHealth(currentHealth);
         if(currentHealth <= 0){
             OnDefeat();
         }
@@ -56,6 +62,7 @@ public class EnemyHealth : MonoBehaviour
 
     public void TakeStun(float damage){
         currentStun += damage;
+        SetStun(currentStun);
         if(currentStun >= maxStun){
             StartCoroutine(StunEnemy());
         }
@@ -71,11 +78,7 @@ public class EnemyHealth : MonoBehaviour
 
     private IEnumerator FireDamage(float damage){
         flamed = true;
-        currentHealth -= damage;
-        if(currentHealth <= 0)
-        {
-            OnDefeat();
-        }
+        TakeDamage(damage);
         yield return new WaitForSeconds(1);
         if(secondsForFire > 0){
             secondsForFire--;
@@ -92,6 +95,8 @@ public class EnemyHealth : MonoBehaviour
         yield return new WaitForSeconds(stunTime);
         //Turn AI state to normal;
         isStunned = false;
+        currentStun = 0;
+        SetStun(currentStun);
     }
 
     private void OnDefeat()
@@ -116,5 +121,27 @@ public class EnemyHealth : MonoBehaviour
         animator.SetBool("Died", true);
         yield return new WaitForSeconds(3f);
         Destroy(gameObject);
+    }
+    
+    public void SetHealth(float health)
+    {
+        healthSlider.value = health;
+    }
+
+    public void SetMaxHealth(float max)
+    {
+        healthSlider.maxValue = max;
+        SetHealth(max);
+    }
+    
+    public void SetStun(float stun)
+    {
+        stunSlider.value = stun;
+    }
+
+    public void SetMaxStun(float max)
+    {
+        stunSlider.maxValue = max;
+        SetStun(currentStun);
     }
 }

@@ -74,6 +74,7 @@ public class PlayerStateMachine : MonoBehaviour
     private PlayerStateFactory states;
     
     public List<GameObject> tools = new List<GameObject>();
+    public List<GameObject> backTools = new List<GameObject>();
     public List<Power> powers = new List<Power>();
     private Power currentPower;
     private int currentIndex = 0;
@@ -196,6 +197,7 @@ public class PlayerStateMachine : MonoBehaviour
                 { 
                     //Move Poleblade back to the hip/back
                     tools[1].SetActive(false);
+                    backTools[1].SetActive(true);
                 } 
                 currentAxe = true;
                 currentSword = false;
@@ -206,6 +208,7 @@ public class PlayerStateMachine : MonoBehaviour
                 //Current weapon is Axe
                 //Move the Axe to the hand
                 tools[0].SetActive(true);
+                backTools[0].SetActive(false);
             }
             else
             {
@@ -218,6 +221,7 @@ public class PlayerStateMachine : MonoBehaviour
                 //Current weapon is Fists
                 //Put Axe back on player
                 tools[0].SetActive(false);
+                backTools[0].SetActive(true);
             }
         }
         else if (button == 1)
@@ -228,6 +232,7 @@ public class PlayerStateMachine : MonoBehaviour
                 {
                     //Put Axe back on back/hip
                     tools[0].SetActive(false);
+                    backTools[0].SetActive(true);
                 }
                 currentSword = true;
                 currentAxe = false;
@@ -238,6 +243,7 @@ public class PlayerStateMachine : MonoBehaviour
                 //Current weapon is Poleblade
                 //Move the Poleblade to the hands
                 tools[1].SetActive(true);
+                backTools[1].SetActive(false);
             }
             else
             {
@@ -250,6 +256,7 @@ public class PlayerStateMachine : MonoBehaviour
                 //Current weapon is Fists
                 //Return the Poleblade to player
                 tools[1].SetActive(false);
+                backTools[1].SetActive(true);
             }
         }
     }
