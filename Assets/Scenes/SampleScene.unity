@@ -3358,6 +3358,12 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2009260353}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!4 &2056913589 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4252605097739633477, guid: 93e17cb44ee54a04b88595a56f6467de,
+    type: 3}
+  m_PrefabInstance: {fileID: 7468434343510502349}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &3509793188760829
 Transform:
   m_ObjectHideFlags: 0
@@ -5674,7 +5680,7 @@ MonoBehaviour:
   m_TargetMovementOnly: 1
   m_ScreenX: 0.2722252
   m_ScreenY: 0.492456
-  m_CameraDistance: 1.7
+  m_CameraDistance: 3
   m_DeadZoneWidth: 0
   m_DeadZoneHeight: 0.00000002793968
   m_DeadZoneDepth: 0
@@ -6887,7 +6893,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 1a1da36a104725048b8d2388fb8d321d, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 78c524ae775d8944d9a493b6aa8023d8, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -9161,8 +9167,8 @@ MonoBehaviour:
   m_StreamingVersion: 20170927
   m_Priority: 9
   m_StandbyUpdate: 2
-  m_LookAt: {fileID: 0}
-  m_Follow: {fileID: 0}
+  m_LookAt: {fileID: 2056913589}
+  m_Follow: {fileID: 543450651741157269}
   m_Lens:
     FieldOfView: 20
     OrthographicSize: 10
@@ -10418,6 +10424,16 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7086138481586780755, guid: 93e17cb44ee54a04b88595a56f6467de,
+        type: 3}
+      propertyPath: aimingCamera
+      value: 
+      objectReference: {fileID: 8389486741603328554}
+    - target: {fileID: 7086138481586780755, guid: 93e17cb44ee54a04b88595a56f6467de,
+        type: 3}
+      propertyPath: normalCamera
+      value: 
+      objectReference: {fileID: 9135262503760446747}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -10767,7 +10783,7 @@ MonoBehaviour:
   m_CollideAgainst:
     serializedVersion: 2
     m_Bits: 257
-  m_IgnoreTag: 
+  m_IgnoreTag: Player
   m_TransparentLayers:
     serializedVersion: 2
     m_Bits: 0

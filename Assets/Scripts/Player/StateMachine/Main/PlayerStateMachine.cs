@@ -75,8 +75,6 @@ public class PlayerStateMachine : MonoBehaviour
     
     public List<GameObject> tools = new List<GameObject>();
     public List<Power> powers = new List<Power>();
-    public List<Sprite> powerSprites = new List<Sprite>();
-    public Image powerIndicator;
     private Power currentPower;
     private int currentIndex = 0;
     private Coroutine removeShieldCoroutine;
@@ -84,11 +82,17 @@ public class PlayerStateMachine : MonoBehaviour
     private bool currentSword;
     private bool currentFist;
     private bool idleShield;
+    private bool shooting;
+    private UIManager uiManager;
+    
+    public GameObject normalCamera;
+    public GameObject aimingCamera;
 
     void Awake()
     {
         playerInput = new PlayerControls();
         characterController = GetComponent<CharacterController>();
+        uiManager = GetComponent<UIManager>();
         animator = GetComponent<Animator>();
         raptorAnimator = raptor.GetComponent<Animator>();
         cam = Camera.main;
@@ -126,6 +130,8 @@ public class PlayerStateMachine : MonoBehaviour
         playerInput.Player.BlockShiftToSpecialAttacks.performed += Block;
         playerInput.Player.BlockShiftToSpecialAttacks.canceled += Block;
         playerInput.Player.Powercodex.started += PowerCodex;
+        playerInput.Player.Aim.started += Aim;
+        playerInput.Player.Aim.canceled += Aim;
 
         SetupJumpVariables();
     }
@@ -196,6 +202,7 @@ public class PlayerStateMachine : MonoBehaviour
                 currentFist = false;
                 // currentMelee = arsenal[1];
                 Debug.Log("Current Weapon is Axe");
+                uiManager.WeaponSpriteIndicatior(1);
                 //Current weapon is Axe
                 //Move the Axe to the hand
                 tools[0].SetActive(true);
@@ -207,6 +214,7 @@ public class PlayerStateMachine : MonoBehaviour
                 currentFist = true;
                 // currentMelee = arsenal[0];
                 Debug.Log("Current Weapon is Fist");
+                uiManager.WeaponSpriteIndicatior(0);
                 //Current weapon is Fists
                 //Put Axe back on player
                 tools[0].SetActive(false);
@@ -226,6 +234,7 @@ public class PlayerStateMachine : MonoBehaviour
                 currentFist = false;
                 // currentMelee = arsenal[2];
                 Debug.Log("Current Weapon is Sword");
+                uiManager.WeaponSpriteIndicatior(2);
                 //Current weapon is Poleblade
                 //Move the Poleblade to the hands
                 tools[1].SetActive(true);
@@ -237,6 +246,7 @@ public class PlayerStateMachine : MonoBehaviour
                 currentFist = true;
                 // currentMelee = arsenal[0];
                 Debug.Log("Current Weapon is Fist");
+                uiManager.WeaponSpriteIndicatior(0);
                 //Current weapon is Fists
                 //Return the Poleblade to player
                 tools[1].SetActive(false);
@@ -260,6 +270,28 @@ public class PlayerStateMachine : MonoBehaviour
             removeShieldCoroutine = StartCoroutine(RemoveShield());
         }
     }
+    
+    public void Aim(InputAction.CallbackContext context){
+        if(context.started || context.performed){
+            if (isDodgePressed)
+            {
+                return;
+            }
+            shooting = true;
+            uiManager.ToggleCrosshair();
+            
+            normalCamera.SetActive(false);
+            aimingCamera.SetActive(true);
+            //Bring currentWeapon.gameObject to body Location
+        } else if (context.canceled) {
+            //Bring currentWeapon.gameObject to hand Location
+            shooting = false;
+            uiManager.ToggleCrosshair();
+            
+            normalCamera.SetActive(true);
+            aimingCamera.SetActive(false);
+        }
+    }
 
     public void PowerCodex(InputAction.CallbackContext context)
     {
@@ -267,7 +299,7 @@ public class PlayerStateMachine : MonoBehaviour
         {
             currentIndex = (currentIndex + 1) % powers.Count;
             currentPower = powers[currentIndex];
-            powerIndicator.sprite = powerSprites[currentIndex];
+            uiManager.PowerSpriteIndicatior(currentIndex);
         }
     }
 
@@ -291,7 +323,7 @@ public class PlayerStateMachine : MonoBehaviour
         positionToLookAt.z = currentMovement.z;
         Quaternion currentRotation = transform.rotation;
         
-        if (isMovementPressed)
+        if (isMovementPressed || shooting)
         {
             Quaternion targetRotation = Quaternion.LookRotation(currentMovement);
             direction = Quaternion.Euler(0.0f, cam.transform.eulerAngles.y, 0.0f) * positionToLookAt;

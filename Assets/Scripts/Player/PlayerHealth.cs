@@ -14,16 +14,16 @@ public class PlayerHealth : MonoBehaviour
     public int currentHealSpells;
     public float maxRage;
     public float currentRage;
-    public Slider healthSlider;
-    public Slider rageSlider;
+    private UIManager uIManager;
     // Start is called before the first frame update
     void Start()
     {
         currentHealSpells = maxHealSpells;
         currentHealth = maxHealth;
         attackManager = GetComponent<AttackManager>();
-        SetMaxHealth(maxHealth);
-        SetMaxRage(maxRage);
+        uIManager = GetComponent<UIManager>();
+        uIManager.SetMaxHealth(maxHealth);
+        uIManager.SetMaxRage(maxRage);
     }
 
     public void Heal(InputAction.CallbackContext context){
@@ -32,7 +32,7 @@ public class PlayerHealth : MonoBehaviour
                 currentHealSpells--;
                 currentHealth = Mathf.Min(currentHealth + healSpell, maxHealth);
                 Debug.Log("Healing: " + currentHealSpells);
-                SetHealth(currentHealth);
+                uIManager.SetHealth(currentHealth);
             }
         }
     }
@@ -45,29 +45,7 @@ public class PlayerHealth : MonoBehaviour
     public void TakeDamage(float damage){
         if(!attackManager.shieldActive){
             currentHealth -= damage;
-            SetHealth(currentHealth);
+            uIManager.SetHealth(currentHealth);
         }
-    }
-
-    public void SetHealth(float health)
-    {
-        healthSlider.value = health;
-    }
-
-    public void SetMaxHealth(float max)
-    {
-        healthSlider.maxValue = max;
-        SetHealth(max);
-    }
-    
-    public void SetRage(float rage)
-    {
-        rageSlider.value = rage;
-    }
-
-    public void SetMaxRage(float max)
-    {
-        rageSlider.maxValue = max;
-        SetRage(0);
     }
 }
