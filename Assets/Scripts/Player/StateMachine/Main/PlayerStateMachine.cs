@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.UI;
 
 public class PlayerStateMachine : MonoBehaviour
 {
@@ -73,6 +74,11 @@ public class PlayerStateMachine : MonoBehaviour
     private PlayerStateFactory states;
     
     public List<GameObject> tools = new List<GameObject>();
+    public List<Power> powers = new List<Power>();
+    public List<Sprite> powerSprites = new List<Sprite>();
+    public Image powerIndicator;
+    private Power currentPower;
+    private int currentIndex = 0;
     private Coroutine removeShieldCoroutine;
     private bool currentAxe;
     private bool currentSword;
@@ -119,6 +125,7 @@ public class PlayerStateMachine : MonoBehaviour
         playerInput.Player.BlockShiftToSpecialAttacks.started += Block;
         playerInput.Player.BlockShiftToSpecialAttacks.performed += Block;
         playerInput.Player.BlockShiftToSpecialAttacks.canceled += Block;
+        playerInput.Player.Powercodex.started += PowerCodex;
 
         SetupJumpVariables();
     }
@@ -251,6 +258,16 @@ public class PlayerStateMachine : MonoBehaviour
         else if (context.canceled)
         {
             removeShieldCoroutine = StartCoroutine(RemoveShield());
+        }
+    }
+
+    public void PowerCodex(InputAction.CallbackContext context)
+    {
+        if(context.started)
+        {
+            currentIndex = (currentIndex + 1) % powers.Count;
+            currentPower = powers[currentIndex];
+            powerIndicator.sprite = powerSprites[currentIndex];
         }
     }
 
