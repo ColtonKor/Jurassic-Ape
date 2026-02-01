@@ -76,6 +76,7 @@ public class PlayerStateMachine : MonoBehaviour
     public List<GameObject> tools = new List<GameObject>();
     public List<GameObject> backTools = new List<GameObject>();
     public List<Power> powers = new List<Power>();
+    public GameObject powerLocation;
     private Power currentPower;
     private int currentIndex = 0;
     private Coroutine removeShieldCoroutine;
@@ -84,7 +85,12 @@ public class PlayerStateMachine : MonoBehaviour
     private bool currentFist;
     private bool idleShield;
     private bool shooting;
+    private bool shiftedControls;
+    private bool isRefill;
+    public int maxAmmo;
+    [SerializeField] private int currentAmmo;
     private UIManager uiManager;
+    private Weapon currentMelee;
     
     public GameObject normalCamera;
     public GameObject aimingCamera;
@@ -97,6 +103,8 @@ public class PlayerStateMachine : MonoBehaviour
         animator = GetComponent<Animator>();
         raptorAnimator = raptor.GetComponent<Animator>();
         cam = Camera.main;
+        currentAmmo = maxAmmo;
+        currentPower = powers[currentIndex];
         
         isWalkingHash = Animator.StringToHash("isWalking");
         isRunningHash = Animator.StringToHash("isRunning");
@@ -133,6 +141,8 @@ public class PlayerStateMachine : MonoBehaviour
         playerInput.Player.Powercodex.started += PowerCodex;
         playerInput.Player.Aim.started += Aim;
         playerInput.Player.Aim.canceled += Aim;
+        playerInput.Player.LightAttackSpecialLight.started += LightAttack;
+        playerInput.Player.HeavyAttackSpecialHeavy.started += HeavyAttack;
 
         SetupJumpVariables();
     }
@@ -208,7 +218,9 @@ public class PlayerStateMachine : MonoBehaviour
                 //Current weapon is Axe
                 //Move the Axe to the hand
                 tools[0].SetActive(true);
+                currentMelee = tools[0].GetComponent<Weapon>();
                 backTools[0].SetActive(false);
+                tools[3].SetActive(false);
             }
             else
             {
@@ -222,6 +234,8 @@ public class PlayerStateMachine : MonoBehaviour
                 //Put Axe back on player
                 tools[0].SetActive(false);
                 backTools[0].SetActive(true);
+                tools[3].SetActive(true);
+                currentMelee = tools[3].GetComponent<Weapon>();
             }
         }
         else if (button == 1)
@@ -243,7 +257,9 @@ public class PlayerStateMachine : MonoBehaviour
                 //Current weapon is Poleblade
                 //Move the Poleblade to the hands
                 tools[1].SetActive(true);
+                currentMelee = tools[1].GetComponent<Weapon>();
                 backTools[1].SetActive(false);
+                tools[3].SetActive(false);
             }
             else
             {
@@ -257,6 +273,68 @@ public class PlayerStateMachine : MonoBehaviour
                 //Return the Poleblade to player
                 tools[1].SetActive(false);
                 backTools[1].SetActive(true);
+                tools[3].SetActive(true);
+                currentMelee = tools[3].GetComponent<Weapon>();
+            }
+        }
+    }
+    
+    public void HeavyAttack(InputAction.CallbackContext context){
+        if(context.started){
+            if(!shiftedControls){
+                if (isDodgePressed)
+                {
+                    return;
+                }
+                if(shooting){
+                    if(currentAmmo > 0){
+                        Debug.Log("Heavy Power Attack");
+                        Power projectile = Instantiate(currentPower, powerLocation.transform.position, cam.transform.rotation);
+                        projectile.isHeavy = true;
+                        projectile.direction = cam.transform.forward;
+                        currentAmmo--;
+                        uiManager.TakePowerCharge();
+                    }
+                } else {
+                    Debug.Log("Heavy Swing Attack");
+                    // playerMovement.WeaponRotate();
+                    // if (currentMelee.isCharged)
+                    // {
+                    //     // Use the charged heavy attack  
+                    //     currentMelee.isCharged = false;
+                    // }
+                    currentMelee.isHeavy = true;
+                }
+            }
+        }
+    }
+
+    public void LightAttack(InputAction.CallbackContext context){
+        if(context.started){
+            if(!shiftedControls){
+                if (isDodgePressed)
+                {
+                    return;
+                }
+                if(shooting){
+                    if(currentAmmo > 0){
+                        Debug.Log("Light Power Attack");
+                        Power projectile = Instantiate(currentPower, powerLocation.transform.position, cam.transform.rotation);
+                        projectile.isHeavy = false;
+                        projectile.direction = cam.transform.forward;
+                        currentAmmo--;
+                        uiManager.TakePowerCharge();
+                    }
+                } else {
+                    Debug.Log("Light Swing Attack");
+                    // playerMovement.WeaponRotate();
+                    // if (currentMelee.isCharged)
+                    // {
+                    //     // Use the charged light attack  
+                    //     currentMelee.isCharged = false;
+                    // }
+                    currentMelee.isHeavy = false;
+                }
             }
         }
     }
@@ -320,6 +398,10 @@ public class PlayerStateMachine : MonoBehaviour
         HandleRotation();
         currentState.UpdateStates();
         characterController.Move(appliedMovement * Time.deltaTime);
+        
+        if(maxAmmo > currentAmmo && !isRefill){
+            StartCoroutine(Refill());
+        }
     }
 
     void HandleRotation()
@@ -400,6 +482,15 @@ public class PlayerStateMachine : MonoBehaviour
         yield return new WaitForSeconds(5f);
         tools[2].SetActive(false);
         idleShield = false;
+    }
+    
+    private IEnumerator Refill(){
+        isRefill = true;
+        yield return new WaitForSeconds(3f);
+        // Debug.Log("Refilled Fire Ammo: " + currentAmmo);
+        isRefill = false;
+        currentAmmo++;
+        uiManager.AddPowerCharge();
     }
 
     void OnEnable()

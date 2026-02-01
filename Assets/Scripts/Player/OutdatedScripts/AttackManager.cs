@@ -267,7 +267,7 @@ public class AttackManager : MonoBehaviour
         }
     }
 
-    public IEnumerator Refill(){
+    private IEnumerator Refill(){
         isRefill = true;
         yield return new WaitForSeconds(3f);
         Debug.Log("Refilled Fire Ammo: " + currentAmmo);
