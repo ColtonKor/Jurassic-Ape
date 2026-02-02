@@ -105,6 +105,7 @@ public class PlayerStateMachine : MonoBehaviour
         cam = Camera.main;
         currentAmmo = maxAmmo;
         currentPower = powers[currentIndex];
+        currentMelee = tools[3].GetComponent<Weapon>();
         
         isWalkingHash = Animator.StringToHash("isWalking");
         isRunningHash = Animator.StringToHash("isRunning");
