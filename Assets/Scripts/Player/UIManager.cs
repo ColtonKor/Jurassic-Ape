@@ -5,44 +5,44 @@ using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour
 {
-    public List<Sprite> powerSprites = new List<Sprite>();
-    public List<GameObject> powerChargeBars = new List<GameObject>();
+    public List<PowerUI> powerIndicators = new List<PowerUI>();
     public List<Sprite> weaponSprites = new List<Sprite>();
-    public List<Color> powerColors = new List<Color>();
+    // public List<Color> powerColors = new List<Color>();
     private Color powerColorIndicator;
     public Image powerIndicator;
     public Image weaponIndicator;
     public Slider healthSlider;
     public Slider rageSlider;
+    public Slider screamSlider;
+    public Slider visionSlider;
     public Image crossHair;
     public List<Image> powerCharges = new List<Image>();
     private int chargeIndex = 0;
     public TextMeshProUGUI health;
     public Sprite ragePowerSprite;
     public Color ragePowerColorIndicator;
-    private int powerIndex;
+    private int powerIndex = 0;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        powerColorIndicator = powerColors[0];
+        // powerColorIndicator = powerColors[0];
         UpdateUI();
     }
 
     public void PowerSpriteIndicatior(int index)
     {
-        for (int i = 0; i < powerChargeBars.Count; i++)
+        for (int i = 0; i < powerIndicators.Count; i++)
         {
             if (i == index)
             {
-                powerChargeBars[i].SetActive(true);
+                powerIndicators[i].chargeUI.SetActive(true);
             }
             else
             {
-                powerChargeBars[i].SetActive(false);
+                powerIndicators[i].chargeUI.SetActive(false);
             }
         }
-        powerIndicator.sprite = powerSprites[index];
-        // powerColorIndicator = powerColors[index];
+        powerIndicator.sprite = powerIndicators[index].superpowerSprite;
         powerIndex = index;
         UpdateUI();
     }
@@ -79,6 +79,17 @@ public class UIManager : MonoBehaviour
         crossHair.gameObject.SetActive(!crossHair.gameObject.activeSelf);
     }
 
+    public void ChargeScream(float current)
+    {
+        screamSlider.value = current;
+    }
+
+    public void SetMaxPowers(float maxVision, float maxScream)
+    {
+        visionSlider.maxValue = maxVision;
+        screamSlider.maxValue = maxScream;
+    }
+
     public void TakePowerCharge()
     {
         powerCharges[chargeIndex].enabled = false;
@@ -105,17 +116,29 @@ public class UIManager : MonoBehaviour
 
     public void EndRagePower()
     {
-        powerIndicator.sprite = powerSprites[powerIndex];
-        powerColorIndicator = powerColors[powerIndex];
+        // powerIndicator.sprite = powerSprites[powerIndex];
+        // powerColorIndicator = powerColors[powerIndex];
         UpdateUI();
     }
 
     private void UpdateUI()
     {
-        for (int i = 0; i < powerCharges.Count; i++)
+        powerIndicator.sprite = powerIndicators[powerIndex].superpowerSprite;
+        for (int i = 0; i < powerIndicators.Count; i++)
         {
-            powerCharges[i].enabled = (i >= chargeIndex);
-            // powerCharges[i].color = powerColorIndicator;
+            if (i == powerIndex)
+            {
+                powerIndicators[i].chargeUI.SetActive(true);
+            }
+            else
+            {
+                powerIndicators[i].chargeUI.SetActive(false);
+            }
         }
+        // for (int i = 0; i < powerCharges.Count; i++)
+        // {
+        //     // powerCharges[i].enabled = (i >= chargeIndex);
+        //     // powerCharges[i].color = powerColorIndicator;
+        // }
     }
 }

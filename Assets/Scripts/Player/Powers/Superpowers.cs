@@ -10,7 +10,8 @@ public class Superpowers : MonoBehaviour
     } 
     public RangeType rangeType;
     public float maxCapacity;
-    public float currentCapacity;
     public float damage;
     public float stun;
+    public float currentCapacity;
+    [HideInInspector] public Vector3 direction;
 }
