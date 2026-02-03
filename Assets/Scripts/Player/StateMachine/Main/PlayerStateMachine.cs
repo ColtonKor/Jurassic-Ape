@@ -75,9 +75,9 @@ public class PlayerStateMachine : MonoBehaviour
     
     public List<GameObject> tools = new List<GameObject>();
     public List<GameObject> backTools = new List<GameObject>();
-    public List<Power> powers = new List<Power>();
+    public List<Superpowers> powers = new List<Superpowers>();
     public GameObject powerLocation;
-    private Power currentPower;
+    private Superpowers currentPower;
     private int currentIndex = 0;
     private Coroutine removeShieldCoroutine;
     private bool currentAxe;
@@ -144,8 +144,10 @@ public class PlayerStateMachine : MonoBehaviour
         playerInput.Player.Powercodex.started += PowerCodex;
         playerInput.Player.Aim.started += Aim;
         playerInput.Player.Aim.canceled += Aim;
-        playerInput.Player.LightAttackSpecialLight.started += LightAttack;
-        playerInput.Player.HeavyAttackSpecialHeavy.started += HeavyAttack;
+        playerInput.Player.LightMeleeAttack.started += LightMeleeAttack;
+        playerInput.Player.HeavyMeleeAttack.started += HeavyMeleeAttack;
+        playerInput.Player.RangedAttack.started += RangedAttack;
+        playerInput.Player.RangedAttack.canceled += RangedAttack;
         playerInput.Player.Healing.started += Heal;
 
         SetupJumpVariables();
@@ -291,61 +293,105 @@ public class PlayerStateMachine : MonoBehaviour
         }
     }
     
-    public void HeavyAttack(InputAction.CallbackContext context){
+    public void HeavyMeleeAttack(InputAction.CallbackContext context){
         if(context.started){
             if(!shiftedControls){
                 if (isDodgePressed)
                 {
                     return;
                 }
-                if(shooting){
-                    if(currentAmmo > 0){
-                        Debug.Log("Heavy Power Attack");
-                        Power projectile = Instantiate(currentPower, powerLocation.transform.position, cam.transform.rotation);
-                        projectile.isHeavy = true;
-                        projectile.direction = cam.transform.forward;
-                        currentAmmo--;
-                        uiManager.TakePowerCharge();
-                    }
-                } else {
-                    Debug.Log("Heavy Swing Attack");
-                    // playerMovement.WeaponRotate();
-                    // if (currentMelee.isCharged)
-                    // {
-                    //     // Use the charged heavy attack  
-                    //     currentMelee.isCharged = false;
-                    // }
-                    currentMelee.isHeavy = true;
+                if(!shooting){
+                    currentMelee.isHeavy = false;
                 }
             }
         }
     }
 
-    public void LightAttack(InputAction.CallbackContext context){
+    public void LightMeleeAttack(InputAction.CallbackContext context){
         if(context.started){
             if(!shiftedControls){
                 if (isDodgePressed)
                 {
                     return;
                 }
-                if(shooting){
-                    if(currentAmmo > 0){
-                        Debug.Log("Light Power Attack");
-                        Power projectile = Instantiate(currentPower, powerLocation.transform.position, cam.transform.rotation);
-                        projectile.isHeavy = false;
-                        projectile.direction = cam.transform.forward;
-                        currentAmmo--;
-                        uiManager.TakePowerCharge();
-                    }
-                } else {
-                    Debug.Log("Light Swing Attack");
-                    // playerMovement.WeaponRotate();
-                    // if (currentMelee.isCharged)
-                    // {
-                    //     // Use the charged light attack  
-                    //     currentMelee.isCharged = false;
-                    // }
+                if(!shooting){
                     currentMelee.isHeavy = false;
+                }
+            }
+        }
+    }
+    
+    public void RangedAttack(InputAction.CallbackContext context){
+        if(!shiftedControls){
+            if (isDodgePressed)
+            {
+                return;
+            }
+            if(shooting){
+                switch (currentPower.rangeType)
+                {
+                    case Superpowers.RangeType.heatVision:
+                        if (context.started)
+                        {
+                            if(currentPower.currentCapacity > 0){
+                                Debug.Log("Heat Vision");
+                                // Power projectile = Instantiate(currentPower, powerLocation.transform.position, cam.transform.rotation);
+                                // projectile.isHeavy = true;
+                                // projectile.direction = cam.transform.forward;
+                                // currentAmmo--;
+                                // uiManager.TakePowerCharge();
+                            }
+                        } 
+                        else if (context.canceled)
+                        {
+                            //Cancel the Laser Beams
+                        }
+                        
+                        break;
+                    case Superpowers.RangeType.sonicScream:
+                        if (context.started)
+                        {
+                            if(currentPower.currentCapacity < currentPower.maxCapacity){
+                                Debug.Log("Sonic Scream");
+                                // Power projectile = Instantiate(currentPower, powerLocation.transform.position, cam.transform.rotation);
+                                // projectile.isHeavy = true;
+                                // projectile.direction = cam.transform.forward;
+                                // currentAmmo--;
+                                // uiManager.TakePowerCharge();
+                            } 
+                        }
+                        else if (context.canceled)
+                        {
+                            //Send the Sonic Scream
+                        }
+                        
+                        break;
+                    case Superpowers.RangeType.brainBlast:
+                        if (context.started)
+                        {
+                            if(currentPower.currentCapacity > 0){
+                                Debug.Log("Brain Blast");
+                                // Power projectile = Instantiate(currentPower, powerLocation.transform.position, cam.transform.rotation);
+                                // projectile.isHeavy = true;
+                                // projectile.direction = cam.transform.forward;
+                                // currentAmmo--;
+                                // uiManager.TakePowerCharge();
+                            }
+                        }
+                        else if (context.canceled)
+                        {
+                            //Still Unclear on this improved power.
+                        }
+                        break;
+                }
+                    
+                if(currentPower.currentCapacity > 0){
+                    Debug.Log("Ranged Attack");
+                    // Power projectile = Instantiate(currentPower, powerLocation.transform.position, cam.transform.rotation);
+                    // projectile.isHeavy = true;
+                    // projectile.direction = cam.transform.forward;
+                    // currentAmmo--;
+                    uiManager.TakePowerCharge();
                 }
             }
         }

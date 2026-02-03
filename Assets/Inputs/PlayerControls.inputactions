@@ -78,24 +78,6 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "HeavyAttack/SpecialHeavy",
-                    "type": "Button",
-                    "id": "cb5e2ad9-6ef2-4921-a82d-3e83794406e8",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
-                    "name": "LightAttack/SpecialLight",
-                    "type": "Button",
-                    "id": "4d29948e-5de9-4e67-af35-387737201e29",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
                     "name": "Locking/Interacting/Tongue/WallClimb",
                     "type": "Button",
                     "id": "4094fad3-1026-415b-be95-eff38291a5ed",
@@ -136,6 +118,51 @@
                     "type": "PassThrough",
                     "id": "aae30deb-b99a-43b7-802c-b9994d954bad",
                     "expectedControlType": "Axis",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "LightMeleeAttack",
+                    "type": "Button",
+                    "id": "4d29948e-5de9-4e67-af35-387737201e29",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "HeavyMeleeAttack",
+                    "type": "Button",
+                    "id": "cb5e2ad9-6ef2-4921-a82d-3e83794406e8",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "RangedAttack",
+                    "type": "Button",
+                    "id": "ec2db395-ec8a-4a46-96b1-173afc86a4bf",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "SpecialLightAttack",
+                    "type": "Button",
+                    "id": "a98c6cf4-ae6a-465f-8ac5-b7ff339f41ce",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "SpecialHeavyAttack",
+                    "type": "Button",
+                    "id": "ca96fbc5-ebb0-449c-8ebb-62c97b7ece61",
+                    "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
@@ -347,7 +374,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "HeavyAttack/SpecialHeavy",
+                    "action": "HeavyMeleeAttack",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -358,7 +385,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "HeavyAttack/SpecialHeavy",
+                    "action": "HeavyMeleeAttack",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -457,7 +484,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "LightAttack/SpecialLight",
+                    "action": "LightMeleeAttack",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -468,7 +495,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "LightAttack/SpecialLight",
+                    "action": "LightMeleeAttack",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -559,6 +586,72 @@
                     "action": "Weapon",
                     "isComposite": false,
                     "isPartOfComposite": true
+                },
+                {
+                    "name": "",
+                    "id": "f463a0c3-1910-488c-bccc-d113dd7ebc3a",
+                    "path": "<Mouse>/rightButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "SpecialHeavyAttack",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "591e56a9-b209-49ec-8998-8d50a32b3e49",
+                    "path": "<Gamepad>/rightTrigger",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "SpecialHeavyAttack",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "73d5bce1-7530-4d72-bc07-82a870903f67",
+                    "path": "<Mouse>/leftButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "SpecialLightAttack",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "24be49f8-5ef6-4da4-8532-656191d7a74c",
+                    "path": "<Gamepad>/rightShoulder",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "SpecialLightAttack",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "73e2439f-d480-4fd2-9079-d1ecbf1ee19c",
+                    "path": "<Mouse>/rightButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "RangedAttack",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "0b8f435d-f827-4ffe-af82-e7862cd6dddc",
+                    "path": "<Gamepad>/rightTrigger",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "RangedAttack",
+                    "isComposite": false,
+                    "isPartOfComposite": false
                 }
             ]
         }

@@ -100,24 +100,6 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""HeavyAttack/SpecialHeavy"",
-                    ""type"": ""Button"",
-                    ""id"": ""cb5e2ad9-6ef2-4921-a82d-3e83794406e8"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                },
-                {
-                    ""name"": ""LightAttack/SpecialLight"",
-                    ""type"": ""Button"",
-                    ""id"": ""4d29948e-5de9-4e67-af35-387737201e29"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                },
-                {
                     ""name"": ""Locking/Interacting/Tongue/WallClimb"",
                     ""type"": ""Button"",
                     ""id"": ""4094fad3-1026-415b-be95-eff38291a5ed"",
@@ -158,6 +140,51 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""type"": ""PassThrough"",
                     ""id"": ""aae30deb-b99a-43b7-802c-b9994d954bad"",
                     ""expectedControlType"": ""Axis"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""LightMeleeAttack"",
+                    ""type"": ""Button"",
+                    ""id"": ""4d29948e-5de9-4e67-af35-387737201e29"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""HeavyMeleeAttack"",
+                    ""type"": ""Button"",
+                    ""id"": ""cb5e2ad9-6ef2-4921-a82d-3e83794406e8"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""RangedAttack"",
+                    ""type"": ""Button"",
+                    ""id"": ""ec2db395-ec8a-4a46-96b1-173afc86a4bf"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""SpecialLightAttack"",
+                    ""type"": ""Button"",
+                    ""id"": ""a98c6cf4-ae6a-465f-8ac5-b7ff339f41ce"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""SpecialHeavyAttack"",
+                    ""type"": ""Button"",
+                    ""id"": ""ca96fbc5-ebb0-449c-8ebb-62c97b7ece61"",
+                    ""expectedControlType"": """",
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
@@ -369,7 +396,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""HeavyAttack/SpecialHeavy"",
+                    ""action"": ""HeavyMeleeAttack"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -380,7 +407,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""HeavyAttack/SpecialHeavy"",
+                    ""action"": ""HeavyMeleeAttack"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -479,7 +506,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""LightAttack/SpecialLight"",
+                    ""action"": ""LightMeleeAttack"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -490,7 +517,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""LightAttack/SpecialLight"",
+                    ""action"": ""LightMeleeAttack"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -581,6 +608,72 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""action"": ""Weapon"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""f463a0c3-1910-488c-bccc-d113dd7ebc3a"",
+                    ""path"": ""<Mouse>/rightButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""SpecialHeavyAttack"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""591e56a9-b209-49ec-8998-8d50a32b3e49"",
+                    ""path"": ""<Gamepad>/rightTrigger"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""SpecialHeavyAttack"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""73d5bce1-7530-4d72-bc07-82a870903f67"",
+                    ""path"": ""<Mouse>/leftButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""SpecialLightAttack"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""24be49f8-5ef6-4da4-8532-656191d7a74c"",
+                    ""path"": ""<Gamepad>/rightShoulder"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""SpecialLightAttack"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""73e2439f-d480-4fd2-9079-d1ecbf1ee19c"",
+                    ""path"": ""<Mouse>/rightButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""RangedAttack"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""0b8f435d-f827-4ffe-af82-e7862cd6dddc"",
+                    ""path"": ""<Gamepad>/rightTrigger"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""RangedAttack"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -597,13 +690,16 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         m_Player_Dodge = m_Player.FindAction("Dodge", throwIfNotFound: true);
         m_Player_Glide = m_Player.FindAction("Glide", throwIfNotFound: true);
         m_Player_Aim = m_Player.FindAction("Aim", throwIfNotFound: true);
-        m_Player_HeavyAttackSpecialHeavy = m_Player.FindAction("HeavyAttack/SpecialHeavy", throwIfNotFound: true);
-        m_Player_LightAttackSpecialLight = m_Player.FindAction("LightAttack/SpecialLight", throwIfNotFound: true);
         m_Player_LockingInteractingTongueWallClimb = m_Player.FindAction("Locking/Interacting/Tongue/WallClimb", throwIfNotFound: true);
         m_Player_ChargeWeaponorCallMountUndecided = m_Player.FindAction("ChargeWeapon or Call Mount (Undecided)", throwIfNotFound: true);
         m_Player_Powercodex = m_Player.FindAction("Powercodex", throwIfNotFound: true);
         m_Player_Healing = m_Player.FindAction("Healing", throwIfNotFound: true);
         m_Player_Weapon = m_Player.FindAction("Weapon", throwIfNotFound: true);
+        m_Player_LightMeleeAttack = m_Player.FindAction("LightMeleeAttack", throwIfNotFound: true);
+        m_Player_HeavyMeleeAttack = m_Player.FindAction("HeavyMeleeAttack", throwIfNotFound: true);
+        m_Player_RangedAttack = m_Player.FindAction("RangedAttack", throwIfNotFound: true);
+        m_Player_SpecialLightAttack = m_Player.FindAction("SpecialLightAttack", throwIfNotFound: true);
+        m_Player_SpecialHeavyAttack = m_Player.FindAction("SpecialHeavyAttack", throwIfNotFound: true);
     }
 
     ~@PlayerControls()
@@ -678,13 +774,16 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_Dodge;
     private readonly InputAction m_Player_Glide;
     private readonly InputAction m_Player_Aim;
-    private readonly InputAction m_Player_HeavyAttackSpecialHeavy;
-    private readonly InputAction m_Player_LightAttackSpecialLight;
     private readonly InputAction m_Player_LockingInteractingTongueWallClimb;
     private readonly InputAction m_Player_ChargeWeaponorCallMountUndecided;
     private readonly InputAction m_Player_Powercodex;
     private readonly InputAction m_Player_Healing;
     private readonly InputAction m_Player_Weapon;
+    private readonly InputAction m_Player_LightMeleeAttack;
+    private readonly InputAction m_Player_HeavyMeleeAttack;
+    private readonly InputAction m_Player_RangedAttack;
+    private readonly InputAction m_Player_SpecialLightAttack;
+    private readonly InputAction m_Player_SpecialHeavyAttack;
     public struct PlayerActions
     {
         private @PlayerControls m_Wrapper;
@@ -697,13 +796,16 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         public InputAction @Dodge => m_Wrapper.m_Player_Dodge;
         public InputAction @Glide => m_Wrapper.m_Player_Glide;
         public InputAction @Aim => m_Wrapper.m_Player_Aim;
-        public InputAction @HeavyAttackSpecialHeavy => m_Wrapper.m_Player_HeavyAttackSpecialHeavy;
-        public InputAction @LightAttackSpecialLight => m_Wrapper.m_Player_LightAttackSpecialLight;
         public InputAction @LockingInteractingTongueWallClimb => m_Wrapper.m_Player_LockingInteractingTongueWallClimb;
         public InputAction @ChargeWeaponorCallMountUndecided => m_Wrapper.m_Player_ChargeWeaponorCallMountUndecided;
         public InputAction @Powercodex => m_Wrapper.m_Player_Powercodex;
         public InputAction @Healing => m_Wrapper.m_Player_Healing;
         public InputAction @Weapon => m_Wrapper.m_Player_Weapon;
+        public InputAction @LightMeleeAttack => m_Wrapper.m_Player_LightMeleeAttack;
+        public InputAction @HeavyMeleeAttack => m_Wrapper.m_Player_HeavyMeleeAttack;
+        public InputAction @RangedAttack => m_Wrapper.m_Player_RangedAttack;
+        public InputAction @SpecialLightAttack => m_Wrapper.m_Player_SpecialLightAttack;
+        public InputAction @SpecialHeavyAttack => m_Wrapper.m_Player_SpecialHeavyAttack;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -737,12 +839,6 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
             @Aim.started += instance.OnAim;
             @Aim.performed += instance.OnAim;
             @Aim.canceled += instance.OnAim;
-            @HeavyAttackSpecialHeavy.started += instance.OnHeavyAttackSpecialHeavy;
-            @HeavyAttackSpecialHeavy.performed += instance.OnHeavyAttackSpecialHeavy;
-            @HeavyAttackSpecialHeavy.canceled += instance.OnHeavyAttackSpecialHeavy;
-            @LightAttackSpecialLight.started += instance.OnLightAttackSpecialLight;
-            @LightAttackSpecialLight.performed += instance.OnLightAttackSpecialLight;
-            @LightAttackSpecialLight.canceled += instance.OnLightAttackSpecialLight;
             @LockingInteractingTongueWallClimb.started += instance.OnLockingInteractingTongueWallClimb;
             @LockingInteractingTongueWallClimb.performed += instance.OnLockingInteractingTongueWallClimb;
             @LockingInteractingTongueWallClimb.canceled += instance.OnLockingInteractingTongueWallClimb;
@@ -758,6 +854,21 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
             @Weapon.started += instance.OnWeapon;
             @Weapon.performed += instance.OnWeapon;
             @Weapon.canceled += instance.OnWeapon;
+            @LightMeleeAttack.started += instance.OnLightMeleeAttack;
+            @LightMeleeAttack.performed += instance.OnLightMeleeAttack;
+            @LightMeleeAttack.canceled += instance.OnLightMeleeAttack;
+            @HeavyMeleeAttack.started += instance.OnHeavyMeleeAttack;
+            @HeavyMeleeAttack.performed += instance.OnHeavyMeleeAttack;
+            @HeavyMeleeAttack.canceled += instance.OnHeavyMeleeAttack;
+            @RangedAttack.started += instance.OnRangedAttack;
+            @RangedAttack.performed += instance.OnRangedAttack;
+            @RangedAttack.canceled += instance.OnRangedAttack;
+            @SpecialLightAttack.started += instance.OnSpecialLightAttack;
+            @SpecialLightAttack.performed += instance.OnSpecialLightAttack;
+            @SpecialLightAttack.canceled += instance.OnSpecialLightAttack;
+            @SpecialHeavyAttack.started += instance.OnSpecialHeavyAttack;
+            @SpecialHeavyAttack.performed += instance.OnSpecialHeavyAttack;
+            @SpecialHeavyAttack.canceled += instance.OnSpecialHeavyAttack;
         }
 
         private void UnregisterCallbacks(IPlayerActions instance)
@@ -786,12 +897,6 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
             @Aim.started -= instance.OnAim;
             @Aim.performed -= instance.OnAim;
             @Aim.canceled -= instance.OnAim;
-            @HeavyAttackSpecialHeavy.started -= instance.OnHeavyAttackSpecialHeavy;
-            @HeavyAttackSpecialHeavy.performed -= instance.OnHeavyAttackSpecialHeavy;
-            @HeavyAttackSpecialHeavy.canceled -= instance.OnHeavyAttackSpecialHeavy;
-            @LightAttackSpecialLight.started -= instance.OnLightAttackSpecialLight;
-            @LightAttackSpecialLight.performed -= instance.OnLightAttackSpecialLight;
-            @LightAttackSpecialLight.canceled -= instance.OnLightAttackSpecialLight;
             @LockingInteractingTongueWallClimb.started -= instance.OnLockingInteractingTongueWallClimb;
             @LockingInteractingTongueWallClimb.performed -= instance.OnLockingInteractingTongueWallClimb;
             @LockingInteractingTongueWallClimb.canceled -= instance.OnLockingInteractingTongueWallClimb;
@@ -807,6 +912,21 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
             @Weapon.started -= instance.OnWeapon;
             @Weapon.performed -= instance.OnWeapon;
             @Weapon.canceled -= instance.OnWeapon;
+            @LightMeleeAttack.started -= instance.OnLightMeleeAttack;
+            @LightMeleeAttack.performed -= instance.OnLightMeleeAttack;
+            @LightMeleeAttack.canceled -= instance.OnLightMeleeAttack;
+            @HeavyMeleeAttack.started -= instance.OnHeavyMeleeAttack;
+            @HeavyMeleeAttack.performed -= instance.OnHeavyMeleeAttack;
+            @HeavyMeleeAttack.canceled -= instance.OnHeavyMeleeAttack;
+            @RangedAttack.started -= instance.OnRangedAttack;
+            @RangedAttack.performed -= instance.OnRangedAttack;
+            @RangedAttack.canceled -= instance.OnRangedAttack;
+            @SpecialLightAttack.started -= instance.OnSpecialLightAttack;
+            @SpecialLightAttack.performed -= instance.OnSpecialLightAttack;
+            @SpecialLightAttack.canceled -= instance.OnSpecialLightAttack;
+            @SpecialHeavyAttack.started -= instance.OnSpecialHeavyAttack;
+            @SpecialHeavyAttack.performed -= instance.OnSpecialHeavyAttack;
+            @SpecialHeavyAttack.canceled -= instance.OnSpecialHeavyAttack;
         }
 
         public void RemoveCallbacks(IPlayerActions instance)
@@ -834,12 +954,15 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         void OnDodge(InputAction.CallbackContext context);
         void OnGlide(InputAction.CallbackContext context);
         void OnAim(InputAction.CallbackContext context);
-        void OnHeavyAttackSpecialHeavy(InputAction.CallbackContext context);
-        void OnLightAttackSpecialLight(InputAction.CallbackContext context);
         void OnLockingInteractingTongueWallClimb(InputAction.CallbackContext context);
         void OnChargeWeaponorCallMountUndecided(InputAction.CallbackContext context);
         void OnPowercodex(InputAction.CallbackContext context);
         void OnHealing(InputAction.CallbackContext context);
         void OnWeapon(InputAction.CallbackContext context);
+        void OnLightMeleeAttack(InputAction.CallbackContext context);
+        void OnHeavyMeleeAttack(InputAction.CallbackContext context);
+        void OnRangedAttack(InputAction.CallbackContext context);
+        void OnSpecialLightAttack(InputAction.CallbackContext context);
+        void OnSpecialHeavyAttack(InputAction.CallbackContext context);
     }
 }
