@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class UIManager : MonoBehaviour
 {
     public List<Sprite> powerSprites = new List<Sprite>();
+    public List<GameObject> powerChargeBars = new List<GameObject>();
     public List<Sprite> weaponSprites = new List<Sprite>();
     public List<Color> powerColors = new List<Color>();
     private Color powerColorIndicator;
@@ -17,6 +18,9 @@ public class UIManager : MonoBehaviour
     public List<Image> powerCharges = new List<Image>();
     private int chargeIndex = 0;
     public TextMeshProUGUI health;
+    public Sprite ragePowerSprite;
+    public Color ragePowerColorIndicator;
+    private int powerIndex;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -26,8 +30,20 @@ public class UIManager : MonoBehaviour
 
     public void PowerSpriteIndicatior(int index)
     {
+        for (int i = 0; i < powerChargeBars.Count; i++)
+        {
+            if (i == index)
+            {
+                powerChargeBars[i].SetActive(true);
+            }
+            else
+            {
+                powerChargeBars[i].SetActive(false);
+            }
+        }
         powerIndicator.sprite = powerSprites[index];
-        powerColorIndicator = powerColors[index];
+        // powerColorIndicator = powerColors[index];
+        powerIndex = index;
         UpdateUI();
     }
     
@@ -80,12 +96,26 @@ public class UIManager : MonoBehaviour
         health.text = currentHeal.ToString();
     }
 
+    public void SetRagePower()
+    {
+        powerIndicator.sprite = ragePowerSprite;
+        powerColorIndicator = ragePowerColorIndicator;
+        UpdateUI();
+    }
+
+    public void EndRagePower()
+    {
+        powerIndicator.sprite = powerSprites[powerIndex];
+        powerColorIndicator = powerColors[powerIndex];
+        UpdateUI();
+    }
+
     private void UpdateUI()
     {
         for (int i = 0; i < powerCharges.Count; i++)
         {
             powerCharges[i].enabled = (i >= chargeIndex);
-            powerCharges[i].color = powerColorIndicator;
+            // powerCharges[i].color = powerColorIndicator;
         }
     }
 }

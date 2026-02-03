@@ -5,6 +5,7 @@ public class Supernova : MonoBehaviour
 {
 
     private float damage;
+    private float stun;
 
     private float fireDamage;
     private int fireTime;
@@ -13,9 +14,10 @@ public class Supernova : MonoBehaviour
     private Rigidbody rb;
 
 
-    public void SetDamageStats(float damage, float fireDamage, int fireTime)
+    public void SetDamageStats(float damage, float stun, float fireDamage, int fireTime)
     {
         this.damage = damage;
+        this.stun = stun;
         this.fireDamage = fireDamage;
         this.fireTime = fireTime;
     }
@@ -27,13 +29,12 @@ public class Supernova : MonoBehaviour
 
     public void OnTriggerEnter(Collider other)
     {
-        EnemyMovement enemyMovement = other.gameObject.GetComponent<EnemyMovement>();
-        if(enemyMovement != null)
+        EnemyHealth enemyHealth = other.GetComponent<EnemyHealth>();
+        if(enemyHealth != null)
         {
-            EnemyHealth enemyHealth = other.GetComponent<EnemyHealth>();
             enemyHealth.TakeDamage(damage);
+            enemyHealth.TakeStun(stun);
             enemyHealth.TakeFireDamage(fireDamage, fireTime);
-            enemyMovement.Knockback(gameObject.transform);
         }
     }
 }

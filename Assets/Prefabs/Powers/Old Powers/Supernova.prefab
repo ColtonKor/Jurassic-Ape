@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 4912620266392822016}
   - component: {fileID: 6952132362042178675}
   m_Layer: 0
-  m_Name: SupernovaExplosion
+  m_Name: Supernova
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

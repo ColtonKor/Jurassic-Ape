@@ -5,7 +5,9 @@ using System.Collections.Generic;
 public class BrainBolt : Power
 {
     
-    public int maxBounces = 3;
+    public int maxLightBounces = 3;
+    public int maxHeavyBounces = 6;
+    private int maxBounces;
     private int currentBounces = 0;
     private bool startBouncing = false;
     [SerializeField] public float enemyRadius;
@@ -17,6 +19,18 @@ public class BrainBolt : Power
     private float enemyTimer = 0f;
     private EnemyHealth enemyHealth;
     private bool stopMoving;
+
+    public void Start()
+    {
+        if (isHeavy)
+        {
+            maxBounces = maxHeavyBounces;
+        }
+        else
+        {
+            maxBounces = maxLightBounces;
+        }
+    }
 
     public void OnTriggerEnter(Collider other)
     {

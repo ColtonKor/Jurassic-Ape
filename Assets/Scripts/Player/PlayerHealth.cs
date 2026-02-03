@@ -46,4 +46,14 @@ public class PlayerHealth : MonoBehaviour
             uIManager.SetHealth(currentHealth);
         }
     }
+
+    public void ActivateRage()
+    {
+        uIManager.SetRagePower();
+    }
+    
+    public void EndRage()
+    {
+        uIManager.EndRagePower();
+    }
 }

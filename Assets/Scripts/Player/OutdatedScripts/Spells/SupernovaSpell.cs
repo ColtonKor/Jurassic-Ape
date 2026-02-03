@@ -22,11 +22,11 @@ public class SupernovaSpell : Spells
         Supernova fireExpell = explosion.GetComponent<Supernova>();
         if (isHeavy)
         {
-            fireExpell.SetDamageStats(supernovaLightDamage, supernovaLightFire, supernovaLightPerSeconds);
+            fireExpell.SetDamageStats(supernovaLightDamage,0, supernovaLightFire, supernovaLightPerSeconds);
         }
         else
         {
-            fireExpell.SetDamageStats(supernovaHeavyDamage, supernovaHeavyFire, supernovaHeavyPerSeconds);
+            fireExpell.SetDamageStats(supernovaHeavyDamage,0, supernovaHeavyFire, supernovaHeavyPerSeconds);
         }
         
         EnemyHealth enemyHealth = collision.gameObject.GetComponent<EnemyHealth>();

@@ -230,6 +230,8 @@ MonoBehaviour:
   lightFireDamage: 5
   heavyFireDamage: 7
   fireTime: 5
+  superNova: {fileID: 6319091306577026675, guid: c2423ae46f9983b4385e43411e9432cf,
+    type: 3}
 --- !u!54 &32518555038197885
 Rigidbody:
   m_ObjectHideFlags: 0
