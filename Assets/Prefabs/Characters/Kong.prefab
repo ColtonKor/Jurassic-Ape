@@ -5292,9 +5292,9 @@ MonoBehaviour:
   - {fileID: 4167719222100893718}
   - {fileID: 7643487600892253270}
   powers:
-  - {fileID: 575956859189822587, guid: e94a808a79135944189d9a2c98bdaab9, type: 3}
-  - {fileID: 3016003731486003743, guid: 5271b34044d07a043b41c5b11abe61f9, type: 3}
-  - {fileID: 6627353981979991599, guid: ce202ca480742164a99f33630d56d53e, type: 3}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   powerLocation: {fileID: 8939166162867217375}
   maxAmmo: 4
   normalCamera: {fileID: 0}

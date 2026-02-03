@@ -86,12 +86,14 @@ public class PlayerStateMachine : MonoBehaviour
     private bool idleShield;
     private bool shooting;
     private bool shiftedControls;
-    private bool isRefill;
-    public int maxAmmo;
-    private int currentAmmo;
+    // private bool isRefill;
+    // public int maxAmmo;
+    // private int currentAmmo;
     private UIManager uiManager;
     private Weapon currentMelee;
     private PlayerHealth playerHealth;
+    private bool chargeScream;
+    private bool depleteVision;
     
     public GameObject normalCamera;
     public GameObject aimingCamera;
@@ -105,7 +107,7 @@ public class PlayerStateMachine : MonoBehaviour
         playerHealth = GetComponent<PlayerHealth>();
         raptorAnimator = raptor.GetComponent<Animator>();
         cam = Camera.main;
-        currentAmmo = maxAmmo;
+        // currentAmmo = maxAmmo;
         currentPower = powers[currentIndex];
         currentMelee = tools[3].GetComponent<Weapon>();
         
@@ -340,11 +342,13 @@ public class PlayerStateMachine : MonoBehaviour
                                 // projectile.direction = cam.transform.forward;
                                 // currentAmmo--;
                                 // uiManager.TakePowerCharge();
+                                depleteVision = true;
                             }
                         } 
                         else if (context.canceled)
                         {
                             //Cancel the Laser Beams
+                            depleteVision = false;
                         }
                         
                         break;
@@ -358,11 +362,13 @@ public class PlayerStateMachine : MonoBehaviour
                                 // projectile.direction = cam.transform.forward;
                                 // currentAmmo--;
                                 // uiManager.TakePowerCharge();
+                                chargeScream = true;
                             } 
                         }
                         else if (context.canceled)
                         {
                             //Send the Sonic Scream
+                            chargeScream = false;
                         }
                         
                         break;
@@ -457,8 +463,16 @@ public class PlayerStateMachine : MonoBehaviour
         currentState.UpdateStates();
         characterController.Move(appliedMovement * Time.deltaTime);
         
-        if(maxAmmo > currentAmmo && !isRefill){
-            StartCoroutine(Refill());
+        // if(maxAmmo > currentAmmo && !isRefill){
+        //     StartCoroutine(Refill());
+        // }
+        if (chargeScream)
+        {
+            ChargeScream();
+        } 
+        else if (depleteVision)
+        {
+            DepleteVision();
         }
     }
 
@@ -516,6 +530,16 @@ public class PlayerStateMachine : MonoBehaviour
         }
     }
 
+    private void ChargeScream()
+    {
+        currentPower.currentCapacity += 1;
+    }
+
+    private void DepleteVision()
+    {
+        currentPower.currentCapacity -= 1;
+    }
+
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Geyser"))
@@ -542,14 +566,14 @@ public class PlayerStateMachine : MonoBehaviour
         idleShield = false;
     }
     
-    private IEnumerator Refill(){
-        isRefill = true;
-        yield return new WaitForSeconds(3f);
-        // Debug.Log("Refilled Fire Ammo: " + currentAmmo);
-        isRefill = false;
-        currentAmmo++;
-        uiManager.AddPowerCharge();
-    }
+    // private IEnumerator Refill(){
+    //     isRefill = true;
+    //     yield return new WaitForSeconds(3f);
+    //     // Debug.Log("Refilled Fire Ammo: " + currentAmmo);
+    //     isRefill = false;
+    //     currentAmmo++;
+    //     uiManager.AddPowerCharge();
+    // }
 
     void OnEnable()
     {
