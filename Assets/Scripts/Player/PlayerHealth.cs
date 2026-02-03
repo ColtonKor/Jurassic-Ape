@@ -7,13 +7,13 @@ using UnityEngine.UI;
 public class PlayerHealth : MonoBehaviour
 {
     public float maxHealth = 100f;
-    public float currentHealth;
+    [HideInInspector] public float currentHealth;
     private AttackManager attackManager;
     public float healSpell = 25f;
     public int maxHealSpells;
-    public int currentHealSpells;
+    [HideInInspector] public int currentHealSpells;
     public float maxRage;
-    public float currentRage;
+    [HideInInspector] public float currentRage;
     private UIManager uIManager;
     // Start is called before the first frame update
     void Start()
@@ -24,17 +24,15 @@ public class PlayerHealth : MonoBehaviour
         uIManager = GetComponent<UIManager>();
         uIManager.SetMaxHealth(maxHealth);
         uIManager.SetMaxRage(maxRage);
+        uIManager.SetHealText(currentHealSpells);
     }
 
-    public void Heal(InputAction.CallbackContext context){
-        if(context.started){
-            if(currentHealSpells > 0 && currentHealth < maxHealth){
-                currentHealSpells--;
-                currentHealth = Mathf.Min(currentHealth + healSpell, maxHealth);
-                Debug.Log("Healing: " + currentHealSpells);
-                uIManager.SetHealth(currentHealth);
-            }
-        }
+    public void Heal(){
+        currentHealSpells--;
+        currentHealth = Mathf.Min(currentHealth + healSpell, maxHealth);
+        Debug.Log("Healing: " + currentHealSpells); 
+        uIManager.SetHealth(currentHealth);
+        uIManager.SetHealText(currentHealSpells);
     }
     
     public void RestHeal() {

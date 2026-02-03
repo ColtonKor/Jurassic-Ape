@@ -88,9 +88,10 @@ public class PlayerStateMachine : MonoBehaviour
     private bool shiftedControls;
     private bool isRefill;
     public int maxAmmo;
-    [SerializeField] private int currentAmmo;
+    private int currentAmmo;
     private UIManager uiManager;
     private Weapon currentMelee;
+    private PlayerHealth playerHealth;
     
     public GameObject normalCamera;
     public GameObject aimingCamera;
@@ -101,6 +102,7 @@ public class PlayerStateMachine : MonoBehaviour
         characterController = GetComponent<CharacterController>();
         uiManager = GetComponent<UIManager>();
         animator = GetComponent<Animator>();
+        playerHealth = GetComponent<PlayerHealth>();
         raptorAnimator = raptor.GetComponent<Animator>();
         cam = Camera.main;
         currentAmmo = maxAmmo;
@@ -144,6 +146,7 @@ public class PlayerStateMachine : MonoBehaviour
         playerInput.Player.Aim.canceled += Aim;
         playerInput.Player.LightAttackSpecialLight.started += LightAttack;
         playerInput.Player.HeavyAttackSpecialHeavy.started += HeavyAttack;
+        playerInput.Player.Healing.started += Heal;
 
         SetupJumpVariables();
     }
@@ -194,6 +197,14 @@ public class PlayerStateMachine : MonoBehaviour
         if (!characterController.isGrounded)
         {
             isAirJumpPressed = context.ReadValueAsButton();
+        }
+    }
+    
+    public void Heal(InputAction.CallbackContext context){
+        if(context.started){
+            if(playerHealth.currentHealSpells > 0 && playerHealth.currentHealth < playerHealth.maxHealth){
+                playerHealth.Heal();
+            }
         }
     }
 

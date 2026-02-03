@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -15,17 +16,12 @@ public class UIManager : MonoBehaviour
     public Image crossHair;
     public List<Image> powerCharges = new List<Image>();
     private int chargeIndex = 0;
+    public TextMeshProUGUI health;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         powerColorIndicator = powerColors[0];
         UpdateUI();
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 
     public void PowerSpriteIndicatior(int index)
@@ -77,6 +73,11 @@ public class UIManager : MonoBehaviour
     {
         chargeIndex--;
         powerCharges[chargeIndex].enabled = true;
+    }
+
+    public void SetHealText(int currentHeal)
+    {
+        health.text = currentHeal.ToString();
     }
 
     private void UpdateUI()
