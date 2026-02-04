@@ -5296,6 +5296,7 @@ GameObject:
   - component: {fileID: 7086138481586780755}
   - component: {fileID: 5662977382454411466}
   - component: {fileID: 5041881634028558236}
+  - component: {fileID: 7890109653212641326}
   m_Layer: 0
   m_Name: Kong
   m_TagString: Player
@@ -5393,11 +5394,8 @@ MonoBehaviour:
   backTools:
   - {fileID: 4167719222100893718}
   - {fileID: 7643487600892253270}
-  powers:
-  - {fileID: 5450500238657077829, guid: 8c57823bc78447547aa0902a41e62223, type: 3}
-  - {fileID: 5450500238657077829, guid: 8c57823bc78447547aa0902a41e62223, type: 3}
-  - {fileID: 5450500238657077829, guid: 8c57823bc78447547aa0902a41e62223, type: 3}
   powerLocation: {fileID: 8939166162867217375}
+  screamReady: 0
   normalCamera: {fileID: 0}
   aimingCamera: {fileID: 0}
 --- !u!114 &5662977382454411466
@@ -5432,9 +5430,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   powerIndicators:
-  - {fileID: 8902062765149114088}
   - {fileID: 1656808340560574037}
-  - {fileID: 2515878297829920499}
   weaponSprites:
   - {fileID: 21300000, guid: 0e959239c4bb7714fbd7c2c54877386c, type: 3}
   - {fileID: 21300000, guid: 26f4e77559ee90545a57cdd18b6e524b, type: 3}
@@ -5443,6 +5439,8 @@ MonoBehaviour:
   weaponIndicator: {fileID: 2388389358965908721}
   healthSlider: {fileID: 1285136581272857820}
   rageSlider: {fileID: 5530575972238817170}
+  screamSlider: {fileID: 941589868031237835}
+  visionSlider: {fileID: 911773381591413666}
   crossHair: {fileID: 6919460759574572332}
   powerCharges:
   - {fileID: 4446071314428780588}
@@ -5452,6 +5450,29 @@ MonoBehaviour:
   health: {fileID: 7599159370704809868}
   ragePowerSprite: {fileID: 21300000, guid: bde7c678b7db5294eb732279fa3777e0, type: 3}
   ragePowerColorIndicator: {r: 0.99636734, g: 1, b: 0, a: 1}
+--- !u!114 &7890109653212641326
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2284049812655197109}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 67426141e2e5c1340adc838a7545b01d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  powers:
+  - {fileID: 5450500238657077829, guid: 8c57823bc78447547aa0902a41e62223, type: 3}
+  maxScreamCapacity: 100
+  currentScreamCapacity: 0
+  maxVisionCapacity: 100
+  currentVisionCapacity: 100
+  chargeWait: 2
+  chargeScream: 0
+  depleteScream: 0
+  chargeVision: 0
+  depleteVision: 0
 --- !u!1 &2284666493162845903
 GameObject:
   m_ObjectHideFlags: 0

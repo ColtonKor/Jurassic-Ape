@@ -79,14 +79,19 @@ public class UIManager : MonoBehaviour
         crossHair.gameObject.SetActive(!crossHair.gameObject.activeSelf);
     }
 
-    public void ChargeScream(float current)
+    public void ChangeScream(float current)
     {
         screamSlider.value = current;
     }
 
-    public void SetMaxPowers(float maxVision, float maxScream)
+    // public void SetMaxPowers(float maxVision, float maxScream)
+    // {
+    //     visionSlider.maxValue = maxVision;
+    //     screamSlider.maxValue = maxScream;
+    // }
+    
+    public void SetMaxPowers(float maxScream)
     {
-        visionSlider.maxValue = maxVision;
         screamSlider.maxValue = maxScream;
     }
 

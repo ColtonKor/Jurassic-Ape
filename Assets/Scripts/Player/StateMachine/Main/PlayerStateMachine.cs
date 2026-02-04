@@ -12,6 +12,7 @@ public class PlayerStateMachine : MonoBehaviour
     private Camera cam;
     public GameObject raptor;
     private Animator raptorAnimator;
+    private PowerManager powerManager;
 
     private int isWalkingHash;
     private int isRunningHash;
@@ -75,7 +76,7 @@ public class PlayerStateMachine : MonoBehaviour
     
     public List<GameObject> tools = new List<GameObject>();
     public List<GameObject> backTools = new List<GameObject>();
-    public List<Superpowers> powers = new List<Superpowers>();
+    // public List<Superpowers> powers = new List<Superpowers>();
     public GameObject powerLocation;
     private Superpowers currentPower;
     private int currentIndex = 0;
@@ -86,17 +87,13 @@ public class PlayerStateMachine : MonoBehaviour
     private bool idleShield;
     private bool shooting;
     private bool shiftedControls;
+    [HideInInspector]public bool screamReady;
     // private bool isRefill;
     // public int maxAmmo;
     // private int currentAmmo;
     private UIManager uiManager;
     private Weapon currentMelee;
     private PlayerHealth playerHealth;
-    private bool chargeScream;
-    private bool depleteVision;
-    private float screamChargeAmount = 10f;
-    private float screamChargeInterval = 1f;
-    private float screamChargeTimer;
     
     
     public GameObject normalCamera;
@@ -110,11 +107,12 @@ public class PlayerStateMachine : MonoBehaviour
         animator = GetComponent<Animator>();
         playerHealth = GetComponent<PlayerHealth>();
         raptorAnimator = raptor.GetComponent<Animator>();
+        powerManager = GetComponent<PowerManager>();
         cam = Camera.main;
-        // currentAmmo = maxAmmo;
-        currentPower = powers[currentIndex];
+        
+        
+        currentPower = powerManager.powers[currentIndex];
         currentMelee = tools[3].GetComponent<Weapon>();
-        SetPowerCapacity();
         
         isWalkingHash = Animator.StringToHash("isWalking");
         isRunningHash = Animator.StringToHash("isRunning");
@@ -344,33 +342,40 @@ public class PlayerStateMachine : MonoBehaviour
                                 Debug.Log("Heat Vision");
                                 
                                 // uiManager.TakePowerCharge();
-                                depleteVision = true;
+                                powerManager.depleteVision = true;
                             }
                         } 
                         else if (context.canceled)
                         {
                             //Cancel the Laser Beams
-                            depleteVision = false;
+                            powerManager.depleteVision = false;
                         }
                         
                         break;
                     case Superpowers.RangeType.sonicScream:
                         if (context.started)
                         {
-                            if(currentPower.currentCapacity <= currentPower.maxCapacity){
+                            if(powerManager.currentScreamCapacity < powerManager.maxScreamCapacity){
                                 Debug.Log("Sonic Scream");
-                                
-                                // uiManager.TakePowerCharge();
-                                chargeScream = true;
+                                screamReady = true;
+                                powerManager.depleteScream = false;
+                                powerManager.chargeScream = true;
+                                powerManager.rechargeScreamTimer = false;
                             } 
                         }
                         else if (context.canceled)
                         {
-                            //Send the Sonic Scream
-                            chargeScream = false;
-                            Superpowers sonicScream = Instantiate(currentPower, powerLocation.transform.position,
-                                cam.transform.rotation);
-                            sonicScream.direction = cam.transform.forward;
+                            if (screamReady)
+                            {
+                                //Send the Sonic Scream
+                                screamReady = false;
+                                powerManager.chargeScream = false;
+                                Superpowers sonicScream = Instantiate(currentPower, powerLocation.transform.position,
+                                    cam.transform.rotation);
+                                sonicScream.direction = cam.transform.forward;
+                                sonicScream.currentCapacity = powerManager.currentScreamCapacity;
+                                powerManager.rechargeScreamTimer = true;
+                            }
                         }
                         
                         break;
@@ -439,8 +444,8 @@ public class PlayerStateMachine : MonoBehaviour
     {
         if(context.started)
         {
-            currentIndex = (currentIndex + 1) % powers.Count;
-            currentPower = powers[currentIndex];
+            currentIndex = (currentIndex + 1) % powerManager.powers.Count;
+            currentPower = powerManager.powers[currentIndex];
             uiManager.PowerSpriteIndicatior(currentIndex);
         }
     }
@@ -459,14 +464,6 @@ public class PlayerStateMachine : MonoBehaviour
         // if(maxAmmo > currentAmmo && !isRefill){
         //     StartCoroutine(Refill());
         // }
-        if (chargeScream)
-        {
-            ChargeScream();
-        } 
-        else if (depleteVision)
-        {
-            DepleteVision();
-        }
     }
 
     void HandleRotation()
@@ -521,35 +518,6 @@ public class PlayerStateMachine : MonoBehaviour
             raptor.SetActive(false);
             animator.SetBool(isRidingHash, false);
         }
-    }
-
-    private void ChargeScream()
-    {
-        screamChargeTimer += Time.deltaTime;
-        if (screamChargeTimer < screamChargeInterval)
-            return;
-
-        
-        screamChargeTimer = 0f;
-
-        currentPower.currentCapacity += screamChargeAmount;
-        currentPower.currentCapacity = Mathf.Clamp(
-            currentPower.currentCapacity,
-            0f,
-            currentPower.maxCapacity
-            );
-
-        uiManager.ChargeScream(currentPower.currentCapacity);
-    }
-
-    private void DepleteVision()
-    {
-        currentPower.currentCapacity -= 10;
-    }
-
-    public void SetPowerCapacity()
-    {
-        uiManager.SetMaxPowers(powers[0].maxCapacity, powers[1].maxCapacity);
     }
 
     private void OnTriggerEnter(Collider other)
