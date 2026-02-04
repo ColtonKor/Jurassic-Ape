@@ -11,7 +11,6 @@ public class PowerManager : MonoBehaviour
     public float maxScreamCapacity;
     public float currentScreamCapacity;
     
-    // public Transform rangedSourcePosition;
     public GameObject laser;
     public float maxVisionCapacity;
     public float currentVisionCapacity;
@@ -127,6 +126,7 @@ public class PowerManager : MonoBehaviour
     
     private void DepleteScream()
     {
+        powers[0].direction = playerStateMachine.Camera.transform.forward;
         chargeTimer += Time.deltaTime;
         if (chargeTimer < chargeInterval)
             return;
@@ -170,6 +170,7 @@ public class PowerManager : MonoBehaviour
         if (currentVisionCapacity <= 0f)
         {
             laser.gameObject.SetActive(false);
+            powers[0].GetComponent<HeatVision>().DeactivatedLaser();
             rechargeVisionTimer = true;
             chargeVision = false;
             depleteVision = false;

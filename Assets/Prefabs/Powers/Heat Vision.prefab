@@ -51,10 +51,13 @@ MonoBehaviour:
   stun: 10
   currentCapacity: 0
   direction: {x: 0, y: 0, z: 0}
+  prefab: {fileID: 8188354167266473202}
   lineRenderer: {fileID: 159409588467960649}
-  StartPosition: {x: 0.3808208, y: 13.11334, z: 5.3617954}
-  EndPosition: {x: -0.5819508, y: 12.682346, z: 3.0374594}
-  HitNormal: {x: 0.9564627, y: 0, z: 0.29185447}
+  StartPosition: {x: 0.80668515, y: 13.077001, z: 2.4827337}
+  EndPosition: {x: 1.1609617, y: 10.016922, z: -1.3728235}
+  HitNormal: {x: -0.26853138, y: 0.53014576, z: 0.80426157}
+  deactivateLaser: 0
+  isOriginal: 0
   damageInterval: 1
 --- !u!120 &159409588467960649
 LineRenderer:
@@ -102,8 +105,8 @@ LineRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Positions:
-  - {x: 0.3808208, y: 13.11334, z: 5.3617954}
-  - {x: -0.5819508, y: 12.682346, z: 3.0374594}
+  - {x: 0.80668515, y: 13.077001, z: 2.4827337}
+  - {x: 1.1609617, y: 10.016922, z: -1.3728235}
   m_Parameters:
     serializedVersion: 3
     widthMultiplier: 1
@@ -112,7 +115,7 @@ LineRenderer:
       m_Curve:
       - serializedVersion: 3
         time: 0
-        value: 1
+        value: 0.22794151
         inSlope: 0
         outSlope: 0
         tangentMode: 0
