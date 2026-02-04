@@ -97,9 +97,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rangeType: 1
   maxCapacity: 100
-  currentCapacity: 0
   damage: 25
   stun: 40
+  currentCapacity: 0
   direction: {x: 0, y: 0, z: 0}
   duration: 3
   speed: 10

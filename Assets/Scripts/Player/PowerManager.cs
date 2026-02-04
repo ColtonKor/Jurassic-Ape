@@ -11,6 +11,8 @@ public class PowerManager : MonoBehaviour
     public float maxScreamCapacity;
     public float currentScreamCapacity;
     
+    // public Transform rangedSourcePosition;
+    public GameObject laser;
     public float maxVisionCapacity;
     public float currentVisionCapacity;
     
@@ -26,11 +28,14 @@ public class PowerManager : MonoBehaviour
     [HideInInspector] public bool chargeVision;
     [HideInInspector] public bool depleteVision;
     [HideInInspector] public bool rechargeScreamTimer;
+    [HideInInspector] public bool rechargeVisionTimer;
+    private HeatVision heatVision;
 
     void Start()
     {
         uIManager = GetComponent<UIManager>();
         playerStateMachine = GetComponent<PlayerStateMachine>();
+        heatVision = powers[0].GetComponent<HeatVision>();
         SetPowerCapacity();
     }
 
@@ -40,19 +45,18 @@ public class PowerManager : MonoBehaviour
         {
             ChargeScream();
         } 
-        else if (depleteVision)
-        {
-            DepleteVision();
-        }
-
-        if (depleteScream)
+        else if (depleteScream)
         {
             DepleteScream();
         }
 
-        if (chargeVision)
+        if (depleteVision)
         {
-            
+            DepleteVision();
+        }
+        else if (chargeVision)
+        {
+            ChargeVision();
         }
         
         if(rechargeScreamTimer)
@@ -64,12 +68,26 @@ public class PowerManager : MonoBehaviour
             rechargeTimer = 0f;
             depleteScream = true;
         }
+        
+        if(rechargeVisionTimer)
+        {
+            rechargeTimer += Time.deltaTime;
+            if (rechargeTimer < rechargeInterval)
+                return;
+            rechargeVisionTimer = false;
+            rechargeTimer = 0f;
+            chargeVision = true;
+        }
     }
     
     
     public void SetPowerCapacity()
     {
-        uIManager.SetMaxPowers(powers[0].maxCapacity);
+        uIManager.SetMaxPowers(maxVisionCapacity, maxScreamCapacity);
+        uIManager.ChangeScream(currentScreamCapacity);
+        uIManager.ChangeVision(currentVisionCapacity);
+        powers[0].maxCapacity = maxVisionCapacity;
+        powers[1].maxCapacity = maxScreamCapacity;
     }
     
     
@@ -114,7 +132,7 @@ public class PowerManager : MonoBehaviour
         );
 
         uIManager.ChangeScream(currentScreamCapacity);
-        if (currentScreamCapacity >= maxScreamCapacity)
+        if (currentScreamCapacity <= 0f)
         {
             chargeScream = false;
             depleteScream = false;
@@ -123,11 +141,52 @@ public class PowerManager : MonoBehaviour
 
     private void DepleteVision()
     {
-        currentVisionCapacity -= 10;
+        heatVision.Propagate(laser.transform.position, playerStateMachine.Camera.transform.forward);
+        chargeTimer += Time.deltaTime;
+        if (chargeTimer < chargeInterval)
+            return;
+
+        
+        chargeTimer = 0f;
+
+        currentVisionCapacity -= chargeAmount;
+        currentVisionCapacity = Mathf.Clamp(
+            currentVisionCapacity,
+            0f,
+            maxVisionCapacity
+        );
+
+        uIManager.ChangeVision(currentVisionCapacity);
+        if (currentVisionCapacity <= 0f)
+        {
+            laser.gameObject.SetActive(false);
+            rechargeVisionTimer = true;
+            chargeVision = false;
+            depleteVision = false;
+        }
     }
     
     private void ChargeVision()
     {
-        currentVisionCapacity -= 10;
+        chargeTimer += Time.deltaTime;
+        if (chargeTimer < chargeInterval)
+            return;
+
+        
+        chargeTimer = 0f;
+
+        currentVisionCapacity += chargeAmount;
+        currentVisionCapacity = Mathf.Clamp(
+            currentVisionCapacity,
+            0f,
+            maxVisionCapacity
+        );
+
+        uIManager.ChangeVision(currentVisionCapacity);
+        if (currentVisionCapacity >= maxVisionCapacity)
+        {
+            chargeVision = false;
+            depleteVision = false;
+        }
     }
 }

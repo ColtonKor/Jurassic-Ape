@@ -338,17 +338,23 @@ public class PlayerStateMachine : MonoBehaviour
                     case Superpowers.RangeType.heatVision:
                         if (context.started)
                         {
-                            if(currentPower.currentCapacity > 0){
+                            if(powerManager.currentVisionCapacity > 0){
                                 Debug.Log("Heat Vision");
                                 
-                                // uiManager.TakePowerCharge();
+                                powerManager.laser.gameObject.SetActive(true);
                                 powerManager.depleteVision = true;
+                                powerManager.rechargeVisionTimer = false;
                             }
                         } 
                         else if (context.canceled)
                         {
                             //Cancel the Laser Beams
-                            powerManager.depleteVision = false;
+                            if(!powerManager.rechargeVisionTimer && !powerManager.chargeVision)
+                            {
+                                powerManager.laser.gameObject.SetActive(false);
+                                powerManager.rechargeVisionTimer = true;
+                                powerManager.depleteVision = false;
+                            }
                         }
                         
                         break;

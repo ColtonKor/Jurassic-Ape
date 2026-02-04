@@ -83,12 +83,17 @@ public class UIManager : MonoBehaviour
     {
         screamSlider.value = current;
     }
+    
+    public void ChangeVision(float current)
+    {
+        visionSlider.value = current;
+    }
 
-    // public void SetMaxPowers(float maxVision, float maxScream)
-    // {
-    //     visionSlider.maxValue = maxVision;
-    //     screamSlider.maxValue = maxScream;
-    // }
+    public void SetMaxPowers(float maxVision, float maxScream)
+    {
+        visionSlider.maxValue = maxVision;
+        screamSlider.maxValue = maxScream;
+    }
     
     public void SetMaxPowers(float maxScream)
     {

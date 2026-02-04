@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class HeatVision : Power
+public class Laser : Power
 {
     public float lightFireDamage;
     public float heavyFireDamage;

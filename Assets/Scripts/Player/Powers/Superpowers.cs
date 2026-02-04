@@ -9,9 +9,9 @@ public class Superpowers : MonoBehaviour
         brainBlast
     } 
     public RangeType rangeType;
-    public float maxCapacity;
+    [HideInInspector] public float maxCapacity;
     public float damage;
     public float stun;
-    public float currentCapacity;
+    [HideInInspector] public float currentCapacity;
     [HideInInspector] public Vector3 direction;
 }
