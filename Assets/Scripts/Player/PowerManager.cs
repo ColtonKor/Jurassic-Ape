@@ -15,6 +15,11 @@ public class PowerManager : MonoBehaviour
     public GameObject laser;
     public float maxVisionCapacity;
     public float currentVisionCapacity;
+
+    public int maxBrainCapacity = 4;
+    [HideInInspector]public int currentBrainCapacity;
+    private bool isRefill;
+    
     
     private float chargeAmount = 10f;
     private float chargeInterval = 1f;
@@ -78,6 +83,10 @@ public class PowerManager : MonoBehaviour
             rechargeTimer = 0f;
             chargeVision = true;
         }
+        
+        if(maxBrainCapacity > currentBrainCapacity && !isRefill){
+            StartCoroutine(Refill());
+        }
     }
     
     
@@ -88,6 +97,7 @@ public class PowerManager : MonoBehaviour
         uIManager.ChangeVision(currentVisionCapacity);
         powers[0].maxCapacity = maxVisionCapacity;
         powers[1].maxCapacity = maxScreamCapacity;
+        currentBrainCapacity = maxBrainCapacity;
     }
     
     
@@ -188,5 +198,14 @@ public class PowerManager : MonoBehaviour
             chargeVision = false;
             depleteVision = false;
         }
+    }
+    
+    private IEnumerator Refill(){
+        isRefill = true;
+        yield return new WaitForSeconds(3f);
+        // Debug.Log("Refilled Fire Ammo: " + currentAmmo);
+        isRefill = false;
+        currentBrainCapacity++;
+        uIManager.AddPowerCharge();
     }
 }

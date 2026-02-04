@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class UIManager : MonoBehaviour
 {
     public List<PowerUI> powerIndicators = new List<PowerUI>();
+    public List<Image> powerCharges = new List<Image>();
     public List<Sprite> weaponSprites = new List<Sprite>();
     // public List<Color> powerColors = new List<Color>();
     private Color powerColorIndicator;
@@ -16,7 +17,6 @@ public class UIManager : MonoBehaviour
     public Slider screamSlider;
     public Slider visionSlider;
     public Image crossHair;
-    public List<Image> powerCharges = new List<Image>();
     private int chargeIndex = 0;
     public TextMeshProUGUI health;
     public Sprite ragePowerSprite;

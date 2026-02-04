@@ -76,7 +76,6 @@ public class PlayerStateMachine : MonoBehaviour
     
     public List<GameObject> tools = new List<GameObject>();
     public List<GameObject> backTools = new List<GameObject>();
-    // public List<Superpowers> powers = new List<Superpowers>();
     public GameObject powerLocation;
     private Superpowers currentPower;
     private int currentIndex = 0;
@@ -88,9 +87,6 @@ public class PlayerStateMachine : MonoBehaviour
     private bool shooting;
     private bool shiftedControls;
     [HideInInspector]public bool screamReady;
-    // private bool isRefill;
-    // public int maxAmmo;
-    // private int currentAmmo;
     private UIManager uiManager;
     private Weapon currentMelee;
     private PlayerHealth playerHealth;
@@ -388,18 +384,13 @@ public class PlayerStateMachine : MonoBehaviour
                     case Superpowers.RangeType.brainBlast:
                         if (context.started)
                         {
-                            if(currentPower.currentCapacity > 0){
+                            if(powerManager.currentBrainCapacity > 0){
                                 Debug.Log("Brain Blast");
-                                // Power projectile = Instantiate(currentPower, powerLocation.transform.position, cam.transform.rotation);
-                                // projectile.isHeavy = true;
-                                // projectile.direction = cam.transform.forward;
-                                // currentAmmo--;
-                                // uiManager.TakePowerCharge();
+                                Superpowers projectile = Instantiate(currentPower, powerLocation.transform.position, cam.transform.rotation);
+                                projectile.direction = cam.transform.forward;
+                                powerManager.currentBrainCapacity--;
+                                uiManager.TakePowerCharge();
                             }
-                        }
-                        else if (context.canceled)
-                        {
-                            //Still Unclear on this improved power.
                         }
                         break;
                 }
@@ -551,15 +542,6 @@ public class PlayerStateMachine : MonoBehaviour
         tools[2].SetActive(false);
         idleShield = false;
     }
-    
-    // private IEnumerator Refill(){
-    //     isRefill = true;
-    //     yield return new WaitForSeconds(3f);
-    //     // Debug.Log("Refilled Fire Ammo: " + currentAmmo);
-    //     isRefill = false;
-    //     currentAmmo++;
-    //     uiManager.AddPowerCharge();
-    // }
 
     void OnEnable()
     {
