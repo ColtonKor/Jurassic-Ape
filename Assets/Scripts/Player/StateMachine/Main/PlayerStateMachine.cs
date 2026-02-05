@@ -348,10 +348,9 @@ public class PlayerStateMachine : MonoBehaviour
                             //Cancel the Laser Beams
                             if(!powerManager.rechargeVisionTimer && !powerManager.chargeVision)
                             {
-                                powerManager.powers[0].GetComponent<HeatVision>().DeactivatedLaser();
-                                powerManager.laser.gameObject.SetActive(false);
                                 powerManager.rechargeVisionTimer = true;
                                 powerManager.depleteVision = false;
+                                powerManager.laser.gameObject.SetActive(false);
                             }
                         }
                         

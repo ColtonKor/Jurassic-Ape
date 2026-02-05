@@ -87,10 +87,12 @@ public class HeatVision : Superpowers
                 endPosition = hit.point;
                 hitNormal = hit.normal;
             }
-            else {
-                OpticalElementThatTheBeamHit = null;
-            }
         }
+        else 
+        {
+            OpticalElementThatTheBeamHit = null;
+        }
+
         
         
         StartPosition = startPosition;
@@ -108,11 +110,4 @@ public class HeatVision : Superpowers
         lineRenderer.SetPosition(0, StartPosition);
         lineRenderer.SetPosition(1, EndPosition);
     }
-
-    public void DeactivatedLaser()
-    {
-        Debug.Log("Deactivated Laser");
-        OpticalElementThatTheBeamHit = null;
-    }
-    
 }

@@ -169,11 +169,10 @@ public class PowerManager : MonoBehaviour
         uIManager.ChangeVision(currentVisionCapacity);
         if (currentVisionCapacity <= 0f)
         {
-            laser.gameObject.SetActive(false);
-            powers[0].GetComponent<HeatVision>().DeactivatedLaser();
             rechargeVisionTimer = true;
             chargeVision = false;
             depleteVision = false;
+            laser.gameObject.SetActive(false);
         }
     }
     

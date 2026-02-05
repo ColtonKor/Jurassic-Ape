@@ -28,16 +28,4 @@ public class Mirror : OpticalElement
     }
 
     private LaserBeamPair GetPairFromIncomingBeam(HeatVision laserBeam) => laserBeamPairs.Find(x => x.incoming == laserBeam);
-    
-    public void ClearAllReflectedBeams()
-    {
-        // Unregister and destroy all reflected beams
-        // We create a copy of the list to avoid modifying it during iteration
-        var pairsCopy = new List<LaserBeamPair>(laserBeamPairs);
-
-        foreach (var pair in pairsCopy)
-        {
-            UnregisterLaserBeam(pair.incoming);
-        }
-    }
 }
