@@ -107,4 +107,10 @@ public class HeatVision : Superpowers
         lineRenderer.SetPosition(0, StartPosition);
         lineRenderer.SetPosition(1, EndPosition);
     }
+
+    public void DisableLaser()
+    {
+        OpticalElementThatTheBeamHit = null;
+        nextDamageTime = Time.time + damageInterval;
+    }
 }

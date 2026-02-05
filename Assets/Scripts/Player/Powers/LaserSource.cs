@@ -19,4 +19,8 @@ public class LaserSource : MonoBehaviour
         
         heatVision.Propagate(startPosition, direction);
     }
+    
+    private void OnDisable() {
+        heatVision.DisableLaser();
+    }
 }
