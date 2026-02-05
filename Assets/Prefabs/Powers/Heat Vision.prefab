@@ -53,10 +53,11 @@ MonoBehaviour:
   direction: {x: 0, y: 0, z: 0}
   prefab: {fileID: 8188354167266473202}
   lineRenderer: {fileID: 159409588467960649}
-  StartPosition: {x: -0.502432, y: 13.113339, z: 7.2494373}
-  EndPosition: {x: -2.1753073, y: 4.3428264, z: 13.717966}
-  HitNormal: {x: 0.26853138, y: -0.53014576, z: -0.80426157}
+  StartPosition: {x: 2.1481528, y: 1.7670003, z: 17.23541}
+  EndPosition: {x: 2.1481528, y: 1.7670003, z: 17.23541}
+  HitNormal: {x: 0, y: 0, z: 0}
   deactivateLaser: 0
+  isOriginal: 0
   damageInterval: 1
 --- !u!120 &159409588467960649
 LineRenderer:
@@ -104,8 +105,8 @@ LineRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Positions:
-  - {x: -0.502432, y: 13.113339, z: 7.2494373}
-  - {x: -2.1753073, y: 4.3428264, z: 13.717966}
+  - {x: 2.1481528, y: 1.7670003, z: 17.23541}
+  - {x: 2.1481528, y: 1.7670003, z: 17.23541}
   m_Parameters:
     serializedVersion: 3
     widthMultiplier: 1
