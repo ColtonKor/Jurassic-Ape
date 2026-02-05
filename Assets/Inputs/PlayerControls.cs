@@ -109,7 +109,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""ChargeWeapon or Call Mount (Undecided)"",
+                    ""name"": ""ChargeWeapon"",
                     ""type"": ""Button"",
                     ""id"": ""99f7bf3c-3a78-4a95-a469-8f83c9207aa4"",
                     ""expectedControlType"": """",
@@ -184,6 +184,15 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""name"": ""SpecialHeavyAttack"",
                     ""type"": ""Button"",
                     ""id"": ""ca96fbc5-ebb0-449c-8ebb-62c97b7ece61"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""CallMount"",
+                    ""type"": ""Button"",
+                    ""id"": ""616e01b9-e1f0-43ac-93d6-b159e179e5b4"",
                     ""expectedControlType"": """",
                     ""processors"": """",
                     ""interactions"": """",
@@ -528,7 +537,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""ChargeWeapon or Call Mount (Undecided)"",
+                    ""action"": ""ChargeWeapon"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -539,7 +548,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""ChargeWeapon or Call Mount (Undecided)"",
+                    ""action"": ""ChargeWeapon"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -656,7 +665,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""73e2439f-d480-4fd2-9079-d1ecbf1ee19c"",
-                    ""path"": ""<Mouse>/rightButton"",
+                    ""path"": ""<Mouse>/leftButton"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -672,6 +681,28 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""RangedAttack"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""14a2cd2a-debb-404f-b6f9-f1ad857c25dd"",
+                    ""path"": ""<Mouse>/rightButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""CallMount"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""90618136-6126-4821-adf3-0b80640d6136"",
+                    ""path"": ""<Gamepad>/rightShoulder"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""CallMount"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -691,7 +722,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         m_Player_Glide = m_Player.FindAction("Glide", throwIfNotFound: true);
         m_Player_Aim = m_Player.FindAction("Aim", throwIfNotFound: true);
         m_Player_LockingInteractingTongueWallClimb = m_Player.FindAction("Locking/Interacting/Tongue/WallClimb", throwIfNotFound: true);
-        m_Player_ChargeWeaponorCallMountUndecided = m_Player.FindAction("ChargeWeapon or Call Mount (Undecided)", throwIfNotFound: true);
+        m_Player_ChargeWeapon = m_Player.FindAction("ChargeWeapon", throwIfNotFound: true);
         m_Player_Powercodex = m_Player.FindAction("Powercodex", throwIfNotFound: true);
         m_Player_Healing = m_Player.FindAction("Healing", throwIfNotFound: true);
         m_Player_Weapon = m_Player.FindAction("Weapon", throwIfNotFound: true);
@@ -700,6 +731,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         m_Player_RangedAttack = m_Player.FindAction("RangedAttack", throwIfNotFound: true);
         m_Player_SpecialLightAttack = m_Player.FindAction("SpecialLightAttack", throwIfNotFound: true);
         m_Player_SpecialHeavyAttack = m_Player.FindAction("SpecialHeavyAttack", throwIfNotFound: true);
+        m_Player_CallMount = m_Player.FindAction("CallMount", throwIfNotFound: true);
     }
 
     ~@PlayerControls()
@@ -775,7 +807,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_Glide;
     private readonly InputAction m_Player_Aim;
     private readonly InputAction m_Player_LockingInteractingTongueWallClimb;
-    private readonly InputAction m_Player_ChargeWeaponorCallMountUndecided;
+    private readonly InputAction m_Player_ChargeWeapon;
     private readonly InputAction m_Player_Powercodex;
     private readonly InputAction m_Player_Healing;
     private readonly InputAction m_Player_Weapon;
@@ -784,6 +816,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_RangedAttack;
     private readonly InputAction m_Player_SpecialLightAttack;
     private readonly InputAction m_Player_SpecialHeavyAttack;
+    private readonly InputAction m_Player_CallMount;
     public struct PlayerActions
     {
         private @PlayerControls m_Wrapper;
@@ -797,7 +830,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         public InputAction @Glide => m_Wrapper.m_Player_Glide;
         public InputAction @Aim => m_Wrapper.m_Player_Aim;
         public InputAction @LockingInteractingTongueWallClimb => m_Wrapper.m_Player_LockingInteractingTongueWallClimb;
-        public InputAction @ChargeWeaponorCallMountUndecided => m_Wrapper.m_Player_ChargeWeaponorCallMountUndecided;
+        public InputAction @ChargeWeapon => m_Wrapper.m_Player_ChargeWeapon;
         public InputAction @Powercodex => m_Wrapper.m_Player_Powercodex;
         public InputAction @Healing => m_Wrapper.m_Player_Healing;
         public InputAction @Weapon => m_Wrapper.m_Player_Weapon;
@@ -806,6 +839,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         public InputAction @RangedAttack => m_Wrapper.m_Player_RangedAttack;
         public InputAction @SpecialLightAttack => m_Wrapper.m_Player_SpecialLightAttack;
         public InputAction @SpecialHeavyAttack => m_Wrapper.m_Player_SpecialHeavyAttack;
+        public InputAction @CallMount => m_Wrapper.m_Player_CallMount;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -842,9 +876,9 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
             @LockingInteractingTongueWallClimb.started += instance.OnLockingInteractingTongueWallClimb;
             @LockingInteractingTongueWallClimb.performed += instance.OnLockingInteractingTongueWallClimb;
             @LockingInteractingTongueWallClimb.canceled += instance.OnLockingInteractingTongueWallClimb;
-            @ChargeWeaponorCallMountUndecided.started += instance.OnChargeWeaponorCallMountUndecided;
-            @ChargeWeaponorCallMountUndecided.performed += instance.OnChargeWeaponorCallMountUndecided;
-            @ChargeWeaponorCallMountUndecided.canceled += instance.OnChargeWeaponorCallMountUndecided;
+            @ChargeWeapon.started += instance.OnChargeWeapon;
+            @ChargeWeapon.performed += instance.OnChargeWeapon;
+            @ChargeWeapon.canceled += instance.OnChargeWeapon;
             @Powercodex.started += instance.OnPowercodex;
             @Powercodex.performed += instance.OnPowercodex;
             @Powercodex.canceled += instance.OnPowercodex;
@@ -869,6 +903,9 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
             @SpecialHeavyAttack.started += instance.OnSpecialHeavyAttack;
             @SpecialHeavyAttack.performed += instance.OnSpecialHeavyAttack;
             @SpecialHeavyAttack.canceled += instance.OnSpecialHeavyAttack;
+            @CallMount.started += instance.OnCallMount;
+            @CallMount.performed += instance.OnCallMount;
+            @CallMount.canceled += instance.OnCallMount;
         }
 
         private void UnregisterCallbacks(IPlayerActions instance)
@@ -900,9 +937,9 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
             @LockingInteractingTongueWallClimb.started -= instance.OnLockingInteractingTongueWallClimb;
             @LockingInteractingTongueWallClimb.performed -= instance.OnLockingInteractingTongueWallClimb;
             @LockingInteractingTongueWallClimb.canceled -= instance.OnLockingInteractingTongueWallClimb;
-            @ChargeWeaponorCallMountUndecided.started -= instance.OnChargeWeaponorCallMountUndecided;
-            @ChargeWeaponorCallMountUndecided.performed -= instance.OnChargeWeaponorCallMountUndecided;
-            @ChargeWeaponorCallMountUndecided.canceled -= instance.OnChargeWeaponorCallMountUndecided;
+            @ChargeWeapon.started -= instance.OnChargeWeapon;
+            @ChargeWeapon.performed -= instance.OnChargeWeapon;
+            @ChargeWeapon.canceled -= instance.OnChargeWeapon;
             @Powercodex.started -= instance.OnPowercodex;
             @Powercodex.performed -= instance.OnPowercodex;
             @Powercodex.canceled -= instance.OnPowercodex;
@@ -927,6 +964,9 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
             @SpecialHeavyAttack.started -= instance.OnSpecialHeavyAttack;
             @SpecialHeavyAttack.performed -= instance.OnSpecialHeavyAttack;
             @SpecialHeavyAttack.canceled -= instance.OnSpecialHeavyAttack;
+            @CallMount.started -= instance.OnCallMount;
+            @CallMount.performed -= instance.OnCallMount;
+            @CallMount.canceled -= instance.OnCallMount;
         }
 
         public void RemoveCallbacks(IPlayerActions instance)
@@ -955,7 +995,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         void OnGlide(InputAction.CallbackContext context);
         void OnAim(InputAction.CallbackContext context);
         void OnLockingInteractingTongueWallClimb(InputAction.CallbackContext context);
-        void OnChargeWeaponorCallMountUndecided(InputAction.CallbackContext context);
+        void OnChargeWeapon(InputAction.CallbackContext context);
         void OnPowercodex(InputAction.CallbackContext context);
         void OnHealing(InputAction.CallbackContext context);
         void OnWeapon(InputAction.CallbackContext context);
@@ -964,5 +1004,6 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         void OnRangedAttack(InputAction.CallbackContext context);
         void OnSpecialLightAttack(InputAction.CallbackContext context);
         void OnSpecialHeavyAttack(InputAction.CallbackContext context);
+        void OnCallMount(InputAction.CallbackContext context);
     }
 }

@@ -5512,7 +5512,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   powers:
-  - {fileID: 8188354167266473202, guid: c180969a58b633740a2fb9090d050df7, type: 3}
+  - {fileID: 6331226989838709697}
   - {fileID: 5450500238657077829, guid: 8c57823bc78447547aa0902a41e62223, type: 3}
   - {fileID: 3336699833355703146, guid: 47651fbff97afae4284d59853eabc6d5, type: 3}
   maxScreamCapacity: 100

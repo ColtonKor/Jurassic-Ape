@@ -87,7 +87,7 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "ChargeWeapon or Call Mount (Undecided)",
+                    "name": "ChargeWeapon",
                     "type": "Button",
                     "id": "99f7bf3c-3a78-4a95-a469-8f83c9207aa4",
                     "expectedControlType": "",
@@ -162,6 +162,15 @@
                     "name": "SpecialHeavyAttack",
                     "type": "Button",
                     "id": "ca96fbc5-ebb0-449c-8ebb-62c97b7ece61",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "CallMount",
+                    "type": "Button",
+                    "id": "616e01b9-e1f0-43ac-93d6-b159e179e5b4",
                     "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
@@ -506,7 +515,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "ChargeWeapon or Call Mount (Undecided)",
+                    "action": "ChargeWeapon",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -517,7 +526,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "ChargeWeapon or Call Mount (Undecided)",
+                    "action": "ChargeWeapon",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -634,7 +643,7 @@
                 {
                     "name": "",
                     "id": "73e2439f-d480-4fd2-9079-d1ecbf1ee19c",
-                    "path": "<Mouse>/rightButton",
+                    "path": "<Mouse>/leftButton",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -650,6 +659,28 @@
                     "processors": "",
                     "groups": "",
                     "action": "RangedAttack",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "14a2cd2a-debb-404f-b6f9-f1ad857c25dd",
+                    "path": "<Mouse>/rightButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "CallMount",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "90618136-6126-4821-adf3-0b80640d6136",
+                    "path": "<Gamepad>/rightShoulder",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "CallMount",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

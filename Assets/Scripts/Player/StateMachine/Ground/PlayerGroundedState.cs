@@ -69,9 +69,9 @@ public class PlayerGroundedState : PlayerBaseState, IRootState
         {
             SwitchState(Factory.Dodge());
         } 
-        // else if (Ctx.IsRidePressed)
-        // {
-        //     SwitchState(Factory.Ride());
-        // } 
+        else if (Ctx.IsRidePressed)
+        {
+            SwitchState(Factory.Ride());
+        } 
     }
 }

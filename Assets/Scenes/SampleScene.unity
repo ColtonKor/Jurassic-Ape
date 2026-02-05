@@ -598,22 +598,6 @@ PrefabInstance:
       propertyPath: m_LocalPosition.x
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 6331226989838709697, guid: 93e17cb44ee54a04b88595a56f6467de,
-        type: 3}
-      propertyPath: Prefab
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 6331226989838709697, guid: 93e17cb44ee54a04b88595a56f6467de,
-        type: 3}
-      propertyPath: prefab
-      value: 
-      objectReference: {fileID: 8188354167266473202, guid: c180969a58b633740a2fb9090d050df7,
-        type: 3}
-    - target: {fileID: 6331226989838709697, guid: 93e17cb44ee54a04b88595a56f6467de,
-        type: 3}
-      propertyPath: isOriginal
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 7086138481586780755, guid: 93e17cb44ee54a04b88595a56f6467de,
         type: 3}
       propertyPath: aimingCamera
