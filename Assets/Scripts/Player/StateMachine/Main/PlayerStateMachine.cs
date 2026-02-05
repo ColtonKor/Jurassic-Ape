@@ -86,6 +86,7 @@ public class PlayerStateMachine : MonoBehaviour
     private bool idleShield;
     private bool shooting;
     private bool shiftedControls;
+    private bool aimShiftToMount;
     [HideInInspector]public bool screamReady;
     private UIManager uiManager;
     private Weapon currentMelee;
@@ -150,6 +151,7 @@ public class PlayerStateMachine : MonoBehaviour
         playerInput.Player.RangedAttack.started += RangedAttack;
         playerInput.Player.RangedAttack.canceled += RangedAttack;
         playerInput.Player.Healing.started += Heal;
+        playerInput.Player.CallMount.started += Mount;
 
         SetupJumpVariables();
     }
@@ -179,11 +181,6 @@ public class PlayerStateMachine : MonoBehaviour
         if (!characterController.isGrounded && !isRidePressed)
         {
             isGlidePressed = !isGlidePressed;
-        }
-        if(characterController.isGrounded || isRidePressed)
-        {
-            isRidePressed = !isRidePressed;
-            HandleMount();
         }
     }
     
@@ -296,7 +293,7 @@ public class PlayerStateMachine : MonoBehaviour
     
     public void HeavyMeleeAttack(InputAction.CallbackContext context){
         if(context.started){
-            if(!shiftedControls){
+            if(!shiftedControls && !aimShiftToMount){
                 if (isDodgePressed)
                 {
                     return;
@@ -337,7 +334,7 @@ public class PlayerStateMachine : MonoBehaviour
                             if(powerManager.currentVisionCapacity > 0){
                                 Debug.Log("Heat Vision");
                                 
-                                powerManager.laser.gameObject.SetActive(true);
+                                powerManager.powers[0].gameObject.SetActive(true);
                                 powerManager.depleteVision = true;
                                 powerManager.rechargeVisionTimer = false;
                                 powerManager.chargeVision = false;
@@ -348,9 +345,10 @@ public class PlayerStateMachine : MonoBehaviour
                             //Cancel the Laser Beams
                             if(!powerManager.rechargeVisionTimer && !powerManager.chargeVision)
                             {
+                                powerManager.EndLaser();
                                 powerManager.rechargeVisionTimer = true;
                                 powerManager.depleteVision = false;
-                                powerManager.laser.gameObject.SetActive(false);
+                                powerManager.powers[0].gameObject.SetActive(false);
                             }
                         }
                         
@@ -422,6 +420,8 @@ public class PlayerStateMachine : MonoBehaviour
             {
                 return;
             }
+
+            aimShiftToMount = true;
             shooting = true;
             uiManager.ToggleCrosshair();
             
@@ -430,11 +430,24 @@ public class PlayerStateMachine : MonoBehaviour
             //Bring currentWeapon.gameObject to body Location
         } else if (context.canceled) {
             //Bring currentWeapon.gameObject to hand Location
+            aimShiftToMount = true;
             shooting = false;
             uiManager.ToggleCrosshair();
             
             normalCamera.SetActive(true);
             aimingCamera.SetActive(false);
+        }
+    }
+
+    public void Mount(InputAction.CallbackContext context)
+    {
+        if(aimShiftToMount)
+        {
+            if (characterController.isGrounded || isRidePressed)
+            {
+                isRidePressed = !isRidePressed;
+                HandleMount();
+            }
         }
     }
 

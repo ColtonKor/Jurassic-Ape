@@ -8889,7 +8889,7 @@ Transform:
   m_GameObject: {fileID: 8633508666786549576}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
-  m_LocalPosition: {x: -1.985, y: 11.346339, z: 2.771}
+  m_LocalPosition: {x: 1.601922, y: 0.00000023841858, z: 15.925065}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -8916,6 +8916,8 @@ MonoBehaviour:
   currentHealth: 0
   stunTime: 0
   isStunned: 0
+  healthSlider: {fileID: 0}
+  stunSlider: {fileID: 0}
 --- !u!54 &3573372040199100364
 Rigidbody:
   m_ObjectHideFlags: 0
