@@ -86,6 +86,7 @@ public class PlayerStateMachine : MonoBehaviour
     private bool idleShield;
     private bool shooting;
     private bool shiftedControls;
+    private bool shiftedAim;
     [HideInInspector]public bool screamReady;
     private UIManager uiManager;
     private Weapon currentMelee;
@@ -150,6 +151,7 @@ public class PlayerStateMachine : MonoBehaviour
         playerInput.Player.RangedAttack.started += RangedAttack;
         playerInput.Player.RangedAttack.canceled += RangedAttack;
         playerInput.Player.Healing.started += Heal;
+        playerInput.Player.CallMount.started += CallMount;
 
         SetupJumpVariables();
     }
@@ -179,11 +181,6 @@ public class PlayerStateMachine : MonoBehaviour
         if (!characterController.isGrounded && !isRidePressed)
         {
             isGlidePressed = !isGlidePressed;
-        }
-        if(characterController.isGrounded || isRidePressed)
-        {
-            isRidePressed = !isRidePressed;
-            HandleMount();
         }
     }
     
@@ -296,7 +293,7 @@ public class PlayerStateMachine : MonoBehaviour
     
     public void HeavyMeleeAttack(InputAction.CallbackContext context){
         if(context.started){
-            if(!shiftedControls){
+            if(!shiftedControls && !shiftedAim){
                 if (isDodgePressed)
                 {
                     return;
@@ -422,6 +419,8 @@ public class PlayerStateMachine : MonoBehaviour
             {
                 return;
             }
+
+            shiftedAim = true;
             shooting = true;
             uiManager.ToggleCrosshair();
             
@@ -430,6 +429,7 @@ public class PlayerStateMachine : MonoBehaviour
             //Bring currentWeapon.gameObject to body Location
         } else if (context.canceled) {
             //Bring currentWeapon.gameObject to hand Location
+            shiftedAim = false;
             shooting = false;
             uiManager.ToggleCrosshair();
             
@@ -448,6 +448,18 @@ public class PlayerStateMachine : MonoBehaviour
         }
     }
 
+    public void CallMount(InputAction.CallbackContext context)
+    {
+        if (shiftedAim)
+        {
+            if(characterController.isGrounded || isRidePressed)
+            {
+                isRidePressed = !isRidePressed;
+                HandleMount();
+            }
+        }
+    }
+
     void Start()
     {
         characterController.Move(appliedMovement * Time.deltaTime);
@@ -459,9 +471,6 @@ public class PlayerStateMachine : MonoBehaviour
         currentState.UpdateStates();
         characterController.Move(appliedMovement * Time.deltaTime);
         
-        // if(maxAmmo > currentAmmo && !isRefill){
-        //     StartCoroutine(Refill());
-        // }
     }
 
     void HandleRotation()
