@@ -18,6 +18,7 @@ public class Portal : OpticalElement {
         laserBeamPairs.Add(new LaserBeamPair(laserBeam, outgoingLaserBeam));
     }
     public override void UnregisterLaserBeam(HeatVision laserBeam) {
+        Debug.Log("I Destroyed this LaserBeam");
         var pair = GetPairFromIncomingBeam(laserBeam);
 
         if (pair.outgoing.OpticalElementThatTheBeamHit != null) {

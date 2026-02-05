@@ -13,7 +13,6 @@ public class HeatVision : Superpowers
     [HideInInspector]public Vector3 EndPosition;
     [HideInInspector]public Vector3 HitNormal;
     [HideInInspector] public bool deactivateLaser;
-    public bool isOriginal;
     
     public Vector3 Direction => (EndPosition - StartPosition).normalized;
 
@@ -61,20 +60,17 @@ public class HeatVision : Superpowers
         {
             if(!hit.collider.CompareTag("Player"))
             {
-                if (Time.time >= nextDamageTime)
-                {
-                    EnemyHealth enemy = hit.collider.GetComponent<EnemyHealth>();
-                    if (enemy != null)
+                if (hit.collider.TryGetComponent(out EnemyHealth enemy)) {
+                    if (Time.time >= nextDamageTime)
                     {
                         enemy.TakeDamage(damage);
                         enemy.TakeStun(stun);
-
+                    
                         nextDamageTime = Time.time + damageInterval;
                     }
-                    else
-                    {
-                        nextDamageTime = Time.time + damageInterval;
-                    }
+                }
+                else {
+                    nextDamageTime = Time.time + damageInterval;
                 }
 
                 if (hit.collider.TryGetComponent(out OpticalElement opticalElement)) {
@@ -91,6 +87,7 @@ public class HeatVision : Superpowers
         else 
         {
             OpticalElementThatTheBeamHit = null;
+            nextDamageTime = Time.time + damageInterval;
         }
 
         
