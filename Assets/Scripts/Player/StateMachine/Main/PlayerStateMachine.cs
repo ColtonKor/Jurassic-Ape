@@ -442,6 +442,33 @@ public class PlayerStateMachine : MonoBehaviour
     {
         if(context.started)
         {
+            switch (currentPower.rangeType)
+            {
+                case Superpowers.RangeType.heatVision:
+                    if(!powerManager.rechargeVisionTimer && !powerManager.chargeVision)
+                    {
+                        powerManager.rechargeVisionTimer = true;
+                        powerManager.depleteVision = false;
+                        powerManager.laser.gameObject.SetActive(false);
+                    }
+
+                    break;
+                case Superpowers.RangeType.sonicScream:
+                    if (screamReady)
+                    {
+                        //Send the Sonic Scream
+                        screamReady = false;
+                        powerManager.chargeScream = false;
+                        Superpowers sonicScream = Instantiate(currentPower, powerLocation.transform.position,
+                            cam.transform.rotation);
+                        sonicScream.direction = cam.transform.forward;
+                        sonicScream.currentCapacity = powerManager.currentScreamCapacity;
+                        powerManager.rechargeScreamTimer = true;
+                    }
+
+                    break;
+            }
+
             currentIndex = (currentIndex + 1) % powerManager.powers.Count;
             currentPower = powerManager.powers[currentIndex];
             uiManager.PowerSpriteIndicatior(currentIndex);
