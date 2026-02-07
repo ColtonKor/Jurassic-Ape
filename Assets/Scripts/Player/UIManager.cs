@@ -145,10 +145,5 @@ public class UIManager : MonoBehaviour
                 powerIndicators[i].chargeUI.SetActive(false);
             }
         }
-        // for (int i = 0; i < powerCharges.Count; i++)
-        // {
-        //     // powerCharges[i].enabled = (i >= chargeIndex);
-        //     // powerCharges[i].color = powerColorIndicator;
-        // }
     }
 }

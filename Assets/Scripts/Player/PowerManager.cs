@@ -208,24 +208,4 @@ public class PowerManager : MonoBehaviour
         currentBrainCapacity++;
         uIManager.AddPowerCharge();
     }
-    
-    public void CancelAllPowers()
-    {
-        // --- Sonic Scream ---
-        chargeScream = false;
-        depleteScream = false;
-        rechargeScreamTimer = false;
-
-        // --- Heat Vision ---
-        chargeVision = false;
-        depleteVision = false;
-        rechargeVisionTimer = false;
-
-        if (laser != null)
-            laser.SetActive(false);
-
-        // --- Shared timers ---
-        chargeTimer = 0f;
-        rechargeTimer = 0f;
-    }
 }
