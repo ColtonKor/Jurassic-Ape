@@ -361,6 +361,7 @@ public class PlayerStateMachine : MonoBehaviour
                                 powerManager.depleteScream = false;
                                 powerManager.chargeScream = true;
                                 powerManager.rechargeScreamTimer = false;
+                                powerManager.StartScreamCapacity();
                             } 
                         }
                         else if (context.canceled)
@@ -373,7 +374,7 @@ public class PlayerStateMachine : MonoBehaviour
                                 Superpowers sonicScream = Instantiate(currentPower, powerLocation.transform.position,
                                     cam.transform.rotation);
                                 sonicScream.direction = cam.transform.forward;
-                                sonicScream.currentCapacity = powerManager.currentScreamCapacity;
+                                sonicScream.currentCapacity = powerManager.currentScreamCapacity - powerManager.GetStartScreamCapacity();
                                 powerManager.rechargeScreamTimer = true;
                             }
                         }

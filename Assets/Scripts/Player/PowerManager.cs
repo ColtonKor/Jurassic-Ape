@@ -10,6 +10,7 @@ public class PowerManager : MonoBehaviour
     
     public float maxScreamCapacity;
     public float currentScreamCapacity;
+    private float startScreamCapacity;
     
     public GameObject laser;
     public float maxVisionCapacity;
@@ -199,6 +200,11 @@ public class PowerManager : MonoBehaviour
             depleteVision = false;
         }
     }
+
+    public void StartScreamCapacity()
+    {
+        startScreamCapacity = currentScreamCapacity;
+    }
     
     private IEnumerator Refill(){
         isRefill = true;
@@ -207,5 +213,10 @@ public class PowerManager : MonoBehaviour
         isRefill = false;
         currentBrainCapacity++;
         uIManager.AddPowerCharge();
+    }
+    
+    public float GetStartScreamCapacity()
+    {
+        return startScreamCapacity;
     }
 }
