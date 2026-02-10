@@ -15,6 +15,12 @@ public class Weapon : MonoBehaviour
     
     public bool isCharged;
 
+    public Sprite sprite;
+    
+    public SpecialAbilities lightAttack;
+    
+    public SpecialAbilities heavyAttack;
+
     public void OnTriggerEnter(Collider other)
     {
         EnemyHealth enemyHealth = other.GetComponent<EnemyHealth>();

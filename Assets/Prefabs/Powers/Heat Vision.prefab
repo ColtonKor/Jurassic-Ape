@@ -51,6 +51,7 @@ MonoBehaviour:
   stun: 10
   currentCapacity: 0
   direction: {x: 0, y: 0, z: 0}
+  sprite: {fileID: 21300000, guid: af3e6575bf7f0f847b7ba18904ffd4fe, type: 3}
   prefab: {fileID: 8188354167266473202}
   lineRenderer: {fileID: 159409588467960649}
   StartPosition: {x: 0.3043638, y: 13.113339, z: 6.914369}

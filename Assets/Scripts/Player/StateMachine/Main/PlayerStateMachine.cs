@@ -107,9 +107,9 @@ public class PlayerStateMachine : MonoBehaviour
         powerManager = GetComponent<PowerManager>();
         cam = Camera.main;
         
-        
         currentPower = powerManager.powers[currentIndex];
         currentMelee = tools[3].GetComponent<Weapon>();
+        uiManager.AssignValues();
         
         isWalkingHash = Animator.StringToHash("isWalking");
         isRunningHash = Animator.StringToHash("isRunning");
@@ -224,30 +224,26 @@ public class PlayerStateMachine : MonoBehaviour
                 currentAxe = true;
                 currentSword = false;
                 currentFist = false;
-                // currentMelee = arsenal[1];
-                Debug.Log("Current Weapon is Axe");
-                uiManager.WeaponSpriteIndicatior(1);
                 //Current weapon is Axe
                 //Move the Axe to the hand
                 tools[0].SetActive(true);
                 currentMelee = tools[0].GetComponent<Weapon>();
                 backTools[0].SetActive(false);
                 tools[3].SetActive(false);
+                uiManager.WeaponSpriteIndicatior();
             }
             else
             {
                 currentAxe = false;
                 currentSword = false;
                 currentFist = true;
-                // currentMelee = arsenal[0];
-                Debug.Log("Current Weapon is Fist");
-                uiManager.WeaponSpriteIndicatior(0);
                 //Current weapon is Fists
                 //Put Axe back on player
                 tools[0].SetActive(false);
                 backTools[0].SetActive(true);
                 tools[3].SetActive(true);
                 currentMelee = tools[3].GetComponent<Weapon>();
+                uiManager.WeaponSpriteIndicatior();
             }
         }
         else if (button == 1)
@@ -263,15 +259,13 @@ public class PlayerStateMachine : MonoBehaviour
                 currentSword = true;
                 currentAxe = false;
                 currentFist = false;
-                // currentMelee = arsenal[2];
-                Debug.Log("Current Weapon is Sword");
-                uiManager.WeaponSpriteIndicatior(2);
                 //Current weapon is Poleblade
                 //Move the Poleblade to the hands
                 tools[1].SetActive(true);
                 currentMelee = tools[1].GetComponent<Weapon>();
                 backTools[1].SetActive(false);
                 tools[3].SetActive(false);
+                uiManager.WeaponSpriteIndicatior();
             }
             else
             {
@@ -279,14 +273,13 @@ public class PlayerStateMachine : MonoBehaviour
                 currentSword = false;
                 currentFist = true;
                 // currentMelee = arsenal[0];
-                Debug.Log("Current Weapon is Fist");
-                uiManager.WeaponSpriteIndicatior(0);
                 //Current weapon is Fists
                 //Return the Poleblade to player
                 tools[1].SetActive(false);
                 backTools[1].SetActive(true);
                 tools[3].SetActive(true);
                 currentMelee = tools[3].GetComponent<Weapon>();
+                uiManager.WeaponSpriteIndicatior();
             }
         }
     }
@@ -640,4 +633,6 @@ public class PlayerStateMachine : MonoBehaviour
     public bool IsFloating { get { return isFloating; } set { isFloating = value; } }
     public Camera Camera { get { return cam; } set { cam = value; } }
     public bool RaptorWaterDetection { get { return raptorWaterDetection; } set { raptorWaterDetection = value; } }
+    public Superpowers CurrentPower { get { return currentPower; }  }
+    public Weapon CurrentMelee { get { return currentMelee; } }
 }

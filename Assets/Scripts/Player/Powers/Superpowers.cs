@@ -14,4 +14,5 @@ public class Superpowers : MonoBehaviour
     public float stun;
     [HideInInspector] public float currentCapacity;
     [HideInInspector] public Vector3 direction;
+    public Sprite sprite;
 }

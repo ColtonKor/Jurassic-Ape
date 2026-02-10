@@ -5,9 +5,9 @@ using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour
 {
-    public List<PowerUI> powerIndicators = new List<PowerUI>();
+    public List<GameObject> powerIndicators = new List<GameObject>();
     public List<Image> powerCharges = new List<Image>();
-    public List<Sprite> weaponSprites = new List<Sprite>();
+    // public List<Sprite> weaponSprites = new List<Sprite>();
     // public List<Color> powerColors = new List<Color>();
     private Color powerColorIndicator;
     public Image powerIndicator;
@@ -22,12 +22,12 @@ public class UIManager : MonoBehaviour
     public Sprite ragePowerSprite;
     public Color ragePowerColorIndicator;
     private int powerIndex = 0;
+    private PlayerStateMachine playerStateMachine;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        // powerColorIndicator = powerColors[0];
-        UpdateUI();
-    }
+    // void Awake()
+    // {
+    //     // powerColorIndicator = powerColors[0];
+    // }
 
     public void PowerSpriteIndicatior(int index)
     {
@@ -35,21 +35,26 @@ public class UIManager : MonoBehaviour
         {
             if (i == index)
             {
-                powerIndicators[i].chargeUI.SetActive(true);
+                powerIndicators[i].SetActive(true);
             }
             else
             {
-                powerIndicators[i].chargeUI.SetActive(false);
+                powerIndicators[i].SetActive(false);
             }
         }
-        powerIndicator.sprite = powerIndicators[index].superpowerSprite;
+        SetPowerSprite();
         powerIndex = index;
         UpdateUI();
     }
-    
-    public void WeaponSpriteIndicatior(int index)
+
+    public void SetPowerSprite()
     {
-        weaponIndicator.sprite = weaponSprites[index];
+        powerIndicator.sprite = playerStateMachine.CurrentPower.sprite;
+    }
+    
+    public void WeaponSpriteIndicatior()
+    {
+        weaponIndicator.sprite = playerStateMachine.CurrentMelee.sprite;
     }
     
     public void SetHealth(float health)
@@ -133,17 +138,24 @@ public class UIManager : MonoBehaviour
 
     private void UpdateUI()
     {
-        powerIndicator.sprite = powerIndicators[powerIndex].superpowerSprite;
+        weaponIndicator.sprite = playerStateMachine.CurrentMelee.sprite;
+        powerIndicator.sprite = playerStateMachine.CurrentPower.sprite;
         for (int i = 0; i < powerIndicators.Count; i++)
         {
             if (i == powerIndex)
             {
-                powerIndicators[i].chargeUI.SetActive(true);
+                powerIndicators[i].SetActive(true);
             }
             else
             {
-                powerIndicators[i].chargeUI.SetActive(false);
+                powerIndicators[i].SetActive(false);
             }
         }
+    }
+
+    public void AssignValues()
+    {
+        playerStateMachine = GetComponent<PlayerStateMachine>();
+        UpdateUI();
     }
 }
