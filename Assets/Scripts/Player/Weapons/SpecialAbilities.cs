@@ -1,11 +1,18 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-public class SpecialAbilities : MonoBehaviour
+[CreateAssetMenu(fileName = "SpecialAbilities", menuName = "ScriptableObjects/SpecialAbilities")]
+public class SpecialAbilities : ScriptableObject
 {
-    public Image uiImage;
+    public Sprite uiSprite;
 
     public bool isLightAttack;
+
+    public bool isAxe;
     
-    
+    public string title;
+
+    public string description;
+
+    public string animationHash;
 }

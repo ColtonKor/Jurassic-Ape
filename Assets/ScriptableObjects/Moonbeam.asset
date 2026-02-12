@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9eeeb45b564b4bf4cb6866172936169b, type: 3}
+  m_Name: Moonbeam
+  m_EditorClassIdentifier: 
+  uiSprite: {fileID: 21300000, guid: ba7197c8f63e0f04bab3106ebb698c85, type: 3}
+  isLightAttack: 1
+  isAxe: 0
+  title: Moonbeam
+  description: Causes a wave of light which blinds enemies and opens them up to attack
+  animationHash: 

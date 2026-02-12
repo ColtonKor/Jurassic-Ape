@@ -3734,7 +3734,7 @@ RectTransform:
   - {fileID: 6969798624975880766}
   - {fileID: 1661383448063714688}
   - {fileID: 5114718255458427324}
-  m_Father: {fileID: 5569407433448865525}
+  m_Father: {fileID: 2443047451650018567}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 55}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -5385,6 +5385,9 @@ MonoBehaviour:
   - {fileID: 6515817470100531867}
   powerIndicator: {fileID: 2818690464645984771}
   weaponIndicator: {fileID: 2388389358965908721}
+  lightSpecialIndicator: {fileID: 3271255009550843402}
+  heavySpecialIndicator: {fileID: 492505173053253759}
+  specialIndicatorParent: {fileID: 7812527114788479061}
   healthSlider: {fileID: 1285136581272857820}
   rageSlider: {fileID: 5530575972238817170}
   screamSlider: {fileID: 941589868031237835}
@@ -5717,7 +5720,7 @@ RectTransform:
   - {fileID: 3971814645568355247}
   - {fileID: 2990104586493676800}
   - {fileID: 5169107225804273050}
-  m_Father: {fileID: 5569407433448865525}
+  m_Father: {fileID: 2443047451650018567}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 55}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -7234,8 +7237,8 @@ MonoBehaviour:
   isHeavy: 0
   isCharged: 0
   sprite: {fileID: 21300000, guid: 26f4e77559ee90545a57cdd18b6e524b, type: 3}
-  lightAttack: {fileID: 0}
-  heavyAttack: {fileID: 0}
+  lightAttack: {fileID: 11400000, guid: 847d6ec0cf3c0ff44a39d492f6078b36, type: 2}
+  heavyAttack: {fileID: 11400000, guid: fa6d53e2b4503f34c8c2b24df08963d7, type: 2}
 --- !u!65 &7137755908568516710
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -11003,8 +11006,8 @@ MonoBehaviour:
   isHeavy: 0
   isCharged: 0
   sprite: {fileID: 21300000, guid: 28abd4efbeccc27488f745fb897e17de, type: 3}
-  lightAttack: {fileID: 0}
-  heavyAttack: {fileID: 0}
+  lightAttack: {fileID: 11400000, guid: 69432f2ba3c2d97449064dc8bb3e7d21, type: 2}
+  heavyAttack: {fileID: 11400000, guid: f7ec2d3c59884f8488a223e84226039f, type: 2}
 --- !u!54 &8024660029159732942
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -15905,7 +15908,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 26f4e77559ee90545a57cdd18b6e524b, type: 3}
+  m_Sprite: {fileID: 0}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -18709,8 +18712,7 @@ RectTransform:
   - {fileID: 7273570043868817175}
   - {fileID: 5063873209550864507}
   - {fileID: 5830216766338944471}
-  - {fileID: 4676260726374224894}
-  - {fileID: 8231154948995998203}
+  - {fileID: 2443047451650018567}
   m_Father: {fileID: 2145222477831281944}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -18750,6 +18752,43 @@ Transform:
   - {fileID: 1209834200676808610}
   m_Father: {fileID: 3909398849274915721}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &7812527114788479061
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2443047451650018567}
+  m_Layer: 5
+  m_Name: SpecialAttacks
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &2443047451650018567
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7812527114788479061}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 4676260726374224894}
+  - {fileID: 8231154948995998203}
+  m_Father: {fileID: 5569407433448865525}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &7813244005978583364
 GameObject:
   m_ObjectHideFlags: 0
@@ -18815,7 +18854,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 28abd4efbeccc27488f745fb897e17de, type: 3}
+  m_Sprite: {fileID: 0}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
