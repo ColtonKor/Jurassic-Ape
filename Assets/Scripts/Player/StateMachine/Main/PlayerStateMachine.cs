@@ -110,6 +110,7 @@ public class PlayerStateMachine : MonoBehaviour
         currentPower = powerManager.powers[currentIndex];
         currentMelee = tools[3].GetComponent<Weapon>();
         uiManager.AssignValues();
+        uiManager.specialIndicatorParent.SetActive(false);
         
         isWalkingHash = Animator.StringToHash("isWalking");
         isRunningHash = Animator.StringToHash("isRunning");
@@ -231,6 +232,8 @@ public class PlayerStateMachine : MonoBehaviour
                 backTools[0].SetActive(false);
                 tools[3].SetActive(false);
                 uiManager.WeaponSpriteIndicatior();
+                uiManager.specialIndicatorParent.SetActive(true);
+                uiManager.AssignSpecialAttacks();
             }
             else
             {
@@ -244,6 +247,7 @@ public class PlayerStateMachine : MonoBehaviour
                 tools[3].SetActive(true);
                 currentMelee = tools[3].GetComponent<Weapon>();
                 uiManager.WeaponSpriteIndicatior();
+                uiManager.specialIndicatorParent.SetActive(false);
             }
         }
         else if (button == 1)
@@ -266,6 +270,8 @@ public class PlayerStateMachine : MonoBehaviour
                 backTools[1].SetActive(false);
                 tools[3].SetActive(false);
                 uiManager.WeaponSpriteIndicatior();
+                uiManager.specialIndicatorParent.SetActive(true);
+                uiManager.AssignSpecialAttacks();
             }
             else
             {
@@ -280,6 +286,7 @@ public class PlayerStateMachine : MonoBehaviour
                 tools[3].SetActive(true);
                 currentMelee = tools[3].GetComponent<Weapon>();
                 uiManager.WeaponSpriteIndicatior();
+                uiManager.specialIndicatorParent.SetActive(false);
             }
         }
     }
@@ -308,6 +315,10 @@ public class PlayerStateMachine : MonoBehaviour
                 if(!shooting){
                     currentMelee.isHeavy = false;
                 }
+            }
+            else
+            {
+                
             }
         }
     }

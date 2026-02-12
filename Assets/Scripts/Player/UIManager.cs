@@ -12,6 +12,9 @@ public class UIManager : MonoBehaviour
     private Color powerColorIndicator;
     public Image powerIndicator;
     public Image weaponIndicator;
+    public Image lightSpecialIndicator;
+    public Image heavySpecialIndicator;
+    public GameObject specialIndicatorParent;
     public Slider healthSlider;
     public Slider rageSlider;
     public Slider screamSlider;
@@ -157,5 +160,11 @@ public class UIManager : MonoBehaviour
     {
         playerStateMachine = GetComponent<PlayerStateMachine>();
         UpdateUI();
+    }
+
+    public void AssignSpecialAttacks()
+    {
+        lightSpecialIndicator.sprite = playerStateMachine.CurrentMelee.lightAttack.uiSprite;
+        heavySpecialIndicator.sprite = playerStateMachine.CurrentMelee.heavyAttack.uiSprite;
     }
 }
