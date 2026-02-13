@@ -19,8 +19,8 @@ public class PowerManager : MonoBehaviour
     public int maxBrainCapacity = 4;
     [HideInInspector]public int currentBrainCapacity;
     private bool isRefill;
-    
-    
+
+    public float barSpeed;
     private float chargeAmount = 10f;
     private float chargeInterval = 1f;
     private float chargeTimer;
@@ -67,21 +67,23 @@ public class PowerManager : MonoBehaviour
         if(rechargeScreamTimer)
         {
             rechargeTimer += Time.deltaTime;
-            if (rechargeTimer < rechargeInterval)
-                return;
-            rechargeScreamTimer = false;
-            rechargeTimer = 0f;
-            depleteScream = true;
+            if (rechargeTimer >= rechargeInterval)
+            {
+                rechargeScreamTimer = false;
+                rechargeTimer = 0f;
+                depleteScream = true;
+            }
         }
         
         if(rechargeVisionTimer)
         {
             rechargeTimer += Time.deltaTime;
-            if (rechargeTimer < rechargeInterval)
-                return;
-            rechargeVisionTimer = false;
-            rechargeTimer = 0f;
-            chargeVision = true;
+            if (rechargeTimer >= rechargeInterval)
+            {
+                rechargeVisionTimer = false;
+                rechargeTimer = 0f;
+                chargeVision = true;
+            }
         }
         
         if(maxBrainCapacity > currentBrainCapacity && !isRefill){
@@ -103,19 +105,8 @@ public class PowerManager : MonoBehaviour
     
     private void ChargeScream()
     {
-        chargeTimer += Time.deltaTime;
-        if (chargeTimer < chargeInterval)
-            return;
-
-        
-        chargeTimer = 0f;
-
-        currentScreamCapacity += chargeAmount;
-        currentScreamCapacity = Mathf.Clamp(
-            currentScreamCapacity,
-            0f,
-            maxScreamCapacity
-        );
+        currentScreamCapacity += Time.deltaTime * barSpeed;
+        currentScreamCapacity = Mathf.Clamp(currentScreamCapacity, 0f, maxScreamCapacity);
 
         uIManager.ChangeScream(currentScreamCapacity);
         if (currentScreamCapacity >= maxScreamCapacity)
@@ -128,19 +119,9 @@ public class PowerManager : MonoBehaviour
     private void DepleteScream()
     {
         powers[0].direction = playerStateMachine.Camera.transform.forward;
-        chargeTimer += Time.deltaTime;
-        if (chargeTimer < chargeInterval)
-            return;
-
         
-        chargeTimer = 0f;
-
-        currentScreamCapacity -= chargeAmount;
-        currentScreamCapacity = Mathf.Clamp(
-            currentScreamCapacity,
-            0f,
-            maxScreamCapacity
-        );
+        currentScreamCapacity -= Time.deltaTime * barSpeed;
+        currentScreamCapacity = Mathf.Clamp(currentScreamCapacity, 0f, maxScreamCapacity);
 
         uIManager.ChangeScream(currentScreamCapacity);
         if (currentScreamCapacity <= 0f)
@@ -153,19 +134,9 @@ public class PowerManager : MonoBehaviour
     private void DepleteVision()
     {
         heatVision.Propagate(laser.transform.position, playerStateMachine.Camera.transform.forward);
-        chargeTimer += Time.deltaTime;
-        if (chargeTimer < chargeInterval)
-            return;
-
         
-        chargeTimer = 0f;
-
-        currentVisionCapacity -= chargeAmount;
-        currentVisionCapacity = Mathf.Clamp(
-            currentVisionCapacity,
-            0f,
-            maxVisionCapacity
-        );
+        currentVisionCapacity -= Time.deltaTime * barSpeed;
+        currentVisionCapacity = Mathf.Clamp(currentVisionCapacity, 0f, maxVisionCapacity);
 
         uIManager.ChangeVision(currentVisionCapacity);
         if (currentVisionCapacity <= 0f)
@@ -179,19 +150,8 @@ public class PowerManager : MonoBehaviour
     
     private void ChargeVision()
     {
-        chargeTimer += Time.deltaTime;
-        if (chargeTimer < chargeInterval)
-            return;
-
-        
-        chargeTimer = 0f;
-
-        currentVisionCapacity += chargeAmount;
-        currentVisionCapacity = Mathf.Clamp(
-            currentVisionCapacity,
-            0f,
-            maxVisionCapacity
-        );
+        currentVisionCapacity += Time.deltaTime * barSpeed;
+        currentVisionCapacity = Mathf.Clamp(currentVisionCapacity, 0f, maxVisionCapacity);
 
         uIManager.ChangeVision(currentVisionCapacity);
         if (currentVisionCapacity >= maxVisionCapacity)
@@ -209,7 +169,6 @@ public class PowerManager : MonoBehaviour
     private IEnumerator Refill(){
         isRefill = true;
         yield return new WaitForSeconds(3f);
-        // Debug.Log("Refilled Fire Ammo: " + currentAmmo);
         isRefill = false;
         currentBrainCapacity++;
         uIManager.AddPowerCharge();

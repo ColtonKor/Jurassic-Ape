@@ -5,27 +5,33 @@ using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour
 {
+    [Header("Power UI")]
     public List<GameObject> powerIndicators = new List<GameObject>();
     public List<Image> powerCharges = new List<Image>();
     // public List<Sprite> weaponSprites = new List<Sprite>();
     // public List<Color> powerColors = new List<Color>();
     private Color powerColorIndicator;
     public Image powerIndicator;
+    public Slider screamSlider;
+    public Slider visionSlider;
+    [Header("Weapon UI")]
     public Image weaponIndicator;
     public Image lightSpecialIndicator;
     public Image heavySpecialIndicator;
     public GameObject specialIndicatorParent;
+    [Header("Health/Rage UI")]
     public Slider healthSlider;
     public Slider rageSlider;
-    public Slider screamSlider;
-    public Slider visionSlider;
-    public Image crossHair;
     private int chargeIndex = 0;
     public TextMeshProUGUI health;
     public Sprite ragePowerSprite;
     public Color ragePowerColorIndicator;
     private int powerIndex = 0;
     private PlayerStateMachine playerStateMachine;
+    [Header("Misc UI")] 
+    public GameObject gameplayMenu;
+    public GameObject pauseMenu;
+    public Image crossHair;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     // void Awake()
     // {
@@ -166,5 +172,19 @@ public class UIManager : MonoBehaviour
     {
         lightSpecialIndicator.sprite = playerStateMachine.CurrentMelee.lightAttack.uiSprite;
         heavySpecialIndicator.sprite = playerStateMachine.CurrentMelee.heavyAttack.uiSprite;
+    }
+
+    public void PauseGame(bool paused)
+    {
+        if (paused)
+        {
+            pauseMenu.SetActive(true);
+            gameplayMenu.SetActive(false);
+        }
+        else
+        {
+            pauseMenu.SetActive(false);
+            gameplayMenu.SetActive(true);
+        }
     }
 }

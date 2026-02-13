@@ -197,6 +197,15 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Pause"",
+                    ""type"": ""Button"",
+                    ""id"": ""ffe1c5bb-8f29-4e00-83ec-7775b0661faa"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -705,6 +714,28 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""action"": ""CallMount"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""617f8807-773b-42a6-ada2-ffcc9bca3e69"",
+                    ""path"": ""<Keyboard>/escape"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Pause"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""95a22b78-ba90-48d3-a29e-41341e4c2eb8"",
+                    ""path"": ""<Gamepad>/start"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Pause"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -732,6 +763,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         m_Player_SpecialLightAttack = m_Player.FindAction("SpecialLightAttack", throwIfNotFound: true);
         m_Player_SpecialHeavyAttack = m_Player.FindAction("SpecialHeavyAttack", throwIfNotFound: true);
         m_Player_CallMount = m_Player.FindAction("CallMount", throwIfNotFound: true);
+        m_Player_Pause = m_Player.FindAction("Pause", throwIfNotFound: true);
     }
 
     ~@PlayerControls()
@@ -817,6 +849,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_SpecialLightAttack;
     private readonly InputAction m_Player_SpecialHeavyAttack;
     private readonly InputAction m_Player_CallMount;
+    private readonly InputAction m_Player_Pause;
     public struct PlayerActions
     {
         private @PlayerControls m_Wrapper;
@@ -840,6 +873,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         public InputAction @SpecialLightAttack => m_Wrapper.m_Player_SpecialLightAttack;
         public InputAction @SpecialHeavyAttack => m_Wrapper.m_Player_SpecialHeavyAttack;
         public InputAction @CallMount => m_Wrapper.m_Player_CallMount;
+        public InputAction @Pause => m_Wrapper.m_Player_Pause;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -906,6 +940,9 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
             @CallMount.started += instance.OnCallMount;
             @CallMount.performed += instance.OnCallMount;
             @CallMount.canceled += instance.OnCallMount;
+            @Pause.started += instance.OnPause;
+            @Pause.performed += instance.OnPause;
+            @Pause.canceled += instance.OnPause;
         }
 
         private void UnregisterCallbacks(IPlayerActions instance)
@@ -967,6 +1004,9 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
             @CallMount.started -= instance.OnCallMount;
             @CallMount.performed -= instance.OnCallMount;
             @CallMount.canceled -= instance.OnCallMount;
+            @Pause.started -= instance.OnPause;
+            @Pause.performed -= instance.OnPause;
+            @Pause.canceled -= instance.OnPause;
         }
 
         public void RemoveCallbacks(IPlayerActions instance)
@@ -1005,5 +1045,6 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         void OnSpecialLightAttack(InputAction.CallbackContext context);
         void OnSpecialHeavyAttack(InputAction.CallbackContext context);
         void OnCallMount(InputAction.CallbackContext context);
+        void OnPause(InputAction.CallbackContext context);
     }
 }

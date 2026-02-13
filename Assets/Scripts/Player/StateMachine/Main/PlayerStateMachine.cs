@@ -96,6 +96,8 @@ public class PlayerStateMachine : MonoBehaviour
     public GameObject normalCamera;
     public GameObject aimingCamera;
 
+    private bool paused;
+
     void Awake()
     {
         playerInput = new PlayerControls();
@@ -153,6 +155,7 @@ public class PlayerStateMachine : MonoBehaviour
         playerInput.Player.RangedAttack.canceled += RangedAttack;
         playerInput.Player.Healing.started += Heal;
         playerInput.Player.CallMount.started += CallMount;
+        playerInput.Player.Pause.started += PauseGame;
 
         SetupJumpVariables();
     }
@@ -489,6 +492,20 @@ public class PlayerStateMachine : MonoBehaviour
                 isRidePressed = !isRidePressed;
                 HandleMount();
             }
+        }
+    }
+
+    public void PauseGame(InputAction.CallbackContext context)
+    {
+        if (paused)
+        {
+            uiManager.PauseGame(false);
+            paused = false;
+        }
+        else
+        {
+            uiManager.PauseGame(true);
+            paused = true;
         }
     }
 
