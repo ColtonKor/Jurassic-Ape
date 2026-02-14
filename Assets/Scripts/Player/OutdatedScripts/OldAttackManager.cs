@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class AttackManager : MonoBehaviour
+public class OldAttackManager : MonoBehaviour
 {
     private PlayerMovement playerMovement;
     private PlayerHealth playerHealth;

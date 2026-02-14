@@ -13,6 +13,7 @@ public class PlayerStateMachine : MonoBehaviour
     public GameObject raptor;
     private Animator raptorAnimator;
     private PowerManager powerManager;
+    private AttackManager attackManager;
 
     private int isWalkingHash;
     private int isRunningHash;
@@ -74,20 +75,6 @@ public class PlayerStateMachine : MonoBehaviour
     PlayerBaseState currentState;
     private PlayerStateFactory states;
     
-    public List<GameObject> tools = new List<GameObject>();
-    public List<GameObject> backTools = new List<GameObject>();
-    public GameObject powerLocation;
-    private Superpowers currentPower;
-    private int currentIndex = 0;
-    private Coroutine removeShieldCoroutine;
-    private bool currentAxe;
-    private bool currentSword;
-    private bool currentFist;
-    private bool idleShield;
-    private bool shooting;
-    private bool shiftedControls;
-    private bool shiftedAim;
-    [HideInInspector]public bool screamReady;
     private UIManager uiManager;
     private Weapon currentMelee;
     private PlayerHealth playerHealth;
@@ -103,16 +90,12 @@ public class PlayerStateMachine : MonoBehaviour
         playerInput = new PlayerControls();
         characterController = GetComponent<CharacterController>();
         uiManager = GetComponent<UIManager>();
+        attackManager = GetComponent<AttackManager>();
         animator = GetComponent<Animator>();
         playerHealth = GetComponent<PlayerHealth>();
         raptorAnimator = raptor.GetComponent<Animator>();
         powerManager = GetComponent<PowerManager>();
         cam = Camera.main;
-        
-        currentPower = powerManager.powers[currentIndex];
-        currentMelee = tools[3].GetComponent<Weapon>();
-        uiManager.AssignValues();
-        uiManager.specialIndicatorParent.SetActive(false);
         
         isWalkingHash = Animator.StringToHash("isWalking");
         isRunningHash = Animator.StringToHash("isRunning");
@@ -141,19 +124,6 @@ public class PlayerStateMachine : MonoBehaviour
         playerInput.Player.Glide.started += Glide;
         playerInput.Player.Dodge.started += Dodge;
         playerInput.Player.Dodge.canceled += Dodge;
-        playerInput.Player.Weapon.started += Weapon;
-        playerInput.Player.Weapon.performed += Weapon;
-        playerInput.Player.BlockShiftToSpecialAttacks.started += Block;
-        playerInput.Player.BlockShiftToSpecialAttacks.performed += Block;
-        playerInput.Player.BlockShiftToSpecialAttacks.canceled += Block;
-        playerInput.Player.Powercodex.started += PowerCodex;
-        playerInput.Player.Aim.started += Aim;
-        playerInput.Player.Aim.canceled += Aim;
-        playerInput.Player.LightMeleeAttack.started += LightMeleeAttack;
-        playerInput.Player.HeavyMeleeAttack.started += HeavyMeleeAttack;
-        playerInput.Player.RangedAttack.started += RangedAttack;
-        playerInput.Player.RangedAttack.canceled += RangedAttack;
-        playerInput.Player.Healing.started += Heal;
         playerInput.Player.CallMount.started += CallMount;
         playerInput.Player.Pause.started += PauseGame;
 
@@ -203,289 +173,10 @@ public class PlayerStateMachine : MonoBehaviour
             isAirJumpPressed = context.ReadValueAsButton();
         }
     }
-    
-    public void Heal(InputAction.CallbackContext context){
-        if(context.started){
-            if(playerHealth.currentHealSpells > 0 && playerHealth.currentHealth < playerHealth.maxHealth){
-                playerHealth.Heal();
-            }
-        }
-    }
-
-    public void Weapon(InputAction.CallbackContext context)
-    {
-        float button = context.ReadValue<float>();
-        if (button == -1)
-        {
-            if (!currentAxe)
-            {
-                if (currentSword) 
-                { 
-                    //Move Poleblade back to the hip/back
-                    tools[1].SetActive(false);
-                    backTools[1].SetActive(true);
-                } 
-                currentAxe = true;
-                currentSword = false;
-                currentFist = false;
-                //Current weapon is Axe
-                //Move the Axe to the hand
-                tools[0].SetActive(true);
-                currentMelee = tools[0].GetComponent<Weapon>();
-                backTools[0].SetActive(false);
-                tools[3].SetActive(false);
-                uiManager.WeaponSpriteIndicatior();
-                uiManager.specialIndicatorParent.SetActive(true);
-                uiManager.AssignSpecialAttacks();
-            }
-            else
-            {
-                currentAxe = false;
-                currentSword = false;
-                currentFist = true;
-                //Current weapon is Fists
-                //Put Axe back on player
-                tools[0].SetActive(false);
-                backTools[0].SetActive(true);
-                tools[3].SetActive(true);
-                currentMelee = tools[3].GetComponent<Weapon>();
-                uiManager.WeaponSpriteIndicatior();
-                uiManager.specialIndicatorParent.SetActive(false);
-            }
-        }
-        else if (button == 1)
-        {
-            if (!currentSword)
-            {
-                if (currentAxe)
-                {
-                    //Put Axe back on back/hip
-                    tools[0].SetActive(false);
-                    backTools[0].SetActive(true);
-                }
-                currentSword = true;
-                currentAxe = false;
-                currentFist = false;
-                //Current weapon is Poleblade
-                //Move the Poleblade to the hands
-                tools[1].SetActive(true);
-                currentMelee = tools[1].GetComponent<Weapon>();
-                backTools[1].SetActive(false);
-                tools[3].SetActive(false);
-                uiManager.WeaponSpriteIndicatior();
-                uiManager.specialIndicatorParent.SetActive(true);
-                uiManager.AssignSpecialAttacks();
-            }
-            else
-            {
-                currentAxe = false;
-                currentSword = false;
-                currentFist = true;
-                // currentMelee = arsenal[0];
-                //Current weapon is Fists
-                //Return the Poleblade to player
-                tools[1].SetActive(false);
-                backTools[1].SetActive(true);
-                tools[3].SetActive(true);
-                currentMelee = tools[3].GetComponent<Weapon>();
-                uiManager.WeaponSpriteIndicatior();
-                uiManager.specialIndicatorParent.SetActive(false);
-            }
-        }
-    }
-    
-    public void HeavyMeleeAttack(InputAction.CallbackContext context){
-        if(context.started){
-            if(!shiftedControls && !shiftedAim){
-                if (isDodgePressed)
-                {
-                    return;
-                }
-                if(!shooting){
-                    currentMelee.isHeavy = false;
-                }
-            }
-        }
-    }
-
-    public void LightMeleeAttack(InputAction.CallbackContext context){
-        if(context.started){
-            if(!shiftedControls){
-                if (isDodgePressed)
-                {
-                    return;
-                }
-                if(!shooting){
-                    currentMelee.isHeavy = false;
-                }
-            }
-            else
-            {
-                
-            }
-        }
-    }
-    
-    public void RangedAttack(InputAction.CallbackContext context){
-        if(!shiftedControls){
-            if (isDodgePressed)
-            {
-                return;
-            }
-            if(shooting){
-                switch (currentPower.rangeType)
-                {
-                    case Superpowers.RangeType.heatVision:
-                        if (context.started)
-                        {
-                            if(powerManager.currentVisionCapacity > 0){
-                                Debug.Log("Heat Vision");
-                                
-                                powerManager.laser.gameObject.SetActive(true);
-                                powerManager.depleteVision = true;
-                                powerManager.rechargeVisionTimer = false;
-                                powerManager.chargeVision = false;
-                            }
-                        } 
-                        else if (context.canceled)
-                        {
-                            //Cancel the Laser Beams
-                            if(!powerManager.rechargeVisionTimer && !powerManager.chargeVision)
-                            {
-                                powerManager.rechargeVisionTimer = true;
-                                powerManager.depleteVision = false;
-                                powerManager.laser.gameObject.SetActive(false);
-                            }
-                        }
-                        
-                        break;
-                    case Superpowers.RangeType.sonicScream:
-                        if (context.started)
-                        {
-                            if(powerManager.currentScreamCapacity < powerManager.maxScreamCapacity){
-                                Debug.Log("Sonic Scream");
-                                screamReady = true;
-                                powerManager.depleteScream = false;
-                                powerManager.chargeScream = true;
-                                powerManager.rechargeScreamTimer = false;
-                                powerManager.StartScreamCapacity();
-                            } 
-                        }
-                        else if (context.canceled)
-                        {
-                            if (screamReady)
-                            {
-                                //Send the Sonic Scream
-                                screamReady = false;
-                                powerManager.chargeScream = false;
-                                Superpowers sonicScream = Instantiate(currentPower, powerLocation.transform.position,
-                                    cam.transform.rotation);
-                                sonicScream.direction = cam.transform.forward;
-                                sonicScream.currentCapacity = powerManager.currentScreamCapacity - powerManager.GetStartScreamCapacity();
-                                powerManager.rechargeScreamTimer = true;
-                            }
-                        }
-                        
-                        break;
-                    case Superpowers.RangeType.brainBlast:
-                        if (context.started)
-                        {
-                            if(powerManager.currentBrainCapacity > 0){
-                                Debug.Log("Brain Blast");
-                                Superpowers projectile = Instantiate(currentPower, powerLocation.transform.position, cam.transform.rotation);
-                                projectile.direction = cam.transform.forward;
-                                powerManager.currentBrainCapacity--;
-                                uiManager.TakePowerCharge();
-                            }
-                        }
-                        break;
-                }
-            }
-        }
-    }
-
-    public void Block(InputAction.CallbackContext context)
-    {
-        if (context.performed || context.started)
-        {
-            if (idleShield)
-            {
-                StopCoroutine(removeShieldCoroutine);
-                idleShield = false;
-            }
-            tools[2].SetActive(true);
-        } 
-        else if (context.canceled)
-        {
-            removeShieldCoroutine = StartCoroutine(RemoveShield());
-        }
-    }
-    
-    public void Aim(InputAction.CallbackContext context){
-        if(context.started || context.performed){
-            if (isDodgePressed)
-            {
-                return;
-            }
-
-            shiftedAim = true;
-            shooting = true;
-            uiManager.ToggleCrosshair();
-            
-            normalCamera.SetActive(false);
-            aimingCamera.SetActive(true);
-            //Bring currentWeapon.gameObject to body Location
-        } else if (context.canceled) {
-            //Bring currentWeapon.gameObject to hand Location
-            shiftedAim = false;
-            shooting = false;
-            uiManager.ToggleCrosshair();
-            
-            normalCamera.SetActive(true);
-            aimingCamera.SetActive(false);
-        }
-    }
-
-    public void PowerCodex(InputAction.CallbackContext context)
-    {
-        if(context.started)
-        {
-            switch (currentPower.rangeType)
-            {
-                case Superpowers.RangeType.heatVision:
-                    if(!powerManager.rechargeVisionTimer && !powerManager.chargeVision)
-                    {
-                        powerManager.rechargeVisionTimer = true;
-                        powerManager.depleteVision = false;
-                        powerManager.laser.gameObject.SetActive(false);
-                    }
-
-                    break;
-                case Superpowers.RangeType.sonicScream:
-                    if (screamReady)
-                    {
-                        //Send the Sonic Scream
-                        screamReady = false;
-                        powerManager.chargeScream = false;
-                        Superpowers sonicScream = Instantiate(currentPower, powerLocation.transform.position,
-                            cam.transform.rotation);
-                        sonicScream.direction = cam.transform.forward;
-                        sonicScream.currentCapacity = powerManager.currentScreamCapacity;
-                        powerManager.rechargeScreamTimer = true;
-                    }
-
-                    break;
-            }
-
-            currentIndex = (currentIndex + 1) % powerManager.powers.Count;
-            currentPower = powerManager.powers[currentIndex];
-            uiManager.PowerSpriteIndicatior(currentIndex);
-        }
-    }
 
     public void CallMount(InputAction.CallbackContext context)
     {
-        if (shiftedAim)
+        if (attackManager.ShiftedAim)
         {
             if(characterController.isGrounded || isRidePressed)
             {
@@ -529,8 +220,8 @@ public class PlayerStateMachine : MonoBehaviour
         positionToLookAt.y = 0f;
         positionToLookAt.z = currentMovement.z;
         Quaternion currentRotation = transform.rotation;
-        
-        if (isMovementPressed || shooting)
+
+        if (isMovementPressed || attackManager.IsShooting || attackManager.IsBlocking)
         {
             Quaternion targetRotation = Quaternion.LookRotation(currentMovement);
             direction = Quaternion.Euler(0.0f, cam.transform.eulerAngles.y, 0.0f) * positionToLookAt;
@@ -594,14 +285,6 @@ public class PlayerStateMachine : MonoBehaviour
         }
     }
 
-    public IEnumerator RemoveShield()
-    {
-        idleShield = true;
-        yield return new WaitForSeconds(5f);
-        tools[2].SetActive(false);
-        idleShield = false;
-    }
-
     void OnEnable()
     {
         playerInput.Player.Enable();
@@ -662,6 +345,5 @@ public class PlayerStateMachine : MonoBehaviour
     public bool IsFloating { get { return isFloating; } set { isFloating = value; } }
     public Camera Camera { get { return cam; } set { cam = value; } }
     public bool RaptorWaterDetection { get { return raptorWaterDetection; } set { raptorWaterDetection = value; } }
-    public Superpowers CurrentPower { get { return currentPower; }  }
-    public Weapon CurrentMelee { get { return currentMelee; } }
+    public PlayerControls PlayerInput { get { return playerInput; } }
 }

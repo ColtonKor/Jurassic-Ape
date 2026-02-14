@@ -5276,9 +5276,10 @@ GameObject:
   - component: {fileID: 2559667857371882108}
   - component: {fileID: 7607785094949747670}
   - component: {fileID: 7086138481586780755}
+  - component: {fileID: 647488927124846248}
+  - component: {fileID: 7890109653212641326}
   - component: {fileID: 5662977382454411466}
   - component: {fileID: 5041881634028558236}
-  - component: {fileID: 7890109653212641326}
   m_Layer: 0
   m_Name: Kong
   m_TagString: Player
@@ -5368,6 +5369,21 @@ MonoBehaviour:
   raptor: {fileID: 6223591183395322071}
   maxNumberOfJumps: 1
   maxNumberOfRaptorJumps: 1
+  normalCamera: {fileID: 0}
+  aimingCamera: {fileID: 0}
+--- !u!114 &647488927124846248
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2284049812655197109}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b42c49d6600a6014086308229f5e0988, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  shieldActive: 0
   tools:
   - {fileID: 3069851238453776371}
   - {fileID: 4426586264225364250}
@@ -5378,8 +5394,36 @@ MonoBehaviour:
   - {fileID: 7643487600892253270}
   powerLocation: {fileID: 8939166162867217375}
   screamReady: 0
-  normalCamera: {fileID: 0}
-  aimingCamera: {fileID: 0}
+--- !u!114 &7890109653212641326
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2284049812655197109}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 67426141e2e5c1340adc838a7545b01d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  powers:
+  - {fileID: 6331226989838709697}
+  - {fileID: 5450500238657077829, guid: 8c57823bc78447547aa0902a41e62223, type: 3}
+  - {fileID: 3336699833355703146, guid: 47651fbff97afae4284d59853eabc6d5, type: 3}
+  maxScreamCapacity: 100
+  currentScreamCapacity: 0
+  laser: {fileID: 1258931121423808051}
+  maxVisionCapacity: 100
+  currentVisionCapacity: 100
+  maxBrainCapacity: 4
+  currentBrainCapacity: 0
+  barSpeed: 10
+  chargeScream: 0
+  depleteScream: 0
+  chargeVision: 0
+  depleteVision: 0
+  rechargeScreamTimer: 0
+  rechargeVisionTimer: 0
 --- !u!114 &5662977382454411466
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5435,36 +5479,6 @@ MonoBehaviour:
   gameplayMenu: {fileID: 1907578504679294589}
   pauseMenu: {fileID: 3607173142239564087}
   crossHair: {fileID: 6919460759574572332}
---- !u!114 &7890109653212641326
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2284049812655197109}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 67426141e2e5c1340adc838a7545b01d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  powers:
-  - {fileID: 6331226989838709697}
-  - {fileID: 5450500238657077829, guid: 8c57823bc78447547aa0902a41e62223, type: 3}
-  - {fileID: 3336699833355703146, guid: 47651fbff97afae4284d59853eabc6d5, type: 3}
-  maxScreamCapacity: 100
-  currentScreamCapacity: 0
-  laser: {fileID: 1258931121423808051}
-  maxVisionCapacity: 100
-  currentVisionCapacity: 100
-  maxBrainCapacity: 4
-  currentBrainCapacity: 0
-  barSpeed: 10
-  chargeScream: 0
-  depleteScream: 0
-  chargeVision: 0
-  depleteVision: 0
-  rechargeScreamTimer: 0
-  rechargeVisionTimer: 0
 --- !u!1 &2284666493162845903
 GameObject:
   m_ObjectHideFlags: 0
@@ -14173,8 +14187,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: -51.9, y: 50}
-  m_SizeDelta: {x: 80, y: 80}
+  m_AnchoredPosition: {x: -50.64151, y: 49.126686}
+  m_SizeDelta: {x: 66.8323, y: 72.867}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &247646882050463509
 CanvasRenderer:
