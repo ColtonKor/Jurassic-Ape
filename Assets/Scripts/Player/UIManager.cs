@@ -33,11 +33,16 @@ public class UIManager : MonoBehaviour
     public GameObject gameplayMenu;
     public GameObject pauseMenu;
     public Image crossHair;
+    [Header("Paused UI")]
+    public List<GameObject> pausedUI = new List<GameObject>();
+    private GameObject currentPauseTab;
+    private int currentPauseTabIndex;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
-    // void Awake()
-    // {
-    //     // powerColorIndicator = powerColors[0];
-    // }
+    void Awake()
+    {
+        // powerColorIndicator = powerColors[0];
+        currentPauseTab = pausedUI[0];
+    }
 
     public void PowerSpriteIndicatior(int index)
     {
@@ -188,5 +193,13 @@ public class UIManager : MonoBehaviour
             pauseMenu.SetActive(false);
             gameplayMenu.SetActive(true);
         }
+    }
+
+    public void ToggleTabs(GameObject currentTab)
+    {
+        currentPauseTabIndex = pausedUI.IndexOf(currentTab);
+        currentPauseTab.SetActive(false);
+        currentPauseTab = currentTab;
+        currentPauseTab.SetActive(true);
     }
 }
