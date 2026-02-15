@@ -234,7 +234,7 @@ public class UIManager : MonoBehaviour
 
     public void BlessingsList(bool isLight)
     {
-        foreach (SpecialAbilities current in inventoryManager.runicAttacks)
+        foreach (Blessings current in inventoryManager.blessingAttacks)
         {
             if (current.isLightAttack == isLight && current.isAxe == isAxe)
             {

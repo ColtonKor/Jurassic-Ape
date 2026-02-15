@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class InventoryManager : MonoBehaviour
 {
-    public List<SpecialAbilities> runicAttacks = new List<SpecialAbilities>();
+    public List<Blessings> blessingAttacks = new List<Blessings>();
     public int wishBones;
     
 }

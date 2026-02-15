@@ -1,8 +1,8 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-[CreateAssetMenu(fileName = "SpecialAbilities", menuName = "ScriptableObjects/SpecialAbilities")]
-public class SpecialAbilities : ScriptableObject
+[CreateAssetMenu(fileName = "Blessings", menuName = "ScriptableObjects/Blessings")]
+public class Blessings : ScriptableObject
 {
     public Sprite uiSprite;
 

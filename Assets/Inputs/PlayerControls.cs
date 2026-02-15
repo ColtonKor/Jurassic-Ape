@@ -172,7 +172,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""SpecialLightAttack"",
+                    ""name"": ""BlessingLightAttack"",
                     ""type"": ""Button"",
                     ""id"": ""a98c6cf4-ae6a-465f-8ac5-b7ff339f41ce"",
                     ""expectedControlType"": """",
@@ -181,7 +181,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""SpecialHeavyAttack"",
+                    ""name"": ""BlessingHeavyAttack"",
                     ""type"": ""Button"",
                     ""id"": ""ca96fbc5-ebb0-449c-8ebb-62c97b7ece61"",
                     ""expectedControlType"": """",
@@ -643,7 +643,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""SpecialHeavyAttack"",
+                    ""action"": ""BlessingHeavyAttack"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -654,7 +654,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""SpecialHeavyAttack"",
+                    ""action"": ""BlessingHeavyAttack"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -665,7 +665,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""SpecialLightAttack"",
+                    ""action"": ""BlessingLightAttack"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -676,7 +676,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""SpecialLightAttack"",
+                    ""action"": ""BlessingLightAttack"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -791,8 +791,8 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         m_Player_LightMeleeAttack = m_Player.FindAction("LightMeleeAttack", throwIfNotFound: true);
         m_Player_HeavyMeleeAttack = m_Player.FindAction("HeavyMeleeAttack", throwIfNotFound: true);
         m_Player_RangedAttack = m_Player.FindAction("RangedAttack", throwIfNotFound: true);
-        m_Player_SpecialLightAttack = m_Player.FindAction("SpecialLightAttack", throwIfNotFound: true);
-        m_Player_SpecialHeavyAttack = m_Player.FindAction("SpecialHeavyAttack", throwIfNotFound: true);
+        m_Player_BlessingLightAttack = m_Player.FindAction("BlessingLightAttack", throwIfNotFound: true);
+        m_Player_BlessingHeavyAttack = m_Player.FindAction("BlessingHeavyAttack", throwIfNotFound: true);
         m_Player_CallMount = m_Player.FindAction("CallMount", throwIfNotFound: true);
         m_Player_Pause = m_Player.FindAction("Pause", throwIfNotFound: true);
         m_Player_Map = m_Player.FindAction("Map", throwIfNotFound: true);
@@ -878,8 +878,8 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_LightMeleeAttack;
     private readonly InputAction m_Player_HeavyMeleeAttack;
     private readonly InputAction m_Player_RangedAttack;
-    private readonly InputAction m_Player_SpecialLightAttack;
-    private readonly InputAction m_Player_SpecialHeavyAttack;
+    private readonly InputAction m_Player_BlessingLightAttack;
+    private readonly InputAction m_Player_BlessingHeavyAttack;
     private readonly InputAction m_Player_CallMount;
     private readonly InputAction m_Player_Pause;
     private readonly InputAction m_Player_Map;
@@ -903,8 +903,8 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         public InputAction @LightMeleeAttack => m_Wrapper.m_Player_LightMeleeAttack;
         public InputAction @HeavyMeleeAttack => m_Wrapper.m_Player_HeavyMeleeAttack;
         public InputAction @RangedAttack => m_Wrapper.m_Player_RangedAttack;
-        public InputAction @SpecialLightAttack => m_Wrapper.m_Player_SpecialLightAttack;
-        public InputAction @SpecialHeavyAttack => m_Wrapper.m_Player_SpecialHeavyAttack;
+        public InputAction @BlessingLightAttack => m_Wrapper.m_Player_BlessingLightAttack;
+        public InputAction @BlessingHeavyAttack => m_Wrapper.m_Player_BlessingHeavyAttack;
         public InputAction @CallMount => m_Wrapper.m_Player_CallMount;
         public InputAction @Pause => m_Wrapper.m_Player_Pause;
         public InputAction @Map => m_Wrapper.m_Player_Map;
@@ -965,12 +965,12 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
             @RangedAttack.started += instance.OnRangedAttack;
             @RangedAttack.performed += instance.OnRangedAttack;
             @RangedAttack.canceled += instance.OnRangedAttack;
-            @SpecialLightAttack.started += instance.OnSpecialLightAttack;
-            @SpecialLightAttack.performed += instance.OnSpecialLightAttack;
-            @SpecialLightAttack.canceled += instance.OnSpecialLightAttack;
-            @SpecialHeavyAttack.started += instance.OnSpecialHeavyAttack;
-            @SpecialHeavyAttack.performed += instance.OnSpecialHeavyAttack;
-            @SpecialHeavyAttack.canceled += instance.OnSpecialHeavyAttack;
+            @BlessingLightAttack.started += instance.OnBlessingLightAttack;
+            @BlessingLightAttack.performed += instance.OnBlessingLightAttack;
+            @BlessingLightAttack.canceled += instance.OnBlessingLightAttack;
+            @BlessingHeavyAttack.started += instance.OnBlessingHeavyAttack;
+            @BlessingHeavyAttack.performed += instance.OnBlessingHeavyAttack;
+            @BlessingHeavyAttack.canceled += instance.OnBlessingHeavyAttack;
             @CallMount.started += instance.OnCallMount;
             @CallMount.performed += instance.OnCallMount;
             @CallMount.canceled += instance.OnCallMount;
@@ -1032,12 +1032,12 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
             @RangedAttack.started -= instance.OnRangedAttack;
             @RangedAttack.performed -= instance.OnRangedAttack;
             @RangedAttack.canceled -= instance.OnRangedAttack;
-            @SpecialLightAttack.started -= instance.OnSpecialLightAttack;
-            @SpecialLightAttack.performed -= instance.OnSpecialLightAttack;
-            @SpecialLightAttack.canceled -= instance.OnSpecialLightAttack;
-            @SpecialHeavyAttack.started -= instance.OnSpecialHeavyAttack;
-            @SpecialHeavyAttack.performed -= instance.OnSpecialHeavyAttack;
-            @SpecialHeavyAttack.canceled -= instance.OnSpecialHeavyAttack;
+            @BlessingLightAttack.started -= instance.OnBlessingLightAttack;
+            @BlessingLightAttack.performed -= instance.OnBlessingLightAttack;
+            @BlessingLightAttack.canceled -= instance.OnBlessingLightAttack;
+            @BlessingHeavyAttack.started -= instance.OnBlessingHeavyAttack;
+            @BlessingHeavyAttack.performed -= instance.OnBlessingHeavyAttack;
+            @BlessingHeavyAttack.canceled -= instance.OnBlessingHeavyAttack;
             @CallMount.started -= instance.OnCallMount;
             @CallMount.performed -= instance.OnCallMount;
             @CallMount.canceled -= instance.OnCallMount;
@@ -1082,8 +1082,8 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         void OnLightMeleeAttack(InputAction.CallbackContext context);
         void OnHeavyMeleeAttack(InputAction.CallbackContext context);
         void OnRangedAttack(InputAction.CallbackContext context);
-        void OnSpecialLightAttack(InputAction.CallbackContext context);
-        void OnSpecialHeavyAttack(InputAction.CallbackContext context);
+        void OnBlessingLightAttack(InputAction.CallbackContext context);
+        void OnBlessingHeavyAttack(InputAction.CallbackContext context);
         void OnCallMount(InputAction.CallbackContext context);
         void OnPause(InputAction.CallbackContext context);
         void OnMap(InputAction.CallbackContext context);

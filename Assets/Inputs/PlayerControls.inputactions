@@ -150,7 +150,7 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "SpecialLightAttack",
+                    "name": "BlessingLightAttack",
                     "type": "Button",
                     "id": "a98c6cf4-ae6a-465f-8ac5-b7ff339f41ce",
                     "expectedControlType": "",
@@ -159,7 +159,7 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "SpecialHeavyAttack",
+                    "name": "BlessingHeavyAttack",
                     "type": "Button",
                     "id": "ca96fbc5-ebb0-449c-8ebb-62c97b7ece61",
                     "expectedControlType": "",
@@ -621,7 +621,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "SpecialHeavyAttack",
+                    "action": "BlessingHeavyAttack",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -632,7 +632,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "SpecialHeavyAttack",
+                    "action": "BlessingHeavyAttack",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -643,7 +643,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "SpecialLightAttack",
+                    "action": "BlessingLightAttack",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -654,7 +654,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "SpecialLightAttack",
+                    "action": "BlessingLightAttack",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
