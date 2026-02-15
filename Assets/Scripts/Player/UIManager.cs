@@ -41,7 +41,7 @@ public class UIManager : MonoBehaviour
     void Awake()
     {
         // powerColorIndicator = powerColors[0];
-        currentPauseTab = pausedUI[0];
+        currentPauseTab = pausedUI[2];
     }
 
     public void PowerSpriteIndicatior(int index)
@@ -193,6 +193,14 @@ public class UIManager : MonoBehaviour
             pauseMenu.SetActive(false);
             gameplayMenu.SetActive(true);
         }
+    }
+
+    public void MapTab()
+    {
+        currentPauseTabIndex = 0;
+        currentPauseTab.SetActive(false);
+        currentPauseTab = pausedUI[0];
+        currentPauseTab.SetActive(true);
     }
 
     public void ToggleTabs(GameObject currentTab)

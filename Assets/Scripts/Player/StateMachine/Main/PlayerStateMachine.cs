@@ -126,6 +126,7 @@ public class PlayerStateMachine : MonoBehaviour
         playerInput.Player.Dodge.canceled += Dodge;
         playerInput.Player.CallMount.started += CallMount;
         playerInput.Player.Pause.started += PauseGame;
+        playerInput.Player.Map.started += Map;
 
         SetupJumpVariables();
     }
@@ -196,6 +197,20 @@ public class PlayerStateMachine : MonoBehaviour
         else
         {
             uiManager.PauseGame(true);
+            paused = true;
+        }
+    }
+    
+    public void Map(InputAction.CallbackContext context)
+    {
+        if (paused)
+        {
+            uiManager.MapTab();
+        }
+        else
+        {
+            uiManager.PauseGame(true);
+            uiManager.MapTab();
             paused = true;
         }
     }
