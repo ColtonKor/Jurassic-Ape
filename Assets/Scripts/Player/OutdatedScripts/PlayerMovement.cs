@@ -10,7 +10,7 @@ public class PlayerMovement : MonoBehaviour
     private Vector2 input;
     private CharacterController cc;
     private AnimationManager ar;
-    private AttackManager attackManager;
+    private OldAttackManager attackManager;
     private PlayerHealth playerHealth;
     private LightningFlury lightning;
     private PlayerMovementManager movementManager;
@@ -51,7 +51,7 @@ public class PlayerMovement : MonoBehaviour
     [HideInInspector] public bool grounded;
     
     void Start(){
-        attackManager = GetComponent<AttackManager>();
+        attackManager = GetComponent<OldAttackManager>();
         ar = GetComponent<AnimationManager>();
         cc = GetComponent<CharacterController>();
         playerHealth = GetComponent<PlayerHealth>();

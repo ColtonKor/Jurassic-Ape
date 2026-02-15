@@ -150,7 +150,7 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "SpecialLightAttack",
+                    "name": "BlessingLightAttack",
                     "type": "Button",
                     "id": "a98c6cf4-ae6a-465f-8ac5-b7ff339f41ce",
                     "expectedControlType": "",
@@ -159,7 +159,7 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "SpecialHeavyAttack",
+                    "name": "BlessingHeavyAttack",
                     "type": "Button",
                     "id": "ca96fbc5-ebb0-449c-8ebb-62c97b7ece61",
                     "expectedControlType": "",
@@ -180,6 +180,15 @@
                     "name": "Pause",
                     "type": "Button",
                     "id": "ffe1c5bb-8f29-4e00-83ec-7775b0661faa",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Map",
+                    "type": "Button",
+                    "id": "d702a012-5d10-4c92-957d-0c8f587ba1f7",
                     "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
@@ -366,7 +375,7 @@
                 {
                     "name": "",
                     "id": "05d73d73-4e6d-4fd2-9799-cad4751e7cce",
-                    "path": "<Keyboard>/capsLock",
+                    "path": "<Keyboard>/leftCtrl",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -612,7 +621,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "SpecialHeavyAttack",
+                    "action": "BlessingHeavyAttack",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -623,7 +632,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "SpecialHeavyAttack",
+                    "action": "BlessingHeavyAttack",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -634,7 +643,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "SpecialLightAttack",
+                    "action": "BlessingLightAttack",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -645,7 +654,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "SpecialLightAttack",
+                    "action": "BlessingLightAttack",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -712,6 +721,28 @@
                     "processors": "",
                     "groups": "",
                     "action": "Pause",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "deb08faf-b8fc-41e4-84ea-82502d478c71",
+                    "path": "<Gamepad>/select",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Map",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "5a992600-24a4-4ef4-9c6d-43c3e794e9a1",
+                    "path": "<Keyboard>/m",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Map",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

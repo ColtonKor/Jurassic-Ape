@@ -17,9 +17,9 @@ public class Weapon : MonoBehaviour
 
     public Sprite sprite;
     
-    public SpecialAbilities lightAttack;
+    public Blessings lightAttack;
     
-    public SpecialAbilities heavyAttack;
+    public Blessings heavyAttack;
 
     public void OnTriggerEnter(Collider other)
     {

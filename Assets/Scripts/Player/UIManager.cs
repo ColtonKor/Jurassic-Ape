@@ -28,16 +28,27 @@ public class UIManager : MonoBehaviour
     public Color ragePowerColorIndicator;
     private int powerIndex = 0;
     private PlayerStateMachine playerStateMachine;
+    private AttackManager attackManager;
+    private InventoryManager inventoryManager;
     [Header("Misc UI")] 
     public GameObject gameplayMenu;
     public GameObject pauseMenu;
     public Image crossHair;
+    [Header("Paused UI")]
+    public List<GameObject> pausedUI = new List<GameObject>();
+    private GameObject currentPauseTab;
+    private int currentPauseTabIndex;
+    public Image lightSpecialAttack;
+    public Image heavySpecialAttack;
+    private bool isAxe;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
-    // void Awake()
-    // {
-    //     // powerColorIndicator = powerColors[0];
-    // }
-
+    void Awake()
+    {
+        // powerColorIndicator = powerColors[0];
+        currentPauseTab = pausedUI[2];
+        currentPauseTabIndex = 2;
+        currentPauseTab.SetActive(true);
+    } 
     public void PowerSpriteIndicatior(int index)
     {
         for (int i = 0; i < powerIndicators.Count; i++)
@@ -58,12 +69,12 @@ public class UIManager : MonoBehaviour
 
     public void SetPowerSprite()
     {
-        powerIndicator.sprite = playerStateMachine.CurrentPower.sprite;
+        powerIndicator.sprite = attackManager.CurrentPower.sprite;
     }
     
     public void WeaponSpriteIndicatior()
     {
-        weaponIndicator.sprite = playerStateMachine.CurrentMelee.sprite;
+        weaponIndicator.sprite = attackManager.CurrentMelee.sprite;
     }
     
     public void SetHealth(float health)
@@ -147,8 +158,8 @@ public class UIManager : MonoBehaviour
 
     private void UpdateUI()
     {
-        weaponIndicator.sprite = playerStateMachine.CurrentMelee.sprite;
-        powerIndicator.sprite = playerStateMachine.CurrentPower.sprite;
+        weaponIndicator.sprite = attackManager.CurrentMelee.sprite;
+        powerIndicator.sprite = attackManager.CurrentPower.sprite;
         for (int i = 0; i < powerIndicators.Count; i++)
         {
             if (i == powerIndex)
@@ -165,13 +176,16 @@ public class UIManager : MonoBehaviour
     public void AssignValues()
     {
         playerStateMachine = GetComponent<PlayerStateMachine>();
+        attackManager = GetComponent<AttackManager>();
+        inventoryManager = GetComponent<InventoryManager>();
         UpdateUI();
+        AxeCustomization();
     }
 
     public void AssignSpecialAttacks()
     {
-        lightSpecialIndicator.sprite = playerStateMachine.CurrentMelee.lightAttack.uiSprite;
-        heavySpecialIndicator.sprite = playerStateMachine.CurrentMelee.heavyAttack.uiSprite;
+        lightSpecialIndicator.sprite = attackManager.CurrentMelee.lightAttack.uiSprite;
+        heavySpecialIndicator.sprite = attackManager.CurrentMelee.heavyAttack.uiSprite;
     }
 
     public void PauseGame(bool paused)
@@ -185,6 +199,47 @@ public class UIManager : MonoBehaviour
         {
             pauseMenu.SetActive(false);
             gameplayMenu.SetActive(true);
+        }
+    }
+
+    public void MapTab()
+    {
+        currentPauseTabIndex = 0;
+        currentPauseTab.SetActive(false);
+        currentPauseTab = pausedUI[0];
+        currentPauseTab.SetActive(true);
+    }
+
+    public void ToggleTabs(GameObject currentTab)
+    {
+        currentPauseTabIndex = pausedUI.IndexOf(currentTab);
+        currentPauseTab.SetActive(false);
+        currentPauseTab = currentTab;
+        currentPauseTab.SetActive(true);
+    }
+
+    public void AxeCustomization()
+    {
+        isAxe = true;
+        lightSpecialAttack.sprite = attackManager.tools[0].GetComponent<Weapon>().lightAttack.uiSprite;
+        heavySpecialAttack.sprite = attackManager.tools[0].GetComponent<Weapon>().heavyAttack.uiSprite;
+    }
+    
+    public void SwordCustomization()
+    {
+        isAxe = false;
+        lightSpecialAttack.sprite = attackManager.tools[1].GetComponent<Weapon>().lightAttack.uiSprite;
+        heavySpecialAttack.sprite = attackManager.tools[1].GetComponent<Weapon>().heavyAttack.uiSprite;
+    }
+
+    public void BlessingsList(bool isLight)
+    {
+        foreach (Blessings current in inventoryManager.blessingAttacks)
+        {
+            if (current.isLightAttack == isLight && current.isAxe == isAxe)
+            {
+                //Add this special attack to the UI list.
+            }
         }
     }
 }
