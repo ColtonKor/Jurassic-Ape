@@ -29,6 +29,7 @@ public class UIManager : MonoBehaviour
     private int powerIndex = 0;
     private PlayerStateMachine playerStateMachine;
     private AttackManager attackManager;
+    private InventoryManager inventoryManager;
     [Header("Misc UI")] 
     public GameObject gameplayMenu;
     public GameObject pauseMenu;
@@ -37,13 +38,17 @@ public class UIManager : MonoBehaviour
     public List<GameObject> pausedUI = new List<GameObject>();
     private GameObject currentPauseTab;
     private int currentPauseTabIndex;
+    public Image lightSpecialAttack;
+    public Image heavySpecialAttack;
+    private bool isAxe;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Awake()
     {
         // powerColorIndicator = powerColors[0];
         currentPauseTab = pausedUI[2];
-    }
-
+        currentPauseTabIndex = 2;
+        currentPauseTab.SetActive(true);
+    } 
     public void PowerSpriteIndicatior(int index)
     {
         for (int i = 0; i < powerIndicators.Count; i++)
@@ -172,7 +177,9 @@ public class UIManager : MonoBehaviour
     {
         playerStateMachine = GetComponent<PlayerStateMachine>();
         attackManager = GetComponent<AttackManager>();
+        inventoryManager = GetComponent<InventoryManager>();
         UpdateUI();
+        AxeCustomization();
     }
 
     public void AssignSpecialAttacks()
@@ -209,5 +216,30 @@ public class UIManager : MonoBehaviour
         currentPauseTab.SetActive(false);
         currentPauseTab = currentTab;
         currentPauseTab.SetActive(true);
+    }
+
+    public void AxeCustomization()
+    {
+        isAxe = true;
+        lightSpecialAttack.sprite = attackManager.tools[0].GetComponent<Weapon>().lightAttack.uiSprite;
+        heavySpecialAttack.sprite = attackManager.tools[0].GetComponent<Weapon>().heavyAttack.uiSprite;
+    }
+    
+    public void SwordCustomization()
+    {
+        isAxe = false;
+        lightSpecialAttack.sprite = attackManager.tools[1].GetComponent<Weapon>().lightAttack.uiSprite;
+        heavySpecialAttack.sprite = attackManager.tools[1].GetComponent<Weapon>().heavyAttack.uiSprite;
+    }
+
+    public void BlessingsList(bool isLight)
+    {
+        foreach (SpecialAbilities current in inventoryManager.runicAttacks)
+        {
+            if (current.isLightAttack == isLight && current.isAxe == isAxe)
+            {
+                //Add this special attack to the UI list.
+            }
+        }
     }
 }
