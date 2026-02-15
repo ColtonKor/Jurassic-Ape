@@ -206,6 +206,15 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Map"",
+                    ""type"": ""Button"",
+                    ""id"": ""d702a012-5d10-4c92-957d-0c8f587ba1f7"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -736,6 +745,28 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""action"": ""Pause"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""deb08faf-b8fc-41e4-84ea-82502d478c71"",
+                    ""path"": ""<Gamepad>/select"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Map"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""5a992600-24a4-4ef4-9c6d-43c3e794e9a1"",
+                    ""path"": ""<Keyboard>/m"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Map"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -764,6 +795,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         m_Player_SpecialHeavyAttack = m_Player.FindAction("SpecialHeavyAttack", throwIfNotFound: true);
         m_Player_CallMount = m_Player.FindAction("CallMount", throwIfNotFound: true);
         m_Player_Pause = m_Player.FindAction("Pause", throwIfNotFound: true);
+        m_Player_Map = m_Player.FindAction("Map", throwIfNotFound: true);
     }
 
     ~@PlayerControls()
@@ -850,6 +882,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_SpecialHeavyAttack;
     private readonly InputAction m_Player_CallMount;
     private readonly InputAction m_Player_Pause;
+    private readonly InputAction m_Player_Map;
     public struct PlayerActions
     {
         private @PlayerControls m_Wrapper;
@@ -874,6 +907,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         public InputAction @SpecialHeavyAttack => m_Wrapper.m_Player_SpecialHeavyAttack;
         public InputAction @CallMount => m_Wrapper.m_Player_CallMount;
         public InputAction @Pause => m_Wrapper.m_Player_Pause;
+        public InputAction @Map => m_Wrapper.m_Player_Map;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -943,6 +977,9 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
             @Pause.started += instance.OnPause;
             @Pause.performed += instance.OnPause;
             @Pause.canceled += instance.OnPause;
+            @Map.started += instance.OnMap;
+            @Map.performed += instance.OnMap;
+            @Map.canceled += instance.OnMap;
         }
 
         private void UnregisterCallbacks(IPlayerActions instance)
@@ -1007,6 +1044,9 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
             @Pause.started -= instance.OnPause;
             @Pause.performed -= instance.OnPause;
             @Pause.canceled -= instance.OnPause;
+            @Map.started -= instance.OnMap;
+            @Map.performed -= instance.OnMap;
+            @Map.canceled -= instance.OnMap;
         }
 
         public void RemoveCallbacks(IPlayerActions instance)
@@ -1046,5 +1086,6 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         void OnSpecialHeavyAttack(InputAction.CallbackContext context);
         void OnCallMount(InputAction.CallbackContext context);
         void OnPause(InputAction.CallbackContext context);
+        void OnMap(InputAction.CallbackContext context);
     }
 }

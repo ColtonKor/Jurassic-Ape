@@ -310,7 +310,7 @@ PrefabInstance:
     - target: {fileID: 45229160206061803, guid: 1167e6a04cea0c94c8f2fe3cee929a58,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 1.8255302
+      value: 1.862443
       objectReference: {fileID: 0}
     - target: {fileID: 2019677654863272873, guid: 1167e6a04cea0c94c8f2fe3cee929a58,
         type: 3}
@@ -390,7 +390,7 @@ PrefabInstance:
     - target: {fileID: 8304655536838462067, guid: 1167e6a04cea0c94c8f2fe3cee929a58,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 1.8255302
+      value: 1.862443
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -551,16 +551,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Kong
       objectReference: {fileID: 0}
-    - target: {fileID: 2313584929385762799, guid: 93e17cb44ee54a04b88595a56f6467de,
-        type: 3}
-      propertyPath: m_AnchorMax.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2313584929385762799, guid: 93e17cb44ee54a04b88595a56f6467de,
-        type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 5394407301583329609, guid: 93e17cb44ee54a04b88595a56f6467de,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -609,16 +599,6 @@ PrefabInstance:
     - target: {fileID: 5394407301583329609, guid: 93e17cb44ee54a04b88595a56f6467de,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5577799305604696754, guid: 93e17cb44ee54a04b88595a56f6467de,
-        type: 3}
-      propertyPath: m_AnchorMax.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5577799305604696754, guid: 93e17cb44ee54a04b88595a56f6467de,
-        type: 3}
-      propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7086138481586780755, guid: 93e17cb44ee54a04b88595a56f6467de,
